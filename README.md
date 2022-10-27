@@ -6,7 +6,7 @@
 
 This readme gives an overview of our project dependencies and explains how to run the project. It also provides some great external resources to use.
 
-### **[Project Management (Jira)](https://mjanczak.atlassian.net/jira/software/projects/MJ/)**
+### **[Project Management (Jira)](https://mjanczak.atlassian.net/jira/software/projects/T72P3/boards/1)**
 
 # Table of Contents
 1. [Dependencies](#dependencies)
