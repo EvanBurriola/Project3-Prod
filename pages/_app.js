@@ -14,5 +14,4 @@ const POSApp = ({ Component, pageProps }) => {
         </Provider>
     )
 }
-
 export default POSApp
