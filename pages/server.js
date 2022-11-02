@@ -156,18 +156,21 @@ export default function server() {
                         </GridSystem>
                     </Col>
                     <Col xs={6} md={4}>
-                        <h1>Current Order</h1>
-                        <p></p>
-                        <div>
-                            {order.at(-1) ? order.map(
-                                item => <Object.OrderDisplay key={item.LabelId} LabelId={item.LabelId} subtotal={item.subtotal} tax={item.tax} total={item.total} type={item.type} toppings={item.toppings} />
-                            ) : [<p>No tracks are found.</p>]}
-                        </div>
-                        <div>
-                            {order.at(-1) ? order.map(
-                                item => <Object.OrderCost key={item.LabelId} LabelId={item.LabelId} subtotal={item.subtotal} tax={item.tax} total={item.total} />
-                            ) : [<p>No tracks are found.</p>]}
-                        </div>
+                        <Row>
+                            <h1>Current Order</h1>
+                        </Row>
+                        <Row>
+                            <div class="col-md-3 offset-md-4">
+                                {order.at(-1) ? order.map(
+                                    item => <Object.OrderDisplay key={item.LabelId} LabelId={item.LabelId} subtotal={item.subtotal} tax={item.tax} total={item.total} type={item.type} toppings={item.toppings} />
+                                ) : [<p>No tracks are found.</p>]}
+                            </div>
+                            <div>
+                                {order.at(-1) ? order.map(
+                                    item => <Object.OrderCost key={item.LabelId} LabelId={item.LabelId} subtotal={item.subtotal} tax={item.tax} total={item.total} />
+                                ) : [<p>No tracks are found.</p>]}
+                            </div>
+                        </Row>
                     </Col>
                 </Row>
             </Container>

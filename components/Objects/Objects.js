@@ -23,7 +23,7 @@ export const Ingredient =  ingredient => {
 export const Selected =  selected => {
     const { ingredient} = selected
     return (
-        <p>- {ingredient.ingredientname}</p>
+        <p class="fs-5">- {ingredient.ingredientname}</p>
     )
 }
 
@@ -32,9 +32,9 @@ export const OrderCost = orderCost => {
     
     return (
         <div className={styles.orderCostPos}>
-            <p>Subtotal: ${subtotal}</p>
-            <p>Tax: ${tax}</p>
-            <p>Total: ${total}</p>
+            <p class="fs-2">Subtotal: ${subtotal}</p>
+            <p class="fs-5">Tax: ${tax}</p>
+            <p class="fs-5">Total: ${total}</p>
         </div>
     )
 }
@@ -44,7 +44,7 @@ export const OrderDisplay = orderDisplay => {
     
     return (
         <div>
-            <p>{type}</p>
+            <p class="fs-2">{type}</p>
             {toppings.length > 0 ? toppings.map(
                 item => <Selected ingredient={item} />
             ) : [<p>No tracks are found.</p>]}
