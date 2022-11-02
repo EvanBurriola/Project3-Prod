@@ -8,6 +8,7 @@ import styles from './Navbar.module.css'
 
 export const NavbarServer = () => {
     return (
+<<<<<<< HEAD
         <Navbar bg="light" expand="lg">
             <Navbar.Brand href="/server" className={styles.logoContainer}>
                 <Image
@@ -22,6 +23,11 @@ export const NavbarServer = () => {
             </Nav>
             </Navbar.Collapse>
         </Navbar>
+=======
+        <h1>
+            Navbar
+        </h1>
+>>>>>>> Layout done, TODO: Functionality
     )
 }
 
