@@ -29,7 +29,7 @@ This readme gives an overview of our project dependencies and explains how to ru
         1. [Jest](#jest)
         2. [ESLint](#eslint)
     4. [Deployment](#deployment)
-        1. [Heroku](#heroku)
+        1. [Vercel](#vercel)
 
 # Dependencies
 - `NextJS` for routing, api, and react integration
@@ -69,7 +69,7 @@ You can edit pages by modifying them in the `pages` folder. The page auto-update
 The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
 
 ## Pushing to production
-todo
+Pusing to production is done through Vercel. Currently, all production pushes are done through Evan and the latest product should always be hosted at [https://project3-prod.vercel.app/](https://project3-prod.vercel.app/).
 
 # Project Requirements
 todo
@@ -148,5 +148,6 @@ This references issue #13 and will automatically close the issue once the branch
 - todo
 
 ## Deployment
-### Heroku
-- todo
+### Vercel
+- [Deploying with GitHub](https://vercel.com/docs/concepts/git/vercel-for-github)
+
