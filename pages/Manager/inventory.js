@@ -1,4 +1,4 @@
-import ManagerNavbar from '@/components/Navbar/ManagerNavbar';
+import* as Navbar from '@/components/Navbar/Navbar.js';
 
 import React from 'react';
 import Container from 'react-bootstrap/Container';
@@ -10,7 +10,7 @@ import InventoryTable from '@/components/Table/InventoryTable.js';
 export default function inventory ({inventory, menu}) {
     return (
       <Container>
-          <ManagerNavbar />
+          <Navbar.NavbarManager />
           <Row>
             <h1> Inventory </h1>
           </Row>
