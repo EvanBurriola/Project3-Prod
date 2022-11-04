@@ -2,10 +2,16 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const TAX_RATE = 0.0825
 
+const formatDecimals = (value) => {
+    return Number(Math.round(parseFloat(value + 'e' + 2)) + 'e-' + 2)
+}
+
 // setup initial state of all orders
 const initialState = {
     orderItems: [],
-    currentPizza: {},
+    currentPizza: {
+        toppings: []
+    },
     name: "",
     employee: "",
     employeeid: -1,
@@ -32,9 +38,13 @@ const orderSlice = createSlice({
             // pushed to orderItems already)
             state.currentPizza = action.payload
             // update price based on current pizza
-            state.subTotal += state.currentPizza.price
-            state.tax += TAX_RATE * state.currentPizza.price
-            state.total += ((1 + TAX_RATE) * state.currentPizza.price)
+            let sub = state.subTotal + action.payload.price
+            let tax = state.tax + (TAX_RATE * action.payload.price)
+            let total = state.total + ((1 + TAX_RATE) * action.payload.price)
+
+            state.subTotal = formatDecimals(sub)
+            state.tax = formatDecimals(tax)
+            state.total = formatDecimals(total)
         },
         finishPizza(state) {
             state.orderItems.push(state.currentPizza)

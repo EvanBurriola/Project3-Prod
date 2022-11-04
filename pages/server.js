@@ -41,9 +41,10 @@ export default function server({inventory, menu}) {
                     <Col xs={6} md={4}>
                         <h1>Pizza Type</h1>
                         <GridSystem colCount={3} md={4} >
-                            {menu.length > 0 ? menu.map(
-                                item => <Object.MenuItem key={item.typeid} butId={item.typeid} type={item.pizzatype} />
-                            ) : [<p>No tracks are found.</p>]}
+                            {menu.length > 0 ? menu.map(item => {
+                                return <Object.MenuItem key={item.typeid} butId={item.typeid} type={item.pizzatype} />
+                            }) : [<p>No tracks are found.</p>]
+                            }
                         </GridSystem>
                         <h1>Sauces</h1>
                         <GridSystem colCount={3} md={4} >
