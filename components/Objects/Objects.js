@@ -2,52 +2,41 @@ import Button from 'react-bootstrap/Button';
 import styles from '@/styles/server.module.css'
 
 
-export const MenuItem =  menuItem => {
-    const { butId, type} = menuItem
+export const MenuItem = ({butId, name, ...props}) => {
     return (
-        <div>
-            <Button className={styles.button} id={butId} variant="primary" >{type}</Button>
-        </div>
+        <>
+            <Button className={styles.button} onClick={props.onClick} id={butId} variant="primary" >{name}</Button>
+        </>
     )
 }
 
-export const Ingredient =  ingredient => {
-    const { butId ,ingredientname} = ingredient
+export const Selected = ({...props}) => {
+    const { ingredient } = props
     return (
-        <div>
-            <Button className={styles.button} id={butId} variant="primary">{ingredientname}</Button>
-        </div>
+        <p className="fs-5">- {ingredient.ingredientname}</p>
     )
 }
 
-export const Selected =  selected => {
-    const { ingredient} = selected
-    return (
-        <p class="fs-5">- {ingredient.ingredientname}</p>
-    )
-}
-
-export const OrderCost = orderCost => {
-    const { LabelId, subtotal, tax, total} = orderCost
+export const OrderCost = ({...props}) => {
+    const { subTotal, tax, total} = props.order
     
     return (
         <div className={styles.orderCostPos}>
-            <p class="fs-2">Subtotal: ${subtotal}</p>
-            <p class="fs-5">Tax: ${tax}</p>
-            <p class="fs-5">Total: ${total}</p>
+            <p className="fs-2">Subtotal: ${subTotal}</p>
+            <p className="fs-5">Tax: ${tax}</p>
+            <p className="fs-5">Total: ${total}</p>
         </div>
     )
 }
 
-export const OrderDisplay = orderDisplay => {
-    const { orderId, type ,toppings} = orderDisplay
-    
+export const OrderDisplay = ({item}) => {
     return (
         <div>
-            <p class="fs-2">{type}</p>
-            {toppings.length > 0 ? toppings.map(
-                item => <Selected ingredient={item} />
-            ) : [<p>No tracks are found.</p>]}
+            <p className="fs-2">{item.pizzatype}</p>
+            {item.toppings.map(top => {
+                return <Selected ingredient={top} />
+            })
+            }
         </div>
     )
 }

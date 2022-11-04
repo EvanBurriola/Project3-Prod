@@ -13,6 +13,7 @@ import Col from 'react-bootstrap/Col';
 import { prisma } from '@/lib/prisma'
 import { useSelector, useDispatch } from 'react-redux'
 import { addItem, addPizzaTopping, finishPizza, newPizza } from '@/store/slices/order' 
+import { PizzaModel, ToppingModel } from '@/lib/models'
 
 // pull inventory from db
 export async function getServerSideProps() {
@@ -28,6 +29,30 @@ export async function getServerSideProps() {
 
 export default function server({inventory, menu}) {
     const order = useSelector((state) => state.order)
+    const dispatch = useDispatch()
+
+    // TODO: add dough to the new pizza
+    const handleNewPizza = (type, price) => {
+        const pizza = {
+            ...PizzaModel,
+            pizzatype: type,
+            price
+        }
+
+        dispatch(newPizza(pizza))
+    }
+
+    const handleAddTopping = (ingredient) => {
+        const item = {
+            ...ToppingModel,
+            pizzatype: ingredient.pizzatype,
+            ingredientname: ingredient.ingredientname,
+            inventoryid: ingredient.inventoryid,
+            ingredientprice: ingredient.ingredientprice,
+            quantityused: ingredient.quantityused
+        }
+        dispatch(addPizzaTopping(item))
+    }
     
     return (
         <div>
@@ -42,7 +67,7 @@ export default function server({inventory, menu}) {
                         <h1>Pizza Type</h1>
                         <GridSystem colCount={3} md={4} >
                             {menu.length > 0 ? menu.map(item => {
-                                return <Object.MenuItem key={item.typeid} butId={item.typeid} type={item.pizzatype} />
+                                return <Object.MenuItem key={item.typeid} onClick={() => handleNewPizza(item.pizzatype, item.itemprice)} butId={item.typeid} name={item.pizzatype} />
                             }) : [<p>No tracks are found.</p>]
                             }
                         </GridSystem>
@@ -50,7 +75,7 @@ export default function server({inventory, menu}) {
                         <GridSystem colCount={3} md={4} >
                             {inventory.length > 0 ? inventory.map(item => {
                                 if (item.itemtype == "sauce") {
-                                    return <Object.Ingredient key={item.inventoryid} butId={item.inventoryid} ingredientname={item.ingredientname} />
+                                    return <Object.MenuItem key={item.inventoryid} onClick={() => handleAddTopping(item)} butId={item.inventoryid} name={item.ingredientname} />
                                 }
                             }) : [<p>No tracks are found.</p>]
                             }
@@ -59,7 +84,7 @@ export default function server({inventory, menu}) {
                         <GridSystem colCount={3} md={4} >
                             {inventory.length > 0 ? inventory.map(item => {
                                 if (item.itemtype == "cheese") {
-                                    return <Object.Ingredient key={item.inventoryid} butId={item.inventoryid} ingredientname={item.ingredientname} />
+                                    return <Object.MenuItem key={item.inventoryid} onClick={() => handleAddTopping(item)} butId={item.inventoryid} name={item.ingredientname} />
                                 }
                             }) : [<p>No tracks are found.</p>]
                             }
@@ -68,7 +93,7 @@ export default function server({inventory, menu}) {
                         <GridSystem colCount={3} md={4} >
                             {inventory.length > 0 ? inventory.map(item => {
                                 if (item.itemtype == "other") {
-                                    return <Object.Ingredient key={item.inventoryid} butId={item.inventoryid} ingredientname={item.ingredientname} />
+                                    return <Object.MenuItem key={item.inventoryid} onClick={() => handleAddTopping(item)} butId={item.inventoryid} name={item.ingredientname} />
                                 }
                             }) : [<p>No tracks are found.</p>]
                             }
@@ -79,7 +104,7 @@ export default function server({inventory, menu}) {
                         <GridSystem colCount={3} md={4} >
                             {inventory.length > 0 ? inventory.map(item => {
                                 if (item.itemtype == "topping") {
-                                    return <Object.Ingredient key={item.inventoryid} butId={item.inventoryid} ingredientname={item.ingredientname} />
+                                    return <Object.MenuItem key={item.inventoryid} onClick={() => handleAddTopping(item)} butId={item.inventoryid} name={item.ingredientname} />
                                 }
                             }) : [<p>No tracks are found.</p>]
                             }
@@ -92,15 +117,13 @@ export default function server({inventory, menu}) {
                         <Row>
                             <div className="col-md-3 offset-md-4">
                                 {order.orderItems.map(item => {
-                                    return <Object.OrderDisplay key={item.LabelId} LabelId={item.LabelId} subtotal={item.subtotal} tax={item.tax} total={item.total} type={item.type} toppings={item.toppings} />
+                                    return <Object.OrderDisplay item={item} />
                                 })
                                 }
+                                <Object.OrderDisplay item={order.currentPizza} />
                             </div>
                             <div>
-                                {order.orderItems.map(item => {
-                                    return <Object.OrderCost key={item.LabelId} LabelId={item.LabelId} subtotal={item.subtotal} tax={item.tax} total={item.total} />
-                                })
-                                }
+                                <Object.OrderCost order={order} />
                             </div>
                         </Row>
                     </Col>

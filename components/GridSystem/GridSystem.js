@@ -3,8 +3,7 @@ import {Row, Col} from 'react-bootstrap'
 
 const GridSystem = ({ colCount, children, md }) => {
     let childArray = Children.toArray(children)
-    let rowCount = Math.floor(childArray.length / colCount)
-    rowCount = (rowCount === 0) ? 1 : rowCount;
+    let rowCount = Math.ceil(childArray.length / colCount)
 
     //Index is needed to keep track of the current element that we are one.
     let index = 0
