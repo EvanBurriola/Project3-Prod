@@ -99,7 +99,6 @@ export default function Server({inventory, menu}) {
     }
     
     return (
-<<<<<<< HEAD
         <Container fluid className="h-100">
             <Row>
                 <Navbar.NavbarServer />
@@ -118,31 +117,6 @@ export default function Server({inventory, menu}) {
                         {inventory.length > 0 ? inventory.map(item => {
                             if (item.itemtype == "sauce") {
                                 return <Object.MenuItem key={item.inventoryid} onClick={() => handleAddTopping(item)} butId={item.inventoryid} name={item.ingredientname} />
-=======
-        <div>
-            <Container fluid>
-                <Row>
-                    <Col xs={12} md={12}>
-                        <Navbar />
-                    </Col>
-                </Row>
-                <Row>
-                    <Col xs={6} md={4}>
-                        <h1>Pizza Type</h1>
-                        <GridSystem colCount={3} md={4} >
-                            {menu.length > 0 ? menu.map(item => {
-                                return <Object.MenuItem key={item.typeid} butId={item.typeid} type={item.pizzatype} />
-                            }) : [<p>No tracks are found.</p>]
-                            }
-                        </GridSystem>
-                        <h1>Sauces</h1>
-                        <GridSystem colCount={3} md={4} >
-                            {inventory.length > 0 ? inventory.map(item => {
-                                if (item.itemtype == "sauce") {
-                                    return <Object.Ingredient key={item.inventoryid} butId={item.inventoryid} ingredientname={item.ingredientname} />
-                                }
-                            }) : [<p>No tracks are found.</p>]
->>>>>>> FIXED: decimal formatting for orders
                             }
                         }) : [<p>No tracks are found.</p>]
                         }
