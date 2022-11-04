@@ -1,9 +1,10 @@
-import React from 'react';
-import {Row, Col, Container} from 'react-bootstrap'
+import React, { Children } from 'react';
+import {Row, Col} from 'react-bootstrap'
 
 const GridSystem = ({ colCount, children, md }) => {
-    
-    let rowCount = Math.floor(children.length / colCount) + 1
+    let childArray = Children.toArray(children)
+    let rowCount = Math.floor(childArray.length / colCount)
+    rowCount = (rowCount === 0) ? 1 : rowCount;
 
     //Index is needed to keep track of the current element that we are one.
     let index = 0
@@ -21,7 +22,7 @@ const GridSystem = ({ colCount, children, md }) => {
         
         for(let row = 0; row < rowCount; row++) {
             rows.push(
-                <Row className='Row'>
+                <Row>
                     {
                         renderCols()
                     }
@@ -38,10 +39,10 @@ const GridSystem = ({ colCount, children, md }) => {
         
         //If you want to add more bootstrap breakpoints you can pass them as props here.
         for(let col = 0; col < colCount; col++) {
-            if(index < children.length) {
+            if(index < childArray.length) {
                 cols.push(
-                    <Col className='Col' md={md}>
-                        {children[index]}
+                    <Col md={md}>
+                        {childArray[index]}
                     </Col>
                 )
                 index++
@@ -52,11 +53,11 @@ const GridSystem = ({ colCount, children, md }) => {
     }
 
     return (
-        <Container className='Container'>
+        <>
             {
                 buildGrid()
             }
-        </Container>
+        </>
     );
 };
 
