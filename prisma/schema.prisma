@@ -35,6 +35,7 @@ model inventory {
   priceperounce            Float?
   averageamountperunitsold Int?
   minimumquantity          Int?
+  itemtype                 String?  @db.VarChar
   pizzas                   pizzas[]
 }
 
