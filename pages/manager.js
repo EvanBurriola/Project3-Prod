@@ -7,9 +7,22 @@ import Col from 'react-bootstrap/Col';
 import DateSelect, { DateEnd, DateStart } from '../components/TextEntry/Datepicker.js';
 import InventoryTable from '@/components/Table/InventoryTable.js';
 import MonthlySales from '@/components/Table/MonthlySales.js';
+import { prisma } from '@/lib/prisma'
 
 
-export default function server() {
+
+export async function getServerSideProps(){
+  const inventory = await prisma.inventory.findMany()
+  const menu = await prisma.menuitems.findMany()
+  return {
+      props: {
+          inventory,
+          menu
+      }
+  }
+}
+
+export default function server({inventory, menu}) {
   return (
     <Container>
       <ManagerNavbar />
@@ -37,7 +50,7 @@ export default function server() {
         <MonthlySales />
         <p> {"\n"} </p>
         <h2> Inventory At a Glance</h2>
-        <InventoryTable />
+        <InventoryTable inventory={inventory} menu={menu}/>
       </Row>
       
     </Container>

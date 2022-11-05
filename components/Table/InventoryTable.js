@@ -1,81 +1,124 @@
 import React from 'react';
 
 // TODO: import data from database (Connect to the database)
+import TableItem from './TableItem';
+import MenuItem from './MenuItem';
+import { useState } from 'react';
+// import { roundToNearestMinutes } from 'date-fns';
+import { Router } from 'node_modules/next/router';
 
-const InventoryTable = () => {
+const InventoryTable = ({inventory, menu}) => {
+    const [itemName, setItemName] = useState("");
+    const [quantity, setQuantity] = useState(0);
+    const [price, setPrice] = useState(0);
+    const [amountUsedPerSale, setAmountUsedPerSale] = useState(0);
+    const [minimumQuantityNeeded, setMinimumQuantityNeeded] = useState(0);
+    const [itemType, setItemType] = useState("");
+
+    const addItem = (event) => {
+        event.preventDefault()
+        console.log(itemName, quantity, price, amountUsedPerSale, minimumQuantityNeeded, itemType)
+        submitAddItem()
+    }
+
+    const submitAddItem = async () =>{
+        //e.preventDefault();
+        try{
+            await fetch('../../pages/api/manager',{
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(itemName, quantity, price, amountUsedPerSale, minimumQuantityNeeded, itemType),
+            });
+            await Router.push('../../pages/manager');
+        }
+        catch(error){
+            console.error(error);
+        }
+    };
 
     return (
         <div>
-            <table style={{"borderWidth":"1px", 'borderColor':"#aaaaaa", 'borderStyle':'solid'}}>
+            <table style={{"borderWidth":"1px", 'borderColor':"#aaaaaa", 'borderStyle':'solid'}} id ="excelDataTable">
                 <thead style = {{"borderWidth":"1px", 'borderColor':"#aaaaaa", 'borderStyle':'solid'}}>
                     <tr>
                         <th> Inventory ID </th>
                         <th> Item Name </th>
                         <th> Quantity </th>
                         <th> Price ($) </th>
+                        <th> Amount Used Per Sale </th>
+                        <th> Minimum Quantity Needed </th>
+                        <th> Item Type </th>
                     </tr>
                 </thead>
                 <tbody style = {{"borderWidth":"1px", 'borderColor':"#aaaaaa", 'borderStyle':'solid'}}>
-                    <tr>
-                        <td> 1 </td>
-                        <td> Dough </td>
-                        <td> 1000 </td>
-                        <td> 2.00 </td>
-                    </tr>
-                    <tr>
-                        <td> 2 </td>
-                        <td> Cheese </td>
-                        <td> 1000 </td>
-                        <td> 2.00 </td>
-                    </tr>
-                    <tr>
-                        <td> 3 </td>
-                        <td> Olives </td>
-                        <td> 1000 </td>
-                        <td> 2.00 </td>
-                    </tr>
-                    <tr>
-                        <td> 4 </td>
-                        <td> Pepperoni </td>
-                        <td> 1000 </td>
-                        <td> 2.00 </td>
-                    </tr>
-                    <tr>
-                        <td> 5 </td>
-                        <td> Salami </td>
-                        <td> 1000 </td>
-                        <td> 2.00 </td>
-                    </tr>
+                    {inventory.map(item => {
+                        return <TableItem item={item} />
+                    }) 
+                    }
+                    
                 </tbody>
             </table>
             <p> {"\n"} </p>
             <h4> Add Inventory Item </h4>
-            <form>
-                <input
-                    type = "text"
-                    name = "inventoryID"
-                    required = "required"
-                    placeholder = "InventoryID"
-                />
+            <form onSubmit={addItem}>
                 <input
                     type = "text"
                     name = "itemName"
                     required = "required"
                     placeholder = "Item Name"
+                    onChange={(event) => setItemName(event.target.value)}
                 />
                 <input
                     type = "text"
                     name = "quantity"
                     placeholder = "Quantity"
+                    onChange={(event) => setQuantity(event.target.value)}
                 />
                 <input
                     type = "text"
                     name = "price"
                     required = "required"
                     placeholder = "Price"
+                    onChange={(event) => setPrice(event.target.value)}
+                />
+                <input
+                    type = "text"
+                    name = "amountusedpersale"
+                    required = "required"
+                    placeholder = "Amount User Per Sale"
+                    onChange={(event) => setAmountUsedPerSale(event.target.value)}
+                />
+                <input
+                    type = "text"
+                    name = "minimumquantityneeded"
+                    required = "required"
+                    placeholder = "Minimum Quantity Needed"
+                    onChange={(event) => setMinimumQuantityNeeded(event.target.value)}
+                />
+                <input
+                    type = "text"
+                    name = "itemtype"
+                    required = "required"
+                    placeholder = "Item Type"
+                    onChange={(event) => setItemType(event.target.value)}
                 />
                 <button type = "submit"> Add </button>
             </form>
+            <table style={{"borderWidth":"1px", 'borderColor':"#aaaaaa", 'borderStyle':'solid'}} id ="excelDataTable">
+                <thead style = {{"borderWidth":"1px", 'borderColor':"#aaaaaa", 'borderStyle':'solid'}}>
+                    <tr>
+                        <th> Type ID </th>
+                        <th> Pizza Type </th>
+                        <th> Item Price </th>
+                    </tr>
+                </thead>
+                <tbody style = {{"borderWidth":"1px", 'borderColor':"#aaaaaa", 'borderStyle':'solid'}}>
+                    {menu.map(item => {
+                        return <MenuItem item={item} />
+                    })
+                    }
+                </tbody>
+            </table>
         </div>
 
     )
