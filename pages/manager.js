@@ -63,7 +63,6 @@ export default function manager({inventory, menu}) {
         <h3> Restock Report </h3>
         <RestockTable inventory={inventory}/>
       </Row>
-      
     </Container>
   )
 }
