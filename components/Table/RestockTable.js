@@ -44,9 +44,6 @@ const RestockTable = ({inventory}) => {
                         return <RestockDropDown item={item} />
                     })
                     }
-                    <script>
-                        setRestockItem
-                    </script>
                 </select>
                 <input
                     type = "text"

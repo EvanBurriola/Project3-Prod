@@ -8,6 +8,7 @@ import DateSelect, { DateEnd, DateStart } from '../components/TextEntry/Datepick
 import InventoryTable from '@/components/Table/InventoryTable.js';
 import MonthlySales from '@/components/Table/MonthlySales.js';
 import RestockTable from '@/components/Table/RestockTable.js';
+import MenuTable from '@/components/Table/MenuTable.js';
 import { prisma } from '@/lib/prisma'
 
 
@@ -51,7 +52,12 @@ export default function server({inventory, menu}) {
         <MonthlySales />
         <p> {"\n"} </p>
         <h2> Inventory At a Glance</h2>
-        <InventoryTable inventory={inventory} menu={menu}/>
+        <InventoryTable inventory={inventory}/>
+      </Row>
+      <Row>
+        <p> {"\n"} </p>
+        <h6> Menu Items </h6>
+        <MenuTable menu={menu}/>
       </Row>
       <Row>
         <p> {"\n"} </p>

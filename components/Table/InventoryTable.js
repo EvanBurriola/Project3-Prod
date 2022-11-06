@@ -2,23 +2,34 @@ import React from 'react';
 
 // TODO: import data from database (Connect to the database)
 import TableItem from './TableItem';
-import MenuItem from './MenuItem';
 import { useState } from 'react';
 // import { roundToNearestMinutes } from 'date-fns';
 import { Router } from 'node_modules/next/router';
+import InventoryDropDown from './InventoryDropDown';
+import AccordionButton from 'node_modules/react-bootstrap/esm/AccordionButton';
 
-const InventoryTable = ({inventory, menu}) => {
+const InventoryTable = ({inventory}) => {
+    //Add Item
     const [itemName, setItemName] = useState("");
     const [quantity, setQuantity] = useState(0);
     const [price, setPrice] = useState(0);
     const [amountUsedPerSale, setAmountUsedPerSale] = useState(0);
     const [minimumQuantityNeeded, setMinimumQuantityNeeded] = useState(0);
     const [itemType, setItemType] = useState("");
+    // Change Item
+    const [itemChange, setItemChange] = useState("");
+    const [infoChange, setInfoChange] = useState("");
+    const [changeTo, setChangeTo] = useState("");
+
+    const changeItem = (event) => {
+        event.preventDefault()
+        console.log(itemChange, infoChange, changeTo)
+    }
 
     const addItem = (event) => {
         event.preventDefault()
         console.log(itemName, quantity, price, amountUsedPerSale, minimumQuantityNeeded, itemType)
-        submitAddItem()
+        //submitAddItem()
     }
 
     const submitAddItem = async () =>{
@@ -58,6 +69,35 @@ const InventoryTable = ({inventory, menu}) => {
                     
                 </tbody>
             </table>
+            <p> {"\n"} </p>
+            <h5> Change Item in Inventory </h5>
+            <form onSubmit={changeItem}>
+                <label for="inventory item"> Select Inventory Item to Change: </label>
+                <select name="inventoryItem" id="inventoryItem" onChange={(event) => setItemChange(event.target.value)}>
+                    <option value="" selected disabled hidden> Select Here </option>
+                    {inventory.map(item => {
+                        return <InventoryDropDown item={item} />
+                    })
+                    }
+                </select>
+                <label for="inventory info"> Select Thing to Change for Item: </label>
+                <select name="inventoryInfo" id="inventoryInfo" onChange={(event) => setInfoChange(event.target.value)}>
+                    <option value="" selected disabled hidden> Select Here </option>
+                    <option value="quantityounces"> Quantity </option>
+                    <option value="priceperounce"> Price </option>
+                    <option value="averageamountperunitsold"> Amount Used Per Sale </option>
+                    <option value="minimumquantity"> Minimum Quantity Needed </option>
+                    <option value="itemtype"> Item Type </option>
+                </select>
+                <input
+                    type ="text"
+                    name = "itemChnage"
+                    required = "required"
+                    placeholde = "Change To Here"
+                    onChange={(event) => setChangeTo(event.target.value)}
+                />
+                <button type = "submit"> Change Item </button> 
+            </form>
             <p> {"\n"} </p>
             <h4> Add Inventory Item </h4>
             <form onSubmit={addItem}>
@@ -104,23 +144,7 @@ const InventoryTable = ({inventory, menu}) => {
                 />
                 <button type = "submit"> Add </button>
             </form>
-            <table style={{"borderWidth":"1px", 'borderColor':"#aaaaaa", 'borderStyle':'solid'}} id ="excelDataTable">
-                <thead style = {{"borderWidth":"1px", 'borderColor':"#aaaaaa", 'borderStyle':'solid'}}>
-                    <tr>
-                        <th> Type ID </th>
-                        <th> Pizza Type </th>
-                        <th> Item Price </th>
-                    </tr>
-                </thead>
-                <tbody style = {{"borderWidth":"1px", 'borderColor':"#aaaaaa", 'borderStyle':'solid'}}>
-                    {menu.map(item => {
-                        return <MenuItem item={item} />
-                    })
-                    }
-                </tbody>
-            </table>
         </div>
-
     )
 }
 
