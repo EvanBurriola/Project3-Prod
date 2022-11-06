@@ -7,7 +7,7 @@ import Col from 'react-bootstrap/Col';
 import DateSelect, { DateEnd, DateStart } from '../components/TextEntry/Datepicker.js';
 import InventoryTable from '@/components/Table/InventoryTable.js';
 
-export default function inventory () {
+export default function inventory ({inventory, menu}) {
     return (
       <Container>
           <ManagerNavbar />
@@ -17,7 +17,7 @@ export default function inventory () {
           <Row>
             <p> {"\n"} </p>
           </Row>
-          <InventoryTable />
+          <InventoryTable inventory={inventory} menu={menu}/>
       </ Container>
     )
 }

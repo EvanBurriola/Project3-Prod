@@ -7,6 +7,7 @@ import Col from 'react-bootstrap/Col';
 import DateSelect, { DateEnd, DateStart } from '../components/TextEntry/Datepicker.js';
 import InventoryTable from '@/components/Table/InventoryTable.js';
 import MonthlySales from '@/components/Table/MonthlySales.js';
+import RestockTable from '@/components/Table/RestockTable.js';
 import { prisma } from '@/lib/prisma'
 
 
@@ -51,6 +52,11 @@ export default function server({inventory, menu}) {
         <p> {"\n"} </p>
         <h2> Inventory At a Glance</h2>
         <InventoryTable inventory={inventory} menu={menu}/>
+      </Row>
+      <Row>
+        <p> {"\n"} </p>
+        <h3> Restock Report </h3>
+        <RestockTable inventory={inventory}/>
       </Row>
       
     </Container>
