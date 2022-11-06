@@ -159,21 +159,6 @@ const InventoryTable = ({inventory}) => {
                 />
                 <button type = "submit"> Add </button>
             </form>
-            <table style={{"borderWidth":"1px", 'borderColor':"#aaaaaa", 'borderStyle':'solid'}} id ="excelDataTable">
-                <thead style = {{"borderWidth":"1px", 'borderColor':"#aaaaaa", 'borderStyle':'solid'}}>
-                    <tr>
-                        <th> Type ID </th>
-                        <th> Pizza Type </th>
-                        <th> Item Price </th>
-                    </tr>
-                </thead>
-                <tbody style = {{"borderWidth":"1px", 'borderColor':"#aaaaaa", 'borderStyle':'solid'}}>
-                    {menu.map(item => {
-                        return <MenuItem item={item} />
-                    })
-                    }
-                </tbody>
-            </table>
         </div>
     )
 }
