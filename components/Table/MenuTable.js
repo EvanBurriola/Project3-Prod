@@ -10,9 +10,23 @@ const MenuTable = ({menu}) => {
     const [menuItem, setMenuItem] = useState("");
     const [itemPrice, setItemPrice] = useState(0);
 
-    const changeMenu = (event) => {
-        
+    const changeMenu = async (event) => {
         event.preventDefault()
+        try{
+            const menuID = menu.find(item => item.pizzatype == menuItem).typeid;
+            const body = {
+                menuID,
+                itemPrice
+            }
+            await fetch('/api/manager/changeMenu',{
+                method: "PATCH",
+                headers : { "Context-Type": "application/json"},
+                body: JSON.stringify(body),
+            });
+        }
+        catch(error){
+            console.error(error);
+        }
         console.log(menuItem, itemPrice)
     }
 

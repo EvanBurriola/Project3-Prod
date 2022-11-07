@@ -10,8 +10,25 @@ const RestockTable = ({inventory}) => {
     const [itemName, setRestockItem] = useState("");
     const [quantityRestock, setQuantityRestock] = useState(0);
 
-    const restockItem = (event) => {
+    const restockItem = async (event) => {
         event.preventDefault()
+        try{
+            const itemID = inventory.find(item => item.ingredientname == itemName).inventoryid
+            const curQuantity = inventory.find(item => item.ingredientname == itemName).quantityounces
+            const body = {
+                itemID,
+                curQuantity,
+                quantityRestock
+            }
+            await fetch('/api/manager/restockItem',{
+                method: "PATCH",
+                headers: { "Context-Type": "application/json" },
+                body: JSON.stringify(body),
+            });
+        }
+        catch(error){
+            console.error(error);
+        }
         console.log(itemName, quantityRestock)
     }
 

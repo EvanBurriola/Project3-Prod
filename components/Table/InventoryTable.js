@@ -3,12 +3,8 @@ import React from 'react';
 // TODO: import data from database (Connect to the database)
 import TableItem from './TableItem';
 import { useState } from 'react';
-// import { roundToNearestMinutes } from 'date-fns';
-import { Router } from 'node_modules/next/router';
 import InventoryDropDown from './InventoryDropDown';
 import AccordionButton from 'node_modules/react-bootstrap/esm/AccordionButton';
-
-import styles from '@/styles/manager.module.css'
 
 const InventoryTable = ({inventory}) => {
     //Add Item
@@ -21,28 +17,45 @@ const InventoryTable = ({inventory}) => {
     // Change Item
     const [itemChange, setItemChange] = useState("");
     const [infoChange, setInfoChange] = useState("");
-    const [changeTo, setChangeTo] = useState("");
+    const [changeTo, setChangeTo] = useState(0);
 
-    const changeItem = (event) => {
+    const changeItem = async (event) => {
         event.preventDefault()
+        try{
+            const inventoryID = inventory.find(item => item.ingredientname == itemChange).inventoryid;
+            const body = {
+                inventoryID,
+                infoChange,
+                changeTo
+            }
+            await fetch('/api/manager/changeItem',{
+                method: "POST",
+                headers: { "Context-Type": "application/json" },
+                body: JSON.stringify(body),
+            });
+        }
+        catch(error){
+            console.error(error);
+        }
         console.log(itemChange, infoChange, changeTo)
     }
 
-    const addItem = (event) => {
-        event.preventDefault()
-        console.log(itemName, quantity, price, amountUsedPerSale, minimumQuantityNeeded, itemType)
-        //submitAddItem()
-    }
-
-    const submitAddItem = async () =>{
-        //e.preventDefault();
+    const addItem = async (event) =>{
+        event.preventDefault();
         try{
-            await fetch('../../pages/api/manager',{
+            const body = {
+                itemName,
+                quantity,
+                price,
+                amountUsedPerSale,
+                minimumQuantityNeeded,
+                itemType
+            }
+            await fetch('/api/manager/addItem',{
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(itemName, quantity, price, amountUsedPerSale, minimumQuantityNeeded, itemType),
+                body: JSON.stringify(body),
             });
-            await Router.push('../../pages/manager');
         }
         catch(error){
             console.error(error);
@@ -51,8 +64,8 @@ const InventoryTable = ({inventory}) => {
 
     return (
         <div>
-            <table id ="excelDataTable" className = {styles.tableStyle1}>
-                <thead>
+            <table style={{"borderWidth":"1px", 'borderColor':"#aaaaaa", 'borderStyle':'solid'}} id ="excelDataTable">
+                <thead style = {{"borderWidth":"1px", 'borderColor':"#aaaaaa", 'borderStyle':'solid'}}>
                     <tr>
                         <th> Inventory ID </th>
                         <th> Item Name </th>
@@ -63,7 +76,7 @@ const InventoryTable = ({inventory}) => {
                         <th> Item Type </th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody style = {{"borderWidth":"1px", 'borderColor':"#aaaaaa", 'borderStyle':'solid'}}>
                     {inventory.map(item => {
                         return <TableItem item={item} />
                     }) 
@@ -72,7 +85,7 @@ const InventoryTable = ({inventory}) => {
                 </tbody>
             </table>
             <p> {"\n"} </p>
-            <h5 className = {styles.header}> Change Item in Inventory </h5>
+            <h5> Change Item in Inventory </h5>
             <form onSubmit={changeItem}>
                 <label for="inventory item"> Select Inventory Item to Change: </label>
                 <select name="inventoryItem" id="inventoryItem" onChange={(event) => setItemChange(event.target.value)}>
@@ -93,15 +106,15 @@ const InventoryTable = ({inventory}) => {
                 </select>
                 <input
                     type ="text"
-                    name = "itemChnage"
+                    name = "itemChange"
                     required = "required"
                     placeholde = "Change To Here"
                     onChange={(event) => setChangeTo(event.target.value)}
                 />
-                <button className = {styles.button1} type = "submit"> Change Item </button> 
+                <button type = "submit"> Change Item </button> 
             </form>
             <p> {"\n"} </p>
-            <h5 className={styles.header}> Add Inventory Item </h5>
+            <h4> Add Inventory Item </h4>
             <form onSubmit={addItem}>
                 <input
                     type = "text"
@@ -111,31 +124,31 @@ const InventoryTable = ({inventory}) => {
                     onChange={(event) => setItemName(event.target.value)}
                 />
                 <input
-                    type = "text"
+                    type = "number"
                     name = "quantity"
                     placeholder = "Quantity"
-                    onChange={(event) => setQuantity(event.target.value)}
+                    onChange={(event) => setQuantity(Number(event.target.value))}
                 />
                 <input
-                    type = "text"
+                    type = "number"
                     name = "price"
                     required = "required"
                     placeholder = "Price"
-                    onChange={(event) => setPrice(event.target.value)}
+                    onChange={(event) => setPrice(Number(event.target.value))}
                 />
                 <input
-                    type = "text"
+                    type = "number"
                     name = "amountusedpersale"
                     required = "required"
                     placeholder = "Amount User Per Sale"
-                    onChange={(event) => setAmountUsedPerSale(event.target.value)}
+                    onChange={(event) => setAmountUsedPerSale(Number(event.target.value))}
                 />
                 <input
-                    type = "text"
+                    type = "number"
                     name = "minimumquantityneeded"
                     required = "required"
                     placeholder = "Minimum Quantity Needed"
-                    onChange={(event) => setMinimumQuantityNeeded(event.target.value)}
+                    onChange={(event) => setMinimumQuantityNeeded(Number(event.target.value))}
                 />
                 <input
                     type = "text"
@@ -144,7 +157,7 @@ const InventoryTable = ({inventory}) => {
                     placeholder = "Item Type"
                     onChange={(event) => setItemType(event.target.value)}
                 />
-                <button className = {styles.button1} type = "submit"> Add </button>
+                <button type = "submit"> Add </button>
             </form>
         </div>
     )
