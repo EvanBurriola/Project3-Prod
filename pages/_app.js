@@ -16,4 +16,3 @@ const POSApp = ({ Component, pageProps }) => {
 }
 
 export default POSApp
-
