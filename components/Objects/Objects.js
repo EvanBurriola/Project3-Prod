@@ -38,14 +38,20 @@ export const Selected = ({...props}) => {
 }
 
 export const OrderCost = ({...props}) => {
-    const { subTotal, tax, total} = props.order
+    const { subtotal, salestax, ordertotal} = props.order
     
     return (
         <div className={styles.orderCostPos}>
+<<<<<<< HEAD
             <p className="fs-2">Subtotal: ${subTotal}</p>
             <p className="fs-5">Tax: ${tax}</p>
             <p className="fs-5">Total: ${total}</p>
 >>>>>>> ADDED: button functionality + FIXED: models and view components to better display dynamic buttons
+=======
+            <p className="fs-2">Subtotal: ${subtotal}</p>
+            <p className="fs-5">Tax: ${salestax}</p>
+            <p className="fs-5">Total: ${ordertotal}</p>
+>>>>>>> ENHANCE: redux state properties now inline with prisma schema
         </div>
     )
 }
