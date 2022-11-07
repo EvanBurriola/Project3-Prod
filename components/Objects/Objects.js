@@ -34,7 +34,7 @@ export const OrderDisplay = ({item}) => {
         <div>
             <p className="fs-3 mb-0">{item.pizzatype}:</p>
             {item.toppings.map(top => {
-                return <Selected ingredient={top} />
+                return <Selected key={top.inventoryid} ingredient={top} />
             })
             }
         </div>
