@@ -9,64 +9,58 @@ const formatDecimals = (value) => {
 // setup initial state of all orders
 const initialState = {
     orderItems: [],
-    currentPizza: {
-        toppings: []
-    },
     customername: "",
     employeename: "",
     employeeid: -1,
     subtotal: 0,
     salestax: 0,
-    total: 0,
+    ordertotal: 0,
 }
 
 const orderSlice = createSlice({
     name: 'order',
     initialState,
     reducers: {
-        addCustomer(state, action) {
+        setCustomer(state, action) {
             state.customername = action.payload;
         },
-        addEmployee(state, action) {
+        setEmployee(state, action) {
             const { employee, id } = action.payload
             state.employeename = employee
             state.employeeid = id
         },
-        newPizza(state, action) {
-            // reset the current pizza (assuming pizza has been
-            // pushed to orderItems already)
-            state.currentPizza = action.payload
+        addItem(state, action) {
+            const { price } = action.payload
+            state.orderItems.push(action.payload)
             // update price based on current pizza
-            let sub = state.subtotal + action.payload.price
-            let tax = state.salestax + (TAX_RATE * action.payload.price)
-            let total = state.total + ((1 + TAX_RATE) * action.payload.price)
+            let sub = state.subtotal + price
+            let tax = state.salestax + (TAX_RATE * price)
+            let total = state.ordertotal + ((1 + TAX_RATE) * price)
 
             state.subtotal = formatDecimals(sub)
             state.salestax = formatDecimals(tax)
-            state.total = formatDecimals(total)
-        },
-        finishPizza(state) {
-            state.orderItems.push(state.currentPizza)
-        },
-        addItem(state, action) {
-            state.orderItems.push(action.payload)
+            state.ordertotal = formatDecimals(total)
         },
         addPizzaTopping(state, action) {
-            state.currentPizza.toppings.push(action.payload)
+            const lastItem = state.orderItems.length - 1
+            state.orderItems[lastItem].toppings.push(action.payload)
         },
-        checkout(state) {
-            
+        clearOrder(state) {
+            state.orderItems = []
+            state.customername = ""
+            state.subtotal = 0
+            state.salestax = 0
+            state.ordertotal = 0
         }
     },
 })
 
 export const { 
-    addCustomer, 
-    addEmployee, 
-    newPizza, 
-    finishPizza, 
+    setCustomer, 
+    setEmployee,
     addItem, 
-    addPizzaTopping 
+    addPizzaTopping,
+    clearOrder 
 } = orderSlice.actions
 
 export default orderSlice.reducer
