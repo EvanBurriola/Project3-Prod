@@ -36,7 +36,7 @@ export async function getServerSideProps() {
     }
 }
 
-export default function server({inventory, menu}) {
+export default function Server({inventory, menu}) {
     const order = useSelector((state) => state.order)
     const dispatch = useDispatch()
 
@@ -101,83 +101,78 @@ export default function server({inventory, menu}) {
     }
     
     return (
-        <div>
-            <Container fluid>
-                <Row>
-                    <Col xs={12} md={12}>
-                        <Navbar.NavbarServer />
-                    </Col>
-                </Row>
-                <Row>
-                    <Col md={4}>
-                        <h1>Pizza Type</h1>
-                        <GridSystem colCount={3} md={4} >
-                            {menu.length > 0 ? menu.map(item => {
-                                return <Object.MenuItem key={item.typeid} onClick={() => handleNewPizza(item.pizzatype, item.itemprice)} butId={item.typeid} name={item.pizzatype} />
-                            }) : [<p>No tracks are found.</p>]
+        <Container fluid className="h-100">
+            <Row>
+                <Navbar.NavbarServer />
+            </Row>
+            <Row className="">
+                <Col md={4}>
+                    <h1>Pizza Type</h1>
+                    <GridSystem colCount={3} md={4} >
+                        {menu.length > 0 ? menu.map(item => {
+                            return <Object.MenuItem key={item.typeid} onClick={() => handleNewPizza(item.pizzatype, item.itemprice)} butId={item.typeid} name={item.pizzatype} />
+                        }) : [<p>No tracks are found.</p>]
+                        }
+                    </GridSystem>
+                    <h1>Sauces</h1>
+                    <GridSystem colCount={3} md={4} >
+                        {inventory.length > 0 ? inventory.map(item => {
+                            if (item.itemtype == "sauce") {
+                                return <Object.MenuItem key={item.inventoryid} onClick={() => handleAddTopping(item)} butId={item.inventoryid} name={item.ingredientname} />
                             }
-                        </GridSystem>
-                        <h1>Sauces</h1>
-                        <GridSystem colCount={3} md={4} >
-                            {inventory.length > 0 ? inventory.map(item => {
-                                if (item.itemtype == "sauce") {
-                                    return <Object.MenuItem key={item.inventoryid} onClick={() => handleAddTopping(item)} butId={item.inventoryid} name={item.ingredientname} />
-                                }
-                            }) : [<p>No tracks are found.</p>]
+                        }) : [<p>No tracks are found.</p>]
+                        }
+                    </GridSystem>
+                    <h1>Cheeses</h1>
+                    <GridSystem colCount={3} md={4} >
+                        {inventory.length > 0 ? inventory.map(item => {
+                            if (item.itemtype == "cheese") {
+                                return <Object.MenuItem key={item.inventoryid} onClick={() => handleAddTopping(item)} butId={item.inventoryid} name={item.ingredientname} />
                             }
-                        </GridSystem>
-                        <h1>Cheeses</h1>
-                        <GridSystem colCount={3} md={4} >
-                            {inventory.length > 0 ? inventory.map(item => {
-                                if (item.itemtype == "cheese") {
-                                    return <Object.MenuItem key={item.inventoryid} onClick={() => handleAddTopping(item)} butId={item.inventoryid} name={item.ingredientname} />
-                                }
-                            }) : [<p>No tracks are found.</p>]
+                        }) : [<p>No tracks are found.</p>]
+                        }
+                    </GridSystem>
+                    <h1>Drinks and Seasonal Items</h1>
+                    <GridSystem colCount={3} md={4} >
+                        {inventory.length > 0 ? inventory.map(item => {
+                            if (item.itemtype == "other") {
+                                return <Object.MenuItem key={item.inventoryid} onClick={() => handleAddTopping(item)} butId={item.inventoryid} name={item.ingredientname} />
                             }
-                        </GridSystem>
-                        <h1>Drinks and Seasonal Items</h1>
-                        <GridSystem colCount={3} md={4} >
-                            {inventory.length > 0 ? inventory.map(item => {
-                                if (item.itemtype == "other") {
-                                    return <Object.MenuItem key={item.inventoryid} onClick={() => handleAddTopping(item)} butId={item.inventoryid} name={item.ingredientname} />
-                                }
-                            }) : [<p>No tracks are found.</p>]
+                        }) : [<p>No tracks are found.</p>]
+                        }
+                    </GridSystem>
+                </Col>
+                <Col md={4}>
+                    <h1>Toppings</h1>
+                    <GridSystem colCount={3} md={4} >
+                        {inventory.length > 0 ? inventory.map(item => {
+                            if (item.itemtype == "topping") {
+                                return <Object.MenuItem key={item.inventoryid} onClick={() => handleAddTopping(item)} butId={item.inventoryid} name={item.ingredientname} />
                             }
-                        </GridSystem>
-                    </Col>
-                    <Col md={4}>
-                        <h1>Toppings</h1>
-                        <GridSystem colCount={3} md={4} >
-                            {inventory.length > 0 ? inventory.map(item => {
-                                if (item.itemtype == "topping") {
-                                    return <Object.MenuItem key={item.inventoryid} onClick={() => handleAddTopping(item)} butId={item.inventoryid} name={item.ingredientname} />
-                                }
-                            }) : [<p>No tracks are found.</p>]
+                        }) : [<p>No tracks are found.</p>]
+                        }
+                    </GridSystem>
+                </Col>
+                <Col md={4} className="d-flex flex-column align-items-end">
+                    <Row className="w-100 mb-auto">
+                        <h1>Current Order</h1>
+                        <Col>
+                            {order.orderItems.map(item => {
+                                return <Object.OrderDisplay key={order.orderItems.indexOf(item)} item={item} />
+                            })
                             }
-                        </GridSystem>
-                    </Col>
-                    <Col md={4}>
-                        <Row>
-                            <h1>Current Order</h1>
-                        </Row>
-                        <Row>
-                            <div className="col ps-4">
-                                {order.orderItems.map(item => {
-                                    return <Object.OrderDisplay key={order.orderItems.indexOf(item)} item={item} />
-                                })
-                                }
-                            </div>
-                            <div>
-                                <Object.OrderCost order={order} />
-                                <Form onSubmit={submitOrder}>
-                                    <Button type="submit" disabled={!checkoutReady}>Checkout</Button>
-                                </Form>
-                            </div>
-                        </Row>
-                    </Col>
-                </Row>
-            </Container>
-        </div>
-
+                        </Col>
+                    </Row>
+                    <Row className="w-100">
+                        <Col>
+                            <Object.OrderCost order={order} />
+                            <Form onSubmit={submitOrder}>
+                                <Button type="submit" disabled={!checkoutReady}>Checkout</Button>
+                            </Form>
+                        </Col>
+                    </Row>
+                </Col>
+            </Row>
+        </Container>
     );
 }
