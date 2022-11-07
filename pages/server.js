@@ -18,8 +18,16 @@ import { PizzaModel, ToppingModel } from '@/lib/models'
 
 // pull inventory from db
 export async function getServerSideProps() {
-    const inventory = await prisma.inventory.findMany()
-    const menu = await prisma.menuitems.findMany()
+    const inventory = await prisma.inventory.findMany({
+        orderBy: {
+            inventoryid: 'asc'
+        }
+    })
+    const menu = await prisma.menuitems.findMany({
+        orderBy: {
+            typeid: 'asc'
+        }
+    })
     return {
         props: { 
             inventory,
