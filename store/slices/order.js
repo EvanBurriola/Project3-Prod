@@ -12,13 +12,12 @@ const initialState = {
     currentPizza: {
         toppings: []
     },
-    name: "",
-    employee: "",
+    customername: "",
+    employeename: "",
     employeeid: -1,
-    subTotal: 0,
-    tax: 0,
+    subtotal: 0,
+    salestax: 0,
     total: 0,
-    status: null
 }
 
 const orderSlice = createSlice({
@@ -26,24 +25,24 @@ const orderSlice = createSlice({
     initialState,
     reducers: {
         addCustomer(state, action) {
-            state.name = action.payload;
+            state.customername = action.payload;
         },
         addEmployee(state, action) {
             const { employee, id } = action.payload
-            state.employee = employee
-            state.employeeID = id
+            state.employeename = employee
+            state.employeeid = id
         },
         newPizza(state, action) {
             // reset the current pizza (assuming pizza has been
             // pushed to orderItems already)
             state.currentPizza = action.payload
             // update price based on current pizza
-            let sub = state.subTotal + action.payload.price
-            let tax = state.tax + (TAX_RATE * action.payload.price)
+            let sub = state.subtotal + action.payload.price
+            let tax = state.salestax + (TAX_RATE * action.payload.price)
             let total = state.total + ((1 + TAX_RATE) * action.payload.price)
 
-            state.subTotal = formatDecimals(sub)
-            state.tax = formatDecimals(tax)
+            state.subtotal = formatDecimals(sub)
+            state.salestax = formatDecimals(tax)
             state.total = formatDecimals(total)
         },
         finishPizza(state) {
@@ -55,6 +54,9 @@ const orderSlice = createSlice({
         addPizzaTopping(state, action) {
             state.currentPizza.toppings.push(action.payload)
         },
+        checkout(state) {
+            
+        }
     },
 })
 
