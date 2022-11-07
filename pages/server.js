@@ -1,4 +1,5 @@
 import * as Navbar from "@/components/Navbar/Navbar.js";
+
 import GridSystem from '@/components/GridSystem/GridSystem.js';
 import * as Object from '@/components/Objects/Objects.js';
 
