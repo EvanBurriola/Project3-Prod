@@ -60,35 +60,7 @@ export const NavbarCustomer = () => {
             </Navbar.Collapse>
         </Navbar>
     )
-}
-
-export const NavbarManager = () => {
-    return (
-        <Navbar bg="light">
-            <Col md={2}>
-                <Navbar.Brand href="Cust_manager">
-                    <img
-                        src="/logo.png"
-                        width="30"
-                        height="30"
-                        alt="Spin and Stone logo"
-                    />
-                </Navbar.Brand>
-            </Col>
-            <Col className="d-flex justify-content-start">
-                <Nav>
-                    <Nav.Link className="me-2 ms-1" href="">Dashboard</Nav.Link>
-                    <Nav.Link className="me-2 ms-1" href="">Inventory</Nav.Link>
-                    <Nav.Link className="me-2 ms-1" href="">Employees</Nav.Link>
-                </Nav>
-            </Col>
-            <Col className="d-flex justify-content-end">
-                <Button className="me-2 ms-1" href="/server" variant="primary">Server</Button>
-            </Col>
-        </Navbar>
-    )
-}
-export const NavbarManager = () => {
+}export const NavbarManager = () => {
     return (
         <Navbar bg="light" expand="lg">
             <Navbar.Brand href="/manager" className={styles.logoContainer}>
