@@ -8,6 +8,8 @@ import { Router } from 'node_modules/next/router';
 import InventoryDropDown from './InventoryDropDown';
 import AccordionButton from 'node_modules/react-bootstrap/esm/AccordionButton';
 
+import styles from '@/styles/manager.module.css'
+
 const InventoryTable = ({inventory}) => {
     //Add Item
     const [itemName, setItemName] = useState("");
@@ -49,8 +51,8 @@ const InventoryTable = ({inventory}) => {
 
     return (
         <div>
-            <table style={{"borderWidth":"1px", 'borderColor':"#aaaaaa", 'borderStyle':'solid'}} id ="excelDataTable">
-                <thead style = {{"borderWidth":"1px", 'borderColor':"#aaaaaa", 'borderStyle':'solid'}}>
+            <table id ="excelDataTable" className = {styles.tableStyle1}>
+                <thead>
                     <tr>
                         <th> Inventory ID </th>
                         <th> Item Name </th>
@@ -61,7 +63,7 @@ const InventoryTable = ({inventory}) => {
                         <th> Item Type </th>
                     </tr>
                 </thead>
-                <tbody style = {{"borderWidth":"1px", 'borderColor':"#aaaaaa", 'borderStyle':'solid'}}>
+                <tbody>
                     {inventory.map(item => {
                         return <TableItem item={item} />
                     }) 
@@ -70,7 +72,7 @@ const InventoryTable = ({inventory}) => {
                 </tbody>
             </table>
             <p> {"\n"} </p>
-            <h5> Change Item in Inventory </h5>
+            <h5 className = {styles.header}> Change Item in Inventory </h5>
             <form onSubmit={changeItem}>
                 <label for="inventory item"> Select Inventory Item to Change: </label>
                 <select name="inventoryItem" id="inventoryItem" onChange={(event) => setItemChange(event.target.value)}>
@@ -96,10 +98,10 @@ const InventoryTable = ({inventory}) => {
                     placeholde = "Change To Here"
                     onChange={(event) => setChangeTo(event.target.value)}
                 />
-                <button type = "submit"> Change Item </button> 
+                <button className = {styles.button1} type = "submit"> Change Item </button> 
             </form>
             <p> {"\n"} </p>
-            <h4> Add Inventory Item </h4>
+            <h5 className={styles.header}> Add Inventory Item </h5>
             <form onSubmit={addItem}>
                 <input
                     type = "text"
@@ -142,7 +144,7 @@ const InventoryTable = ({inventory}) => {
                     placeholder = "Item Type"
                     onChange={(event) => setItemType(event.target.value)}
                 />
-                <button type = "submit"> Add </button>
+                <button className = {styles.button1} type = "submit"> Add </button>
             </form>
         </div>
     )

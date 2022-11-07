@@ -4,6 +4,8 @@ import { useState } from 'react';
 import MenuItem from './MenuItem';
 import MenuDropDown from './MenuDropDown';
 
+import styles from '@/styles/manager.module.css'
+
 const MenuTable = ({menu}) => {
     const [menuItem, setMenuItem] = useState("");
     const [itemPrice, setItemPrice] = useState(0);
@@ -16,15 +18,15 @@ const MenuTable = ({menu}) => {
 
     return(
         <div>
-            <table style={{"borderWidth":"1px", 'borderColor':"#aaaaaa", 'borderStyle':'solid'}} id ="excelDataTable">
-                <thead style = {{"borderWidth":"1px", 'borderColor':"#aaaaaa", 'borderStyle':'solid'}}>
+            <table className={styles.tableStyle} id ="excelDataTable">
+                <thead>
                     <tr>
                         <th> Type ID </th>
                         <th> Pizza Type </th>
                         <th> Item Price </th>
                     </tr>
                 </thead>
-                <tbody style = {{"borderWidth":"1px", 'borderColor':"#aaaaaa", 'borderStyle':'solid'}}>
+                <tbody>
                     {menu.map(item => {
                         return <MenuItem item={item} />
                     })
@@ -32,6 +34,7 @@ const MenuTable = ({menu}) => {
                 </tbody>
             </table>
             <p> {"\n"} </p>
+            <h5 className = {styles.header}> Change Menu Item </h5>
             <form onSubmit={changeMenu}>
                 <label for="menu item"> Select Menu Item to Change:</label>
                 <select name="menuItem" id="menuItem" onChange={(event) => setMenuItem(event.target.value)}>
@@ -48,7 +51,7 @@ const MenuTable = ({menu}) => {
                     placeholder = "New Price of Item"
                     onChange={(event) => setItemPrice(event.target.value)}
                 />
-                <button type = "submit"> Set Price </button>
+                <button className = {styles.button1} type = "submit"> Set Price </button>
             </form>
         </div>
     )
