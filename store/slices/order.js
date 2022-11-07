@@ -11,6 +11,7 @@ const formatDecimals = (value) => {
 const initialState = {
     orderItems: [],
 <<<<<<< HEAD
+<<<<<<< HEAD
     customername: "Server View test",
     employeename: "Axel Ramone",
     employeeid: 1,
@@ -19,6 +20,11 @@ const initialState = {
     employeename: "",
     employeeid: -1,
 >>>>>>> ENHANCE: redux state properties now inline with prisma schema
+=======
+    customername: "Server View test",
+    employeename: "Axel Ramone",
+    employeeid: 1,
+>>>>>>> UPDATE: order can now be placed through server view
     subtotal: 0,
     salestax: 0,
     ordertotal: 0,
