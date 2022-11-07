@@ -12,13 +12,12 @@ export default async function handler(req, res) {
         return
     }
 
-    const order = req.body
+    const { order } = JSON.parse(req.body)
     const { orderItems } = order
     let toppings = []
 
     // remove unecessary args in order + keep list of all ingredients
     delete order.orderItems
-    delete order.currentPizza
     orderItems.forEach((item) => {
         toppings.push(item.toppings);
         delete item.pizzatype

@@ -1,18 +1,23 @@
+<<<<<<< HEAD
 import styles from '@/styles/server.module.css'
 
 import * as Navbar from "@/components/Navbar/Navbar.js";
+=======
+import Navbar from "@/components/Navbar/Navbar.js";
+>>>>>>> UPDATE: order can now be placed through server view
 import GridSystem from '@/components/GridSystem/GridSystem.js';
 import * as Object from '@/components/Objects/Objects.js';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Container from 'react-bootstrap/Container';
-import Stack from 'react-bootstrap/Stack';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Button from 'react-bootstrap/Button'
+import Form from 'react-bootstrap/Form'
 
 import { prisma } from '@/lib/prisma'
 import { useSelector, useDispatch } from 'react-redux'
-import { addItem, addPizzaTopping, finishPizza, newPizza } from '@/store/slices/order' 
+import { addItem, addPizzaTopping, clearOrder } from '@/store/slices/order' 
 import { PizzaModel, ToppingModel } from '@/lib/models'
 
 // pull inventory from db
@@ -31,7 +36,18 @@ export default function server({inventory, menu}) {
     const order = useSelector((state) => state.order)
     const dispatch = useDispatch()
 
-    // TODO: add dough to the new pizza
+    const dough = inventory.find(item => item.ingredientname === 'Dough')
+
+    // activate or deactive checkout button based on order
+    const [checkoutReady, setCheckoutReady] = useState(false)
+    useEffect(() => {
+        if (order.orderItems.length === 0 || order.customername === "") {
+            setCheckoutReady(false)
+        } else {
+            setCheckoutReady(true)
+        }
+    })
+
     const handleNewPizza = (type, price) => {
         const pizza = {
             ...PizzaModel,
@@ -39,19 +55,45 @@ export default function server({inventory, menu}) {
             price
         }
 
-        dispatch(newPizza(pizza))
+        const doughItem = {
+            pizzatype: type,
+            ingredientname: dough.ingredientname,
+            inventoryid: dough.inventoryid,
+            ingredientprice: dough.priceperounce,
+            quantityused: dough.averageamountperunitsold,
+        }
+
+        dispatch(addItem(pizza))
+        dispatch(addPizzaTopping(doughItem))
     }
 
+    // redux function to add toppings to a pizza
     const handleAddTopping = (ingredient) => {
+        const lastItem = order.orderItems.length - 1
         const item = {
-            ...ToppingModel,
-            pizzatype: ingredient.pizzatype,
+            pizzatype: order.orderItems[lastItem].pizzatype,
             ingredientname: ingredient.ingredientname,
             inventoryid: ingredient.inventoryid,
-            ingredientprice: ingredient.ingredientprice,
-            quantityused: ingredient.quantityused
+            ingredientprice: ingredient.priceperounce,
+            quantityused: ingredient.averageamountperunitsold,
         }
         dispatch(addPizzaTopping(item))
+    }
+
+    // submits the order by pushing to database
+    const submitOrder = async (event) => {
+        event.preventDefault()
+        try {
+            const body = { order }
+            await fetch('/api/order', {
+                method: "POST",
+                body: JSON.stringify(body)
+            })
+
+            dispatch(clearOrder())
+        } catch (error) {
+            console.log(error);
+        }
     }
     
     return (
@@ -63,7 +105,7 @@ export default function server({inventory, menu}) {
                     </Col>
                 </Row>
                 <Row>
-                    <Col xs={6} md={4}>
+                    <Col md={4}>
                         <h1>Pizza Type</h1>
                         <GridSystem colCount={3} md={4} >
                             {menu.length > 0 ? menu.map(item => {
@@ -99,7 +141,7 @@ export default function server({inventory, menu}) {
                             }
                         </GridSystem>
                     </Col>
-                    <Col xs={6} md={4}>
+                    <Col md={4}>
                         <h1>Toppings</h1>
                         <GridSystem colCount={3} md={4} >
                             {inventory.length > 0 ? inventory.map(item => {
@@ -110,20 +152,22 @@ export default function server({inventory, menu}) {
                             }
                         </GridSystem>
                     </Col>
-                    <Col xs={6} md={4}>
+                    <Col md={4}>
                         <Row>
                             <h1>Current Order</h1>
                         </Row>
                         <Row>
-                            <div className="col-md-3 offset-md-4">
+                            <div className="col ps-4">
                                 {order.orderItems.map(item => {
-                                    return <Object.OrderDisplay item={item} />
+                                    return <Object.OrderDisplay key={order.orderItems.indexOf(item)} item={item} />
                                 })
                                 }
-                                <Object.OrderDisplay item={order.currentPizza} />
                             </div>
                             <div>
                                 <Object.OrderCost order={order} />
+                                <Form onSubmit={submitOrder}>
+                                    <Button type="submit" disabled={!checkoutReady}>Checkout</Button>
+                                </Form>
                             </div>
                         </Row>
                     </Col>

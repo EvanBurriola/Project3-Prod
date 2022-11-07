@@ -7,11 +7,12 @@ const formatDecimals = (value) => {
 }
 
 // setup initial state of all orders
+// TODO: remove preset values
 const initialState = {
     orderItems: [],
-    customername: "",
-    employeename: "",
-    employeeid: -1,
+    customername: "Server View test",
+    employeename: "Axel Ramone",
+    employeeid: 1,
     subtotal: 0,
     salestax: 0,
     ordertotal: 0,
