@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Updated Navbar
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import Button from 'react-bootstrap/Button';
@@ -10,6 +13,9 @@ import styles from './Navbar.module.css'
 export const NavbarServer = () => {
     return (
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Updated Navbar
         <Navbar bg="light" expand="lg">
             <Navbar.Brand href="/server" className={styles.logoContainer}>
                 <Image
@@ -24,11 +30,14 @@ export const NavbarServer = () => {
             </Nav>
             </Navbar.Collapse>
         </Navbar>
+<<<<<<< HEAD
 =======
         <h1>
             Navbar
         </h1>
 >>>>>>> Layout done, TODO: Functionality
+=======
+>>>>>>> Updated Navbar
     )
 }
 
@@ -68,11 +77,16 @@ export const NavbarManager = () => {
                     <Nav.Link className="me-2 ms-1" href="">Dashboard</Nav.Link>
                     <Nav.Link className="me-2 ms-1" href="">Inventory</Nav.Link>
                     <Nav.Link className="me-2 ms-1" href="">Employees</Nav.Link>
+<<<<<<< HEAD
                     <Nav.Link className="me-2 ms-1" href="/server">Server View</Nav.Link>
+=======
+                    <Nav.Link className="me-2 ms-1" href="">Server View</Nav.Link>
+>>>>>>> Updated Navbar
                 </Nav>
             </Navbar.Collapse>
         </Navbar>
     )
+<<<<<<< HEAD
 }
 =======
 // any imports
@@ -98,3 +112,6 @@ export const ManagerNavbar = () => {
     );
 }
 >>>>>>> Layout, Login View
+=======
+}
+>>>>>>> Updated Navbar
