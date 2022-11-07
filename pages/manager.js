@@ -1,4 +1,4 @@
-import { ManagerNavbar } from '@/components/Navbar/Navbar.js';
+import * as Navbar from '@/components/Navbar/Navbar.js';
 
 import React from 'react';
 import Container from 'react-bootstrap/Container';
@@ -10,9 +10,6 @@ import MonthlySales from '@/components/Table/MonthlySales.js';
 import RestockTable from '@/components/Table/RestockTable.js';
 import MenuTable from '@/components/Table/MenuTable.js';
 import { prisma } from '@/lib/prisma'
-import GridSystem from '@/components/GridSystem/GridSystem.js';
-
-import styles from "@/styles/manager.module.css"
 
 
 
@@ -27,39 +24,44 @@ export async function getServerSideProps(){
   }
 }
 
-export default function server({inventory, menu}) {
+export default function manager({inventory, menu}) {
   return (
     <Container>
-      <ManagerNavbar />
+      <Navbar.NavbarManager />
       <Row>
-        <Col> <h1 className = {styles.title}> Dashboard </h1></Col>
+        <Col> <h1> Dashboard </h1></Col>
         <p> {"\n"} </p>
       </Row>
       <Row>
-        <Col> <h2 className = {styles.header}> Reports </h2> </Col>
-        <Col> <h2 className = {styles.header}> Inventory At a Glance </h2> </Col>
+        <Col> <h2> Reports </h2> </Col>
       </Row>
       <form>
         <Row>
-          <Col> <DateSelect /> </Col> 
+          <Col> <DateSelect /> </Col>
+        </Row>
+        <Row> 
           <Col> 
-            <button className = {styles.button} type = "submit"> Sales </button>
-            <button className = {styles.button} type = "submit"> Excess </button> 
-            <button className = {styles.button} type = "submit"> Restock </button> 
+            <button type = "submit"> Sales </button>
+            <button type = "submit"> Excess </button> 
+            <button type = "submit"> Restock </button> 
             <p> {"\n"} </p>
           </Col>
-          <Col><InventoryTable inventory={inventory}/> </Col>
-          
         </Row>
       </form>
       <Row>
+        <MonthlySales />
         <p> {"\n"} </p>
-        <h3 className = {styles.header}> Menu Items </h3>
+        <h2> Inventory At a Glance</h2>
+        <InventoryTable inventory={inventory}/>
+      </Row>
+      <Row>
+        <p> {"\n"} </p>
+        <h6> Menu Items </h6>
         <MenuTable menu={menu}/>
       </Row>
       <Row>
         <p> {"\n"} </p>
-        <h2 className = {styles.header}> Restock Report </h2>
+        <h3> Restock Report </h3>
         <RestockTable inventory={inventory}/>
       </Row>
       
