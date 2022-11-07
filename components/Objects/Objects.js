@@ -13,7 +13,7 @@ export const MenuItem = ({butId, name, ...props}) => {
 export const Selected = ({...props}) => {
     const { ingredient } = props
     return (
-        <p className="fs-5">- {ingredient.ingredientname}</p>
+        <p className="fs-5 ps-4 mb-0">- {ingredient.ingredientname}</p>
     )
 }
 
@@ -21,10 +21,10 @@ export const OrderCost = ({...props}) => {
     const { subtotal, salestax, ordertotal} = props.order
     
     return (
-        <div className={styles.orderCostPos}>
-            <p className="fs-2">Subtotal: ${subtotal}</p>
+        <div>
+            <p className="fs-5">Subtotal: ${subtotal}</p>
             <p className="fs-5">Tax: ${salestax}</p>
-            <p className="fs-5">Total: ${ordertotal}</p>
+            <p className="fs-3">Total: ${ordertotal}</p>
         </div>
     )
 }
@@ -32,7 +32,7 @@ export const OrderCost = ({...props}) => {
 export const OrderDisplay = ({item}) => {
     return (
         <div>
-            <p className="fs-2">{item.pizzatype}</p>
+            <p className="fs-3 mb-0">{item.pizzatype}:</p>
             {item.toppings.map(top => {
                 return <Selected ingredient={top} />
             })

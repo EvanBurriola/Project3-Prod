@@ -1,10 +1,6 @@
-<<<<<<< HEAD
 import styles from '@/styles/server.module.css'
 
 import * as Navbar from "@/components/Navbar/Navbar.js";
-=======
-import Navbar from "@/components/Navbar/Navbar.js";
->>>>>>> UPDATE: order can now be placed through server view
 import GridSystem from '@/components/GridSystem/GridSystem.js';
 import * as Object from '@/components/Objects/Objects.js';
 

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 html,
 body {
   padding: 0;
@@ -12,3 +13,25 @@ a {
 * {
   box-sizing: border-box;
 }
+=======
+html,
+body {
+  padding: 0;
+  margin: 0;
+  height: 100%;
+}
+
+#__next,
+#__next > div {
+  height: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+>>>>>>> UPDATED: improved display of order and total using flex util
