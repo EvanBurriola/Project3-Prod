@@ -19,6 +19,9 @@ export const NavbarServer = () => {
     return (
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Updated Navbar
 =======
 >>>>>>> Updated Navbar
         <Navbar bg="light" expand="lg">
@@ -34,6 +37,7 @@ export const NavbarServer = () => {
                 <Nav.Link className="me-2 ms-1" href="/manager">Manager View</Nav.Link>
             </Nav>
             </Navbar.Collapse>
+<<<<<<< HEAD
         </Navbar>
 <<<<<<< HEAD
 =======
@@ -61,6 +65,8 @@ export const NavbarServer = () => {
             <Col className="d-flex justify-content-end">
                 <Button className="me-2 ms-1" href="/manager" variant="primary">Manager</Button>
             </Col>
+=======
+>>>>>>> Updated Navbar
         </Navbar>
 >>>>>>> Server Navbar Done
     )
@@ -69,6 +75,9 @@ export const NavbarServer = () => {
 export const NavbarCustomer = () => {
     return (
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Updated Navbar
         <Navbar bg="light" expand="lg">
             <Navbar.Brand href="/dashboard" className={styles.logoContainer}>
                 <Image
@@ -84,6 +93,7 @@ export const NavbarCustomer = () => {
                 <Nav.Link className="me-2 ms-1" href="">Rewards</Nav.Link>
             </Nav>
             </Navbar.Collapse>
+<<<<<<< HEAD
         </Navbar>
     )
 }export const NavbarManager = () => {
@@ -165,12 +175,15 @@ export const ManagerNavbar = () => {
             <Col className="d-flex justify-content-end">
                 <Button className="me-2 ms-1" href="/login" variant="primary">Login</Button>
             </Col>
+=======
+>>>>>>> Updated Navbar
         </Navbar>
     )
 }
 
 export const NavbarManager = () => {
     return (
+<<<<<<< HEAD
         <Navbar bg="light">
             <Col md={2}>
                 <Navbar.Brand href="Cust_manager">
@@ -184,14 +197,24 @@ export const NavbarManager = () => {
             </Col>
             <Col className="d-flex justify-content-start">
                 <Nav>
+=======
+        <Navbar bg="light" expand="lg">
+            <Navbar.Brand href="/manager" className={styles.logoContainer}>
+                <Image
+                    src={logo}
+                    alt="Spin and Stone logo"
+                />
+            </Navbar.Brand>
+            <Navbar.Toggle aria-controls="manager-navbar" />
+            <Navbar.Collapse id="manager-navbar">
+                <Nav className="navigations">
+>>>>>>> Updated Navbar
                     <Nav.Link className="me-2 ms-1" href="">Dashboard</Nav.Link>
                     <Nav.Link className="me-2 ms-1" href="">Inventory</Nav.Link>
                     <Nav.Link className="me-2 ms-1" href="">Employees</Nav.Link>
+                    <Nav.Link className="me-2 ms-1" href="">Server View</Nav.Link>
                 </Nav>
-            </Col>
-            <Col className="d-flex justify-content-end">
-                <Button className="me-2 ms-1" href="/server" variant="primary">Server</Button>
-            </Col>
+            </Navbar.Collapse>
         </Navbar>
     )
 }>>>>>>> Server Navbar Done
