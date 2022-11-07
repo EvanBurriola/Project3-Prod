@@ -1,11 +1,16 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> Updated Navbar
+=======
+import Container from 'react-bootstrap/Container';
+>>>>>>> Server Navbar Done
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
+<<<<<<< HEAD
 import Image from 'next/image'
 import logo from '@/public/assets/logo.png'
 import styles from './Navbar.module.css'
@@ -38,11 +43,32 @@ export const NavbarServer = () => {
 >>>>>>> Layout done, TODO: Functionality
 =======
 >>>>>>> Updated Navbar
+=======
+
+export const NavbarServer = () => {
+    return (
+        <Navbar bg="light">
+            <Col>
+                <Navbar.Brand href="server">
+                    <img
+                        src="/logo.png"
+                        width="30"
+                        height="30"
+                        alt="Spin and Stone logo"
+                    />
+                </Navbar.Brand>
+            </Col>
+            <Col className="d-flex justify-content-end">
+                <Button className="me-2 ms-1" href="/manager" variant="primary">Manager</Button>
+            </Col>
+        </Navbar>
+>>>>>>> Server Navbar Done
     )
 }
 
 export const NavbarCustomer = () => {
     return (
+<<<<<<< HEAD
         <Navbar bg="light" expand="lg">
             <Navbar.Brand href="/dashboard" className={styles.logoContainer}>
                 <Image
@@ -117,3 +143,29 @@ export const ManagerNavbar = () => {
 =======
 }
 >>>>>>> Updated Navbar
+=======
+        <Navbar bg="light">
+            <Col md={2}>
+                <Navbar.Brand href="Cust_start_order">
+                    <img
+                        src="/logo.png"
+                        width="30"
+                        height="30"
+                        alt="Spin and Stone logo"
+                    />
+                </Navbar.Brand>
+            </Col>
+            <Col className="d-flex justify-content-start">
+                <Nav>
+                    <Nav.Link className="me-2 ms-1" href="">Order</Nav.Link>
+                    <Nav.Link className="me-2 ms-1" href="">Deals</Nav.Link>
+                    <Nav.Link className="me-2 ms-1" href="">Rewards</Nav.Link>
+                </Nav>
+            </Col>
+            <Col className="d-flex justify-content-end">
+                <Button className="me-2 ms-1" href="/login" variant="primary">Login</Button>
+            </Col>
+        </Navbar>
+    )
+}
+>>>>>>> Server Navbar Done
