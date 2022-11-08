@@ -20,7 +20,7 @@ export const InventoryTable = ({inventory}) => {
     // Change Item
     const [itemChange, setItemChange] = useState("");
     const [infoChange, setInfoChange] = useState("");
-    const [changeTo, setChangeTo] = useState(0);
+    const [changeTo, setChangeTo] = useSgtate(0);
     // Delete Item
     const [itemDelete, setItemDelete] = useState("");
 
