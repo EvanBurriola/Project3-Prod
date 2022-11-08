@@ -1,4 +1,4 @@
-import * as Navbar from '@/components/Navbar/Navbar.js';
+import {ManagerNavbar} from '@/components/Navbar/Navbar.js';
 
 import React from 'react';
 import Container from 'react-bootstrap/Container';
@@ -11,6 +11,7 @@ import RestockTable from '@/components/Table/RestockTable.js';
 import MenuTable from '@/components/Table/MenuTable.js';
 import { prisma } from '@/lib/prisma'
 
+import styles from "@/styles/manager.module.css"
 
 
 export async function getServerSideProps(){
@@ -27,13 +28,13 @@ export async function getServerSideProps(){
 export default function manager({inventory, menu}) {
   return (
     <Container>
-      <Navbar.NavbarManager />
+      <ManagerNavbar />
       <Row>
         <Col> <h1> Dashboard </h1></Col>
         <p> {"\n"} </p>
       </Row>
       <Row>
-        <Col> <h2> Reports </h2> </Col>
+        <Col> <h2 className = {styles.header}> Reports </h2> </Col>
       </Row>
       <form>
         <Row>
@@ -49,9 +50,7 @@ export default function manager({inventory, menu}) {
         </Row>
       </form>
       <Row>
-        <MonthlySales />
-        <p> {"\n"} </p>
-        <h2> Inventory At a Glance</h2>
+        <h2 className = {styles.header}> Inventory At a Glance </h2>
         <InventoryTable inventory={inventory}/>
       </Row>
       <Row>

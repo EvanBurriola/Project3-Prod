@@ -1,5 +1,7 @@
 import React from 'react';
 
+import styles from "@/styles/manager.module.css"
+
 // TODO: import data from database (Connect to the database)
 
 const MonthlySales = () => {
@@ -7,7 +9,7 @@ const MonthlySales = () => {
     return (
         <div>
             <h3> Monthly Sales </h3>
-            <table style={{"borderWidth":"1px", 'borderColor':"#aaaaaa", 'borderStyle':'solid'}}>
+            <table className={styles.table}>
                 <thead style = {{"borderWidth":"1px", 'borderColor':"#aaaaaa", 'borderStyle':'solid'}}>
                     <tr>
                         <th> Inventory ID </th>
