@@ -7,6 +7,25 @@ import Col from 'react-bootstrap/Col';
 import DateSelect, { DateEnd, DateStart } from '@/components/TextEntry/Datepicker.js';
 import InventoryTable from '@/components/Table/InventoryTable.js';
 
+export async function getServerSideProps() {
+  const inventory = await prisma.inventory.findMany({
+      orderBy: {
+          inventoryid: 'asc'
+      }
+  })
+  const menu = await prisma.menuitems.findMany({
+      orderBy: {
+          typeid: 'asc'
+      }
+  })
+  return {
+      props: { 
+          inventory,
+          menu
+      }
+  }
+}
+
 export default function inventory ({inventory, menu}) {
     return (
       <Container>
