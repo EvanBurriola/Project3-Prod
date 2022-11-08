@@ -4,7 +4,7 @@ import React from 'react';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import DateSelect, { DateEnd, DateStart } from '../components/TextEntry/Datepicker.js';
+import DateSelect, { DateEnd, DateStart } from '@/components/TextEntry/Datepicker.js';
 import InventoryTable from '@/components/Table/InventoryTable.js';
 import MonthlySales from '@/components/Table/MonthlySales.js';
 import RestockTable from '@/components/Table/RestockTable.js';
