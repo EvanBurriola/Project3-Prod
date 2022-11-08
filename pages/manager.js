@@ -1,4 +1,4 @@
-import * as Navbar from '@/components/Navbar/Navbar.js';
+import {ManagerNavbar} from '@/components/Navbar/Navbar.js';
 
 import React from 'react';
 import Container from 'react-bootstrap/Container';
@@ -28,7 +28,7 @@ export async function getServerSideProps(){
 export default function manager({inventory, menu}) {
   return (
     <Container>
-      <Navbar.NavbarManager />
+      <ManagerNavbar />
       <Row>
         <Col> <h1> Dashboard </h1></Col>
         <p> {"\n"} </p>
