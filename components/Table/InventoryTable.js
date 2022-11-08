@@ -60,6 +60,7 @@ const InventoryTable = ({inventory}) => {
         catch(error){
             console.error(error);
         }
+        window.location.reload();
     };
 
     return (
