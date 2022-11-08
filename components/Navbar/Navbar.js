@@ -76,10 +76,14 @@ export const NavbarCustomer = () => {
                     <Nav.Link className="me-2 ms-1" href="">Inventory</Nav.Link>
                     <Nav.Link className="me-2 ms-1" href="">Employees</Nav.Link>
 <<<<<<< HEAD
+<<<<<<< HEAD
                     <Nav.Link className="me-2 ms-1" href="/server">Server View</Nav.Link>
 =======
                     <Nav.Link className="me-2 ms-1" href="">Server View</Nav.Link>
 >>>>>>> Updated Navbar
+=======
+                    <Nav.Link className="me-2 ms-1" href="/server">Server View</Nav.Link>
+>>>>>>> MERGED: Manager_frame to server_framework
                 </Nav>
             </Navbar.Collapse>
         </Navbar>
