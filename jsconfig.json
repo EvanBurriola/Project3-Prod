@@ -5,6 +5,7 @@
         "paths": {
             "@/components/*": ["components/*"],
             "@/lib/*": ["lib/*"],
+            "@/store": ["store/index.js"],
             "@/store/*": ["store/*"],
             "@/public/*": ["public/*"],
             "@/styles/*": ["styles/*"]

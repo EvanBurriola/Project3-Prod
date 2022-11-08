@@ -1,0 +1,23 @@
+.button {
+    width: 100%;
+    padding: 8%;
+    margin: 5%;
+  }
+
+.orderCostPos {
+    position: absolute;
+    top: 80%;
+    left: 70%;
+}
+
+.centerScreen1 {
+  position: absolute;
+  top: 30%;
+  left: 40%;
+}
+
+.centerScreen2 {
+  position: absolute;
+  top: 40%;
+  left: 22%;
+}

@@ -1,0 +1,133 @@
+.tableStyle {
+    border-collapse: collapse;
+    font-size: 0.9em;
+    min-width: 400px;
+    border-radius: 5px 5px 0 0;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    position: relative;
+    float: left;
+}
+
+.tableStyle thead tr {
+    background-color: #009879;
+    color: #ffffff;
+    text-align: left;
+    font-weight: bold;
+}
+
+.tableStyle th,
+.tableStyle td {
+    padding: 5px 3px;
+}
+
+.tableStyle tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.tableStyle tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+.tableStyle tbody tr:last-of-type {
+    border-bottom: 2px solid #009879;
+}
+
+.title {
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    color:#009879;
+    border-collapse: collapse;
+    margin: auto;
+    float: left;
+}
+
+.header {
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    color:#009879;
+    border-collapse: collapse;
+    text-align: left;
+    margin: auto;
+}
+
+.header1 {
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    color:#009879;
+    border-collapse: collapse;
+    float: right;
+    vertical-align: top;
+    text-align: right;
+}
+
+.button {
+    background-color: #009879;
+    color: white;
+    border: black;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin-top: 5px;
+    margin-right: 5px;
+    border-radius: 20%;
+    display: inline-block;
+}
+
+.button1 {
+    background-color: #009879;
+    color: white;
+    border: black;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin-top: 5px;
+    margin-left: 5px;
+    border-radius: 20%;
+}
+
+.loginStyle {
+    border-radius: 10%;
+}
+
+.tableStyle1 {
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    min-width: 400px;
+    border-radius: 5px 5px 0 0;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    position: flex;
+    margin-left: auto;
+    margin-top: auto;
+    top: -170px;
+    float: right;
+    vertical-align: top;
+}
+
+.tableStyle1 thead tr {
+    background-color: #009879;
+    color: #ffffff;
+    text-align: left;
+    font-weight: bold;
+    position: relative;
+}
+
+.tableStyle1 th,
+.tableStyle1 td {
+    padding: 10px 16px;
+}
+
+.tableStyle1 tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.tableStyle1 tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+.tableStyle1 tbody tr:last-of-type {
+    border-bottom: 2px solid #009879;
+}

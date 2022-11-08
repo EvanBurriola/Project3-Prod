@@ -1,0 +1,9 @@
+.title {
+    text-align: center;
+}
+
+.image {
+    background-image: url('../components/Image/logo.png');
+    position: fixed;
+    top: 0;
+}
