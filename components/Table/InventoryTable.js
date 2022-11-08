@@ -65,7 +65,11 @@ export const InventoryTable = ({inventory}) => {
         catch(error){
             console.error(error);
         }
+<<<<<<< HEAD
         // window.location.reload();
+=======
+        window.location.reload();
+>>>>>>> Added reload for Add Item
     };
 
     const deleteItem = async (event) =>{
