@@ -118,7 +118,7 @@ export default function Cust_cheese_sauce({inventory, menu}) {
                                 if (item.itemtype == "sauce") {
                                     return <Object.MenuItem key={item.inventoryid} onClick={() => handleAddTopping(item)} butId={item.inventoryid} name={item.ingredientname} />
                                 }
-                            }) : [<p>No tracks are found.</p>]
+                            }) : <p>No tracks are found.</p>
                             }
                         </GridSystem>
                         <h1>Cheeses</h1>
@@ -127,7 +127,7 @@ export default function Cust_cheese_sauce({inventory, menu}) {
                                 if (item.itemtype == "cheese") {
                                     return <Object.MenuItem key={item.inventoryid} onClick={() => handleAddTopping(item)} butId={item.inventoryid} name={item.ingredientname} />
                                 }
-                            }) : [<p>No tracks are found.</p>]
+                            }) : <p>No tracks are found.</p>
                             }   
                         </GridSystem>
                         </Row>

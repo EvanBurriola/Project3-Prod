@@ -5,8 +5,7 @@ export default class Login extends Component {
   render() {
     return (
       <form className={styles.title}>
-        <h1 className ={styles.image}> <img src = {styles.image}></img></h1>
-        <h3 className = "title">Spin 'N Stone POS Sign In</h3>
+        <h3 className="title">Spin 'N Stone POS Sign In</h3>
         <div className="mb-3">
           <label>Username</label>
           <input

@@ -109,7 +109,7 @@ export default function Server({inventory, menu}) {
                     <GridSystem colCount={3} md={4} >
                         {menu.length > 0 ? menu.map(item => {
                             return <Object.MenuItem key={item.typeid} onClick={() => handleNewPizza(item.pizzatype, item.itemprice)} butId={item.typeid} name={item.pizzatype} />
-                        }) : [<p>No tracks are found.</p>]
+                        }) : <p>No tracks are found.</p>
                         }
                     </GridSystem>
                     <h1>Sauces</h1>
@@ -118,7 +118,7 @@ export default function Server({inventory, menu}) {
                             if (item.itemtype == "sauce") {
                                 return <Object.MenuItem key={item.inventoryid} onClick={() => handleAddTopping(item)} butId={item.inventoryid} name={item.ingredientname} />
                             }
-                        }) : [<p>No tracks are found.</p>]
+                        }) : <p>No tracks are found.</p>
                         }
                     </GridSystem>
                     <h1>Cheeses</h1>
@@ -127,7 +127,7 @@ export default function Server({inventory, menu}) {
                             if (item.itemtype == "cheese") {
                                 return <Object.MenuItem key={item.inventoryid} onClick={() => handleAddTopping(item)} butId={item.inventoryid} name={item.ingredientname} />
                             }
-                        }) : [<p>No tracks are found.</p>]
+                        }) : <p>No tracks are found.</p>
                         }
                     </GridSystem>
                     <h1>Drinks and Seasonal Items</h1>
@@ -136,7 +136,7 @@ export default function Server({inventory, menu}) {
                             if (item.itemtype == "other") {
                                 return <Object.MenuItem key={item.inventoryid} onClick={() => handleAddTopping(item)} butId={item.inventoryid} name={item.ingredientname} />
                             }
-                        }) : [<p>No tracks are found.</p>]
+                        }) : <p>No tracks are found.</p>
                         }
                     </GridSystem>
                 </Col>
@@ -147,7 +147,7 @@ export default function Server({inventory, menu}) {
                             if (item.itemtype == "topping") {
                                 return <Object.MenuItem key={item.inventoryid} onClick={() => handleAddTopping(item)} butId={item.inventoryid} name={item.ingredientname} />
                             }
-                        }) : [<p>No tracks are found.</p>]
+                        }) : <p>No tracks are found.</p>
                         }
                     </GridSystem>
                 </Col>

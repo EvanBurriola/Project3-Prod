@@ -78,7 +78,7 @@ const InventoryTable = ({inventory}) => {
                 </thead>
                 <tbody style = {{"borderWidth":"1px", 'borderColor':"#aaaaaa", 'borderStyle':'solid'}}>
                     {inventory.map(item => {
-                        return <TableItem item={item} />
+                        return <TableItem key={item.inventoryid} item={item} />
                     }) 
                     }
                     
@@ -91,7 +91,7 @@ const InventoryTable = ({inventory}) => {
                 <select name="inventoryItem" id="inventoryItem" onChange={(event) => setItemChange(event.target.value)}>
                     <option value="" selected disabled hidden> Select Here </option>
                     {inventory.map(item => {
-                        return <InventoryDropDown item={item} />
+                        return <InventoryDropDown key={item.inventoryid} item={item} />
                     })
                     }
                 </select>

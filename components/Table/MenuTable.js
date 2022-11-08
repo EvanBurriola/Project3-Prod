@@ -42,7 +42,7 @@ const MenuTable = ({menu}) => {
                 </thead>
                 <tbody>
                     {menu.map(item => {
-                        return <MenuItem item={item} />
+                        return <MenuItem key={item.typeid} item={item} />
                     })
                     }
                 </tbody>
@@ -54,7 +54,7 @@ const MenuTable = ({menu}) => {
                 <select name="menuItem" id="menuItem" onChange={(event) => setMenuItem(event.target.value)}>
                     <option value="" selected disabled hidden> Select Here </option>
                     {menu.map(item => {
-                        return <MenuDropDown item={item} />
+                        return <MenuDropDown key={item.typeid} item={item} />
                     })
                     }
                 </select>

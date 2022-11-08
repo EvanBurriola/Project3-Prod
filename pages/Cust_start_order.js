@@ -114,7 +114,7 @@ export default function Cust_start_order({inventory, menu}) {
                         <GridSystem colCount={3} md={2} >
                             {menu.length > 0 ? menu.map(item => {
                                 return <Object.MenuItem key={item.typeid} onClick={() => handleNewPizza(item.pizzatype, item.itemprice)} butId={item.typeid} name={item.pizzatype} />
-                            }) : [<p>No tracks are found.</p>]
+                            }) : <p>No tracks are found.</p>
                             }
                         </GridSystem>
                     </div>

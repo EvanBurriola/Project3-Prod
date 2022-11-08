@@ -118,7 +118,7 @@ export default function Cust_toppings({inventory, menu}) {
                                     if (item.itemtype == "topping") {
                                         return <Object.MenuItem key={item.inventoryid} onClick={() => handleAddTopping(item)} butId={item.inventoryid} name={item.ingredientname} />
                                     }
-                                }) : [<p>No tracks are found.</p>]
+                                }) : <p>No tracks are found.</p>
                                 }
                             </GridSystem>
                         </Row>

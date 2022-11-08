@@ -48,7 +48,7 @@ const RestockTable = ({inventory}) => {
                 </thead>
                 <tbody>
                     {inventory.map(item => {
-                        return <RestockItem  item={item} />
+                        return <RestockItem key={item.inventoryid} item={item} />
                     })
                     }
                 </tbody>
@@ -61,7 +61,7 @@ const RestockTable = ({inventory}) => {
                     <select name="restockitem" id="restockitem" onChange={(event) => setRestockItem(event.target.value)}>
                         <option value="" selected disabled hidden> Select Here </option>
                         {inventory.map(item => {
-                            return <RestockDropDown item={item} />
+                            return <RestockDropDown key={item.inventoryid} item={item} />
                         })
                         }
                     </select>
