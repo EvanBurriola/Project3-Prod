@@ -61,7 +61,7 @@ export const NavbarManager = () => {
                     <Nav.Link className="me-2 ms-1" href="">Dashboard</Nav.Link>
                     <Nav.Link className="me-2 ms-1" href="">Inventory</Nav.Link>
                     <Nav.Link className="me-2 ms-1" href="">Employees</Nav.Link>
-                    <Nav.Link className="me-2 ms-1" href="">Server View</Nav.Link>
+                    <Nav.Link className="me-2 ms-1" href="/server">Server View</Nav.Link>
                 </Nav>
             </Navbar.Collapse>
         </Navbar>
