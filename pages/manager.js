@@ -12,6 +12,7 @@ import React from 'react';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+<<<<<<< HEAD
 import DateSelect, { DateEnd, DateStart } from '../components/TextEntry/Datepicker.js';
 import InventoryTable, { InventoryDisplay } from '@/components/Table/InventoryTable.js';
 <<<<<<< HEAD
@@ -19,6 +20,10 @@ import InventoryTable, { InventoryDisplay } from '@/components/Table/InventoryTa
 import MonthlySales from '@/components/Table/MonthlySales.js';
 import RestockTable from '@/components/Table/RestockTable.js';
 >>>>>>> Manager dashboard layout completed
+=======
+import InventoryTable from '@/components/Table/InventoryTable.js';
+import ReportsTable from '@/components/Table/ReportsTable.js';
+>>>>>>> Reorganized and started Reports
 import MenuTable from '@/components/Table/MenuTable.js';
 import { prisma } from '@/lib/prisma'
 import { useState, useEffect } from 'react'
@@ -181,6 +186,7 @@ export default function server({inventory, menu}) {
       </Row>
       <Row>
 <<<<<<< HEAD
+<<<<<<< HEAD
         <Col md="5"> <h4 className = {styles.header}> Reports </h4> </Col>
         <Col md="7"> <h4 className = {styles.header}> Inventory at a Glance </h4></Col>
 =======
@@ -251,6 +257,10 @@ export default function server({inventory, menu}) {
         <Col md = "7">
           <InventoryDisplay inventory={inventory}/> 
         </Col>
+=======
+        <h2 className = {styles.header}> Inventory At a Glance </h2>
+        <InventoryTable inventory={inventory}/>
+>>>>>>> Reorganized and started Reports
       </Row>
       {/* <Row>
         <Col>
@@ -259,7 +269,17 @@ export default function server({inventory, menu}) {
       </Row> */}
       {/* <Row>
         <MenuTable menu={menu}/>
+<<<<<<< HEAD
       </Row> */}
+=======
+      </Row>
+      <Row>
+        <p> {"\n"} </p>
+        <h3> Reports </h3>
+        
+        <ReportsTable inventory={inventory}/>
+      </Row>
+>>>>>>> Reorganized and started Reports
     </Container>
 =======
             <form>

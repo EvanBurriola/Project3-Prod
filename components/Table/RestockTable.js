@@ -5,7 +5,11 @@ import { useState } from 'react';
 
 import styles from '@/styles/manager.module.css'
 
+<<<<<<< HEAD
 const RestockTable = ({restockTable}) => {
+=======
+const RestockTable = ({inventory}) => {
+>>>>>>> Reorganized and started Reports
     const [itemName, setRestockItem] = useState("");
     const [quantityRestock, setQuantityRestock] = useState(0);
 

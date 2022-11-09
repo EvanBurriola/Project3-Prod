@@ -1,6 +1,10 @@
 
 
+<<<<<<< HEAD
 export const TableItem = ({item}) =>{
+=======
+const TableItem = ({item}) =>{
+>>>>>>> Reorganized and started Reports
     return(
         <tr>        
             <td> {item.inventoryid} </td>
@@ -14,6 +18,7 @@ export const TableItem = ({item}) =>{
     )
 }
 
+<<<<<<< HEAD
 export const EditableTableItem = ({item, handleEditClick, handleDeleteClick}) =>{
     return(
         <tr>        
@@ -38,3 +43,6 @@ export const EditableTableItem = ({item, handleEditClick, handleDeleteClick}) =>
         </tr>
     )
 }
+=======
+export default TableItem;
+>>>>>>> Reorganized and started Reports

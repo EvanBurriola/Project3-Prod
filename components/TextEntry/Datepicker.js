@@ -13,6 +13,7 @@ export default function DateSelect() {
     
     return (
         <div>
+<<<<<<< HEAD
                 <DatePicker 
                     placeholderText = "Start Date"
                     showTimeSelect
@@ -38,6 +39,29 @@ export default function DateSelect() {
                 <button className = {styles.button} type = "submit"> Sales </button>
                 <button className = {styles.button} type = "submit"> Excess </button> 
                 <button className = {styles.button} type = "submit"> Restock </button>
+=======
+            <DatePicker 
+                placeholderText = "Start Date"
+                showTimeSelect
+                dateFormat="yyyy-MM-dd hh:mm:ss"
+                selected = {startDate}
+                selectsStart
+                startDate = {startDate}
+                endDate = {endDate}
+                onChange = {(date) => setStartDate(date)}
+            />
+            <DatePicker
+                placeholderText = "End Date"
+                showTimeSelect
+                dateFormat="yyyy-MM-dd hh:mm:ss"
+                selected = {endDate}
+                selectsEnd
+                startDate={startDate}
+                endDate = {endDate}
+                minDate = {startDate}
+                onChange = {date => setEndDate(date)}
+            />
+>>>>>>> Reorganized and started Reports
         </div>
     )
 }
