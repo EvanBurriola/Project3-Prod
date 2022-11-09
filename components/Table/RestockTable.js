@@ -1,10 +1,9 @@
 import React from 'react';
-import RestockItem from './RestockItem';
-import RestockDropDown from './RestockDropDown';
+import RestockItem from '../Items/RestockItem';
+import RestockDropDown from '../Dropdown/RestockDropDown';
 import { useState } from 'react';
 
 import styles from '@/styles/manager.module.css'
-
 
 const RestockTable = ({inventory}) => {
     const [itemName, setRestockItem] = useState("");
