@@ -1,9 +1,41 @@
 import { createSlice } from '@reduxjs/toolkit'
-
-const TAX_RATE = 0.0825
+import { TAX_RATE, MAX_TOPPINGS } from '@/lib/constants/index'
 
 const formatDecimals = (value) => {
     return Number(Math.round(parseFloat(value + 'e' + 2)) + 'e-' + 2)
+}
+
+// returns true if
+const canAddToPizza = (pizza, topping) => {
+    if (topping.itemtype === "other") {
+        return true;
+    }
+
+    const max = MAX_TOPPINGS.find((type) => {
+        return pizza.pizzatype === type.pizzatype
+    }).max
+
+    const types = pizza.toppings.map((v) => v.itemtype)
+    const hasDough = types.includes('dough')
+    const hasCheese = types.includes('cheese')
+    const hasSauce = types.includes('sauce')
+    const numtoppings = types.filter((type) => type === "topping").length
+
+    // check if you can add a new item if its a basic item
+    if (topping.itemtype === 'dough') {
+        return !hasDough
+    }
+
+    if (topping.itemtype === 'cheese') {
+        return !hasCheese
+    }
+
+    if (topping.itemtype === 'sauce') {
+        return !hasSauce
+    }
+
+    // otherwise check against max toppings allowed
+    return numtoppings < max
 }
 
 // setup initial state of all orders
@@ -43,8 +75,14 @@ const orderSlice = createSlice({
             state.ordertotal = formatDecimals(total)
         },
         addPizzaTopping(state, action) {
-            const lastItem = state.orderItems.length - 1
-            state.orderItems[lastItem].toppings.push(action.payload)
+            const idx = state.orderItems.length - 1
+            const lastItem = state.orderItems[idx]
+
+            // accounts for dough being a topping, don't add
+            // to current pizza if we will exceed the maximum
+            if (canAddToPizza(lastItem, action.payload)) {
+                state.orderItems[idx].toppings.push(action.payload)
+            }
         },
         clearOrder(state) {
             state.orderItems = []
