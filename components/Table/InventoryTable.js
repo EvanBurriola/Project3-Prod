@@ -1,7 +1,12 @@
 import React from 'react';
 
 // TODO: import data from database (Connect to the database)
+<<<<<<< HEAD
 import { useState, Fragment } from 'react';
+=======
+import TableItem from '../Items/TableItem';
+import { useState } from 'react';
+>>>>>>> Reorganized and started Reports
 import InventoryDropDown from '../Dropdown/InventoryDropDown';
 import AccordionButton from 'node_modules/react-bootstrap/esm/AccordionButton';
 import EditableItem from '../Items/EditableItem';
