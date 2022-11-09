@@ -63,6 +63,7 @@ export default function Server({inventory, menu}) {
             inventoryid: dough.inventoryid,
             ingredientprice: dough.priceperounce,
             quantityused: dough.averageamountperunitsold,
+            itemtype: dough.itemtype
         }
 
         dispatch(addItem(pizza))
@@ -78,6 +79,7 @@ export default function Server({inventory, menu}) {
             inventoryid: ingredient.inventoryid,
             ingredientprice: ingredient.priceperounce,
             quantityused: ingredient.averageamountperunitsold,
+            itemtype: ingredient.itemtype
         }
         dispatch(addPizzaTopping(item))
     }
