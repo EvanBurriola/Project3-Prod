@@ -4,10 +4,8 @@ import React from 'react';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import DateSelect, { DateEnd, DateStart } from '@/components/TextEntry/Datepicker.js';
 import InventoryTable from '@/components/Table/InventoryTable.js';
-import MonthlySales from '@/components/Table/MonthlySales.js';
-import RestockTable from '@/components/Table/RestockTable.js';
+import ReportsTable from '@/components/Table/ReportsTable.js';
 import MenuTable from '@/components/Table/MenuTable.js';
 import { prisma } from '@/lib/prisma'
 
@@ -34,22 +32,6 @@ export default function manager({inventory, menu}) {
         <p> {"\n"} </p>
       </Row>
       <Row>
-        <Col> <h2 className = {styles.header}> Reports </h2> </Col>
-      </Row>
-      <form>
-        <Row>
-          <Col> <DateSelect /> </Col>
-        </Row>
-        <Row> 
-          <Col> 
-            <button type = "submit"> Sales </button>
-            <button type = "submit"> Excess </button> 
-            <button type = "submit"> Restock </button> 
-            <p> {"\n"} </p>
-          </Col>
-        </Row>
-      </form>
-      <Row>
         <h2 className = {styles.header}> Inventory At a Glance </h2>
         <InventoryTable inventory={inventory}/>
       </Row>
@@ -60,8 +42,9 @@ export default function manager({inventory, menu}) {
       </Row>
       <Row>
         <p> {"\n"} </p>
-        <h3> Restock Report </h3>
-        <RestockTable inventory={inventory}/>
+        <h3> Reports </h3>
+        
+        <ReportsTable inventory={inventory}/>
       </Row>
     </Container>
   )

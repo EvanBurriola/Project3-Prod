@@ -13,27 +13,27 @@ export default function DateSelect() {
     
     return (
         <div>
-                <DatePicker 
-                    placeholderText = "Start Date"
-                    showTimeSelect
-                    dateFormat="yyyy-MM-dd hh:mm:ss"
-                    selected = {startDate}
-                    selectsStart
-                    startDate = {startDate}
-                    endDate = {endDate}
-                    onChange = {(date) => setStartDate(date)}
-                />
-                <DatePicker
-                    placeholderText = "End Date"
-                    showTimeSelect
-                    dateFormat="yyyy-MM-dd hh:mm:ss"
-                    selected = {endDate}
-                    selectsEnd
-                    startDate={startDate}
-                    endDate = {endDate}
-                    minDate = {startDate}
-                    onChange = {date => setEndDate(date)}
-                />
+            <DatePicker 
+                placeholderText = "Start Date"
+                showTimeSelect
+                dateFormat="yyyy-MM-dd hh:mm:ss"
+                selected = {startDate}
+                selectsStart
+                startDate = {startDate}
+                endDate = {endDate}
+                onChange = {(date) => setStartDate(date)}
+            />
+            <DatePicker
+                placeholderText = "End Date"
+                showTimeSelect
+                dateFormat="yyyy-MM-dd hh:mm:ss"
+                selected = {endDate}
+                selectsEnd
+                startDate={startDate}
+                endDate = {endDate}
+                minDate = {startDate}
+                onChange = {date => setEndDate(date)}
+            />
         </div>
     )
 }
