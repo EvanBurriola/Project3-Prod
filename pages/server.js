@@ -48,7 +48,7 @@ export default function Server({inventory, menu}) {
         } else {
             setCheckoutReady(true)
         }
-    })
+    }, [order.orderItems.length, order.customername])
 
     const handleNewPizza = (type, price) => {
         const pizza = {
