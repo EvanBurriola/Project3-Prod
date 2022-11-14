@@ -5,7 +5,9 @@ const formatDecimals = (value) => {
     return Number(Math.round(parseFloat(value + 'e' + 2)) + 'e-' + 2)
 }
 
-// returns true if
+// checks the pizza type against the max number of toppings
+// allowed and implicitly doesn't allow for choosing over
+// the max number of toppings on a pizza
 const canAddToPizza = (pizza, topping) => {
     if (topping.itemtype === "other") {
         return true;
@@ -77,6 +79,9 @@ const orderSlice = createSlice({
         addPizzaTopping(state, action) {
             const idx = state.orderItems.length - 1
             const lastItem = state.orderItems[idx]
+            if (!lastItem) {
+                return
+            }
 
             // accounts for dough being a topping, don't add
             // to current pizza if we will exceed the maximum

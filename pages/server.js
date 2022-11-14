@@ -73,6 +73,10 @@ export default function Server({inventory, menu}) {
     // redux function to add toppings to a pizza
     const handleAddTopping = (ingredient) => {
         const lastItem = order.orderItems.length - 1
+        if (!order.orderItems[lastItem]) {
+            return
+        }
+        
         const item = {
             pizzatype: order.orderItems[lastItem].pizzatype,
             ingredientname: ingredient.ingredientname,
