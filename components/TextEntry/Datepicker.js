@@ -13,33 +13,6 @@ export default function DateSelect() {
     
     return (
         <div>
-<<<<<<< HEAD
-                <DatePicker 
-                    placeholderText = "Start Date"
-                    showTimeSelect
-                    dateFormat="yyyy-MM-dd hh:mm:ss"
-                    selected = {startDate}
-                    selectsStart
-                    startDate = {startDate}
-                    endDate = {endDate}
-                    onChange = {(date) => setStartDate(date)}
-                />
-                <DatePicker
-                    className={styles.next}
-                    placeholderText = "End Date"
-                    showTimeSelect
-                    dateFormat="yyyy-MM-dd hh:mm:ss"
-                    selected = {endDate}
-                    selectsEnd
-                    startDate={startDate}
-                    endDate = {endDate}
-                    minDate = {startDate}
-                    onChange = {date => setEndDate(date)}
-                />
-                <button className = {styles.button} type = "submit"> Sales </button>
-                <button className = {styles.button} type = "submit"> Excess </button> 
-                <button className = {styles.button} type = "submit"> Restock </button>
-=======
             <DatePicker 
                 placeholderText = "Start Date"
                 showTimeSelect
@@ -51,6 +24,7 @@ export default function DateSelect() {
                 onChange = {(date) => setStartDate(date)}
             />
             <DatePicker
+                className={styles.next}
                 placeholderText = "End Date"
                 showTimeSelect
                 dateFormat="yyyy-MM-dd hh:mm:ss"
@@ -61,7 +35,9 @@ export default function DateSelect() {
                 minDate = {startDate}
                 onChange = {date => setEndDate(date)}
             />
->>>>>>> Reorganized and started Reports
+            <button className = {styles.button} type = "submit"> Sales </button>
+            <button className = {styles.button} type = "submit"> Excess </button> 
+            <button className = {styles.button} type = "submit"> Restock </button>
         </div>
     )
 }

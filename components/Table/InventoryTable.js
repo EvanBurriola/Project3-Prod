@@ -7,7 +7,11 @@ import AccordionButton from 'node_modules/react-bootstrap/esm/AccordionButton';
 import EditableItem from '../Items/EditableItem';
 import { TableItem, EditableTableItem } from '../Items/TableItem';
 
+<<<<<<< HEAD
 import styles from '@/styles/manager.module.css'
+=======
+import styles from '@/styles/manager.module.css';
+>>>>>>> Manager dashboard layout completed
 
 export const InventoryTable = ({inventory}) => {
     //Add Item
@@ -209,7 +213,11 @@ export const InventoryTable = ({inventory}) => {
 export const InventoryDisplay = ({inventory}) => {
     return (
         <div className={styles.tableWrapper}>
+<<<<<<< HEAD
             <table className = {styles.tableStyle} id ="inventroyTable">
+=======
+            <table className = {styles.tableStyle} id ="excelDataTable">
+>>>>>>> Manager dashboard layout completed
                 <thead>
                     <tr>
                         <th> Inventory ID </th>
@@ -221,7 +229,11 @@ export const InventoryDisplay = ({inventory}) => {
                         <th> Item Type </th>
                     </tr>
                 </thead>
+<<<<<<< HEAD
                 <tbody>
+=======
+                <tbody style = {{"borderWidth":"1px", 'borderColor':"#aaaaaa", 'borderStyle':'solid'}}>
+>>>>>>> Manager dashboard layout completed
                     {inventory.map(item => {
                         return <TableItem key={item.inventoryid} item={item} />
                     }) 
@@ -231,6 +243,7 @@ export const InventoryDisplay = ({inventory}) => {
             </table>
         </div>
     )
+<<<<<<< HEAD
 }
 
 export const EditableInventory = ({inventory}) => {
@@ -466,4 +479,6 @@ export const EditableInventory = ({inventory}) => {
 
         </div>
     )
+=======
+>>>>>>> Manager dashboard layout completed
 }

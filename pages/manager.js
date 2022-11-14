@@ -5,12 +5,15 @@ import Image from 'next/image'
 import styles from '@/styles/Home.module.css'
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import stylesManager from '@/styles/manager.module.css'
 =======
 >>>>>>> Manager dashboard layout completed
 =======
 import stylesManager from '@/styles/manager.module.css'
 >>>>>>> design/editable table
+=======
+>>>>>>> Manager dashboard layout completed
 
 import React from 'react';
 import Container from 'react-bootstrap/Container';
@@ -19,10 +22,15 @@ import Col from 'react-bootstrap/Col';
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import DateSelect, { DateEnd, DateStart } from '../components/TextEntry/Datepicker.js';
 import InventoryTable, { InventoryDisplay } from '@/components/Table/InventoryTable.js';
 <<<<<<< HEAD
 =======
+=======
+import DateSelect, { DateEnd, DateStart } from '../components/TextEntry/Datepicker.js';
+import InventoryTable, { InventoryDisplay } from '@/components/Table/InventoryTable.js';
+>>>>>>> Manager dashboard layout completed
 import MonthlySales from '@/components/Table/MonthlySales.js';
 import RestockTable from '@/components/Table/RestockTable.js';
 >>>>>>> Manager dashboard layout completed
@@ -45,6 +53,7 @@ import { prisma } from '@/lib/prisma'
 import { useState } from 'react'
 import DatePicker from 'react-datepicker';
 
+<<<<<<< HEAD
 import "react-datepicker/dist/react-datepicker.css";
 //Tables
 import RestockTable from '@/components/Table/RestockTable';
@@ -79,6 +88,8 @@ import TogetherTables from '@/components/Table/TogetherTables';
 
 =======
 >>>>>>> Manager dashboard layout completed
+=======
+>>>>>>> Manager dashboard layout completed
 export async function getServerSideProps(){
   const inventory = await prisma.inventory.findMany({
     orderBy: {
@@ -98,6 +109,7 @@ export async function getServerSideProps(){
   }
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -317,6 +329,9 @@ export default function manager({inventory, menu}) {
   }
 
 >>>>>>> Added delete for inventory and menu
+=======
+export default function server({inventory, menu}) {
+>>>>>>> Manager dashboard layout completed
   return (
     <Container fluid className="h-100">
 <<<<<<< HEAD
@@ -328,6 +343,7 @@ export default function manager({inventory, menu}) {
         <h1> Dashboard </h1>
       </Row>
       <Row>
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -531,5 +547,28 @@ export default function manager({inventory, menu}) {
       
     </Container>
 >>>>>>> Added delete for inventory and menu
+=======
+        <Col> <h4 className = {styles.header}> Reports </h4> </Col>
+        <Col> <h4 className = {styles.header}> Inventory at a Glance </h4></Col>
+      </Row>
+      <Row> 
+        <Col>
+          <Row>
+            <form>
+              <DateSelect />
+            </form>
+          </Row>
+          <Row>
+            <h1> {"\n"}</h1>
+            <h4 className = {styles.header}> Monthly Sales </h4> 
+          </Row>
+        </Col>
+        <Col>
+          <InventoryDisplay inventory={inventory}/> 
+        </Col>
+      </Row>
+
+    </Container> 
+>>>>>>> Manager dashboard layout completed
   )
 }
