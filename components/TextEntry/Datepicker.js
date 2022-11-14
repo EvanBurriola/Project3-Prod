@@ -24,6 +24,7 @@ export default function DateSelect() {
                     onChange = {(date) => setStartDate(date)}
                 />
                 <DatePicker
+                    className={styles.next}
                     placeholderText = "End Date"
                     showTimeSelect
                     dateFormat="yyyy-MM-dd hh:mm:ss"
@@ -34,6 +35,9 @@ export default function DateSelect() {
                     minDate = {startDate}
                     onChange = {date => setEndDate(date)}
                 />
+                <button className = {styles.button} type = "submit"> Sales </button>
+                <button className = {styles.button} type = "submit"> Excess </button> 
+                <button className = {styles.button} type = "submit"> Restock </button>
         </div>
     )
 }

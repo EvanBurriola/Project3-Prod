@@ -6,7 +6,9 @@ import { useState } from 'react';
 import InventoryDropDown from './InventoryDropDown';
 import AccordionButton from 'node_modules/react-bootstrap/esm/AccordionButton';
 
-const InventoryTable = ({inventory}) => {
+import styles from '@/styles/manager.module.css';
+
+export const InventoryTable = ({inventory}) => {
     //Add Item
     const [itemName, setItemName] = useState("");
     const [quantity, setQuantity] = useState(0);
@@ -164,4 +166,29 @@ const InventoryTable = ({inventory}) => {
     )
 }
 
-export default InventoryTable;
+export const InventoryDisplay = ({inventory}) => {
+    return (
+        <div className={styles.tableWrapper}>
+            <table className = {styles.tableStyle} id ="excelDataTable">
+                <thead>
+                    <tr>
+                        <th> Inventory ID </th>
+                        <th> Item Name </th>
+                        <th> Quantity </th>
+                        <th> Price ($) </th>
+                        <th> Amount Used Per Sale </th>
+                        <th> Minimum Quantity Needed </th>
+                        <th> Item Type </th>
+                    </tr>
+                </thead>
+                <tbody style = {{"borderWidth":"1px", 'borderColor':"#aaaaaa", 'borderStyle':'solid'}}>
+                    {inventory.map(item => {
+                        return <TableItem key={item.inventoryid} item={item} />
+                    }) 
+                    }
+                    
+                </tbody>
+            </table>
+        </div>
+    )
+}
