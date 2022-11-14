@@ -1,8 +1,8 @@
 import React from 'react';
 import { useState } from 'react';
 
-import MenuItem from './MenuItem';
-import MenuDropDown from './MenuDropDown';
+import MenuItem from '../Items/MenuItem';
+import MenuDropDown from '../Dropdown/MenuDropDown';
 
 import styles from '@/styles/manager.module.css'
 

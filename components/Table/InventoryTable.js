@@ -1,9 +1,9 @@
 import React from 'react';
 
 // TODO: import data from database (Connect to the database)
-import TableItem from './TableItem';
+import TableItem from '../Items/TableItem';
 import { useState } from 'react';
-import InventoryDropDown from './InventoryDropDown';
+import InventoryDropDown from '../Dropdown/InventoryDropDown';
 import AccordionButton from 'node_modules/react-bootstrap/esm/AccordionButton';
 
 import styles from '@/styles/manager.module.css';

@@ -10,9 +10,6 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import DateSelect, { DateEnd, DateStart } from '../components/TextEntry/Datepicker.js';
 import InventoryTable, { InventoryDisplay } from '@/components/Table/InventoryTable.js';
-import MonthlySales from '@/components/Table/MonthlySales.js';
-import RestockTable from '@/components/Table/RestockTable.js';
-import MenuTable from '@/components/Table/MenuTable.js';
 import { prisma } from '@/lib/prisma'
 
 export async function getServerSideProps(){
