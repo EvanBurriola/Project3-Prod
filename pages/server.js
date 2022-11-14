@@ -48,7 +48,7 @@ export default function Server({inventory, menu}) {
         } else {
             setCheckoutReady(true)
         }
-    })
+    }, [order.orderItems.length, order.customername])
 
     const handleNewPizza = (type, price) => {
         const pizza = {
@@ -63,6 +63,7 @@ export default function Server({inventory, menu}) {
             inventoryid: dough.inventoryid,
             ingredientprice: dough.priceperounce,
             quantityused: dough.averageamountperunitsold,
+            itemtype: dough.itemtype
         }
 
         dispatch(addItem(pizza))
@@ -72,12 +73,17 @@ export default function Server({inventory, menu}) {
     // redux function to add toppings to a pizza
     const handleAddTopping = (ingredient) => {
         const lastItem = order.orderItems.length - 1
+        if (!order.orderItems[lastItem]) {
+            return
+        }
+        
         const item = {
             pizzatype: order.orderItems[lastItem].pizzatype,
             ingredientname: ingredient.ingredientname,
             inventoryid: ingredient.inventoryid,
             ingredientprice: ingredient.priceperounce,
             quantityused: ingredient.averageamountperunitsold,
+            itemtype: ingredient.itemtype
         }
         dispatch(addPizzaTopping(item))
     }

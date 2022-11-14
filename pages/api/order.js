@@ -45,6 +45,9 @@ export default async function handler(req, res) {
             const id = createOrder.pizzaorders[i].pizzaid
             toppings[i].forEach(async (top) => {
                 top.pizzaid = id
+                // itemtype prop not in pizza table and causes
+                // errors when pushing to table
+                delete top.itemtype
                 // update each topping quantity in inventory
                 await client.inventory.update({
                     where: {
