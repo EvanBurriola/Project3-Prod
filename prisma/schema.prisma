@@ -1,5 +1,5 @@
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
   previewFeatures = ["interactiveTransactions"]
 }
 
@@ -64,4 +64,11 @@ model pizzas {
   pizzaid         Int?
   inventory       inventory?   @relation(fields: [inventoryid], references: [inventoryid], onDelete: NoAction, onUpdate: NoAction)
   pizzaorders     pizzaorders? @relation(fields: [pizzaid], references: [pizzaid], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model teammembers {
+  student_name     String    @id
+  section          Int?
+  favorite_movie   String?
+  favorite_holiday DateTime? @db.Date
 }
