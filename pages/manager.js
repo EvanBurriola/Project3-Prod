@@ -3,7 +3,10 @@ import * as Navbar from '@/components/Navbar/Navbar.js';
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '@/styles/Home.module.css'
+<<<<<<< HEAD
 import stylesManager from '@/styles/manager.module.css'
+=======
+>>>>>>> Manager dashboard layout completed
 
 import React from 'react';
 import Container from 'react-bootstrap/Container';
@@ -11,11 +14,17 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import DateSelect, { DateEnd, DateStart } from '../components/TextEntry/Datepicker.js';
 import InventoryTable, { InventoryDisplay } from '@/components/Table/InventoryTable.js';
+<<<<<<< HEAD
+=======
+import MonthlySales from '@/components/Table/MonthlySales.js';
+import RestockTable from '@/components/Table/RestockTable.js';
+>>>>>>> Manager dashboard layout completed
 import MenuTable from '@/components/Table/MenuTable.js';
 import { prisma } from '@/lib/prisma'
 import { useState, useEffect } from 'react'
 import DatePicker from 'react-datepicker';
 
+<<<<<<< HEAD
 import "react-datepicker/dist/react-datepicker.css";
 //Tables
 import RestockTable from '@/components/Table/RestockTable';
@@ -26,6 +35,8 @@ import TogetherTables from '@/components/Table/TogetherTables';
 import { useSession } from "next-auth/react"
 import { useRouter } from 'next/router'
 
+=======
+>>>>>>> Manager dashboard layout completed
 export async function getServerSideProps(){
   const inventory = await prisma.inventory.findMany({
     orderBy: {
@@ -45,6 +56,7 @@ export async function getServerSideProps(){
   }
 }
 
+<<<<<<< HEAD
 export default function Manager({inventory}) {
   const { data: session } = useSession()
   const router = useRouter()
@@ -158,6 +170,9 @@ export default function Manager({inventory}) {
   }, [reportType])
 
 
+=======
+export default function server({inventory, menu}) {
+>>>>>>> Manager dashboard layout completed
   return (
     <Container fluid className="h-100">
       <Navbar.NavbarManager user={session.user} />
@@ -165,12 +180,18 @@ export default function Manager({inventory}) {
         <h1> Dashboard </h1>
       </Row>
       <Row>
+<<<<<<< HEAD
         <Col md="5"> <h4 className = {styles.header}> Reports </h4> </Col>
         <Col md="7"> <h4 className = {styles.header}> Inventory at a Glance </h4></Col>
+=======
+        <Col> <h4 className = {styles.header}> Reports </h4> </Col>
+        <Col> <h4 className = {styles.header}> Inventory at a Glance </h4></Col>
+>>>>>>> Manager dashboard layout completed
       </Row>
       <Row> 
         <Col>
           <Row>
+<<<<<<< HEAD
             <Row>
             <p> {"\n"} </p>
         <Row>
@@ -240,5 +261,22 @@ export default function Manager({inventory}) {
         <MenuTable menu={menu}/>
       </Row> */}
     </Container>
+=======
+            <form>
+              <DateSelect />
+            </form>
+          </Row>
+          <Row>
+            <h1> {"\n"}</h1>
+            <h4 className = {styles.header}> Monthly Sales </h4> 
+          </Row>
+        </Col>
+        <Col>
+          <InventoryDisplay inventory={inventory}/> 
+        </Col>
+      </Row>
+
+    </Container> 
+>>>>>>> Manager dashboard layout completed
   )
 }

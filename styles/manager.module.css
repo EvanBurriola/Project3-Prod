@@ -92,6 +92,17 @@
     display: inline-block;
 }
 
+<<<<<<< HEAD
+=======
+.tableStyle1 tbody tr:last-of-type {
+    border-bottom: 2px solid #009879;
+}
+
+.next {
+    display: inline-block;
+}
+
+>>>>>>> Manager dashboard layout completed
 .scrollable {
     max-height: 500em;
 }
