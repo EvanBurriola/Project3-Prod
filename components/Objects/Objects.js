@@ -1,7 +1,6 @@
 import Button from 'react-bootstrap/Button';
 import styles from '@/styles/server.module.css'
 
-
 export const MenuItem = ({butId, name, ...props}) => {
     return (
         <>
@@ -29,14 +28,25 @@ export const Selected = ({...props}) => {
     )
 }
 
-export const OrderDisplay = ({item}) => {
+export const OrderDisplay = ({item, editHandle, deleteHandle}) => {
     return (
-        <div>
-            <p className="fs-3 mb-0">{item.pizzatype}:</p>
+        <>
+            <div className="d-flex justify-content-between">
+                <p className="fs-3 mb-0">{item.pizzatype}:</p>
+                <div>
+                    <Button variant="link" onClick={editHandle} className="px-1 mx-2">
+                        <i className="fa-regular fa-pen-to-square"></i>
+                    </Button>
+                    <Button variant="link" onClick={deleteHandle} className="px-1 mx-2">
+                        <i className="fa-solid fa-trash-can"></i>
+                    </Button>
+                </div>
+            </div>
             {item.toppings.map(top => {
                 return <Selected key={top.inventoryid} ingredient={top} />
             })
             }
-        </div>
+            
+        </>
     )
 }
