@@ -8,6 +8,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
+import Spinner from 'react-bootstrap/Spinner'
 
 import { prisma } from '@/lib/prisma'
 import { useSelector, useDispatch } from 'react-redux'
@@ -39,6 +40,8 @@ export default function Server({inventory, menu}) {
     const dispatch = useDispatch()
 
     const dough = inventory.find(item => item.ingredientname === 'Dough')
+
+    const [isSubmitting, setIsSubmitting] = useState(false)
 
     // activate or deactive checkout button based on order
     const [checkoutReady, setCheckoutReady] = useState(false)
@@ -92,6 +95,7 @@ export default function Server({inventory, menu}) {
     const submitOrder = async (event) => {
         event.preventDefault()
         try {
+            setIsSubmitting(true)
             const body = { order }
             await fetch('/api/order', {
                 method: "POST",
@@ -99,6 +103,7 @@ export default function Server({inventory, menu}) {
             })
 
             dispatch(clearOrder())
+            setIsSubmitting(false)
         } catch (error) {
             console.log(error);
         }
@@ -171,7 +176,18 @@ export default function Server({inventory, menu}) {
                         <Col>
                             <Object.OrderCost order={order} />
                             <Form onSubmit={submitOrder}>
-                                <Button type="submit" disabled={!checkoutReady}>Checkout</Button>
+                                <Button type="submit" disabled={!checkoutReady}>
+                                    {isSubmitting && <Spinner 
+                                        as="span"
+                                        size="sm"
+                                        role="status"
+                                        aria-hidden="true"
+                                        animation="border"
+                                        className="me-1"
+                                        /> 
+                                    }
+                                    Checkout
+                                </Button>
                             </Form>
                         </Col>
                     </Row>
