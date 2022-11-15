@@ -50,6 +50,7 @@ const initialState = {
     subtotal: 0,
     salestax: 0,
     ordertotal: 0,
+    activeOrder: 0,
 }
 
 const orderSlice = createSlice({
@@ -67,6 +68,7 @@ const orderSlice = createSlice({
         addItem(state, action) {
             const { price } = action.payload
             state.orderItems.push(action.payload)
+            state.activeOrder = state.orderItems.length - 1
             // update price based on current pizza
             let sub = state.subtotal + price
             let tax = state.salestax + (TAX_RATE * price)
@@ -77,15 +79,15 @@ const orderSlice = createSlice({
             state.ordertotal = formatDecimals(total)
         },
         addPizzaTopping(state, action) {
-            const idx = state.orderItems.length - 1
-            const lastItem = state.orderItems[idx]
-            if (!lastItem) {
+            const idx = state.activeOrder
+            const currItem = state.orderItems[idx]
+            if (!currItem) {
                 return
             }
 
             // accounts for dough being a topping, don't add
             // to current pizza if we will exceed the maximum
-            if (canAddToPizza(lastItem, action.payload)) {
+            if (canAddToPizza(currItem, action.payload)) {
                 state.orderItems[idx].toppings.push(action.payload)
             }
         },
@@ -95,7 +97,14 @@ const orderSlice = createSlice({
             state.subtotal = 0
             state.salestax = 0
             state.ordertotal = 0
-        }
+            state.activeOrder = 0
+        },
+        setActive(state, action) {
+            // sets the active item to the payload or last index if payload
+            // is too large
+            state.activeOrder = (action.payload < state.orderItems.length) ?
+                action.payload : state.orderItems.length - 1
+        },
     },
 })
 
@@ -104,7 +113,8 @@ export const {
     setEmployee,
     addItem, 
     addPizzaTopping,
-    clearOrder 
+    clearOrder,
+    setActive,
 } = orderSlice.actions
 
 export default orderSlice.reducer
