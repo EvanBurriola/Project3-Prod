@@ -12,7 +12,7 @@ import Spinner from 'react-bootstrap/Spinner'
 
 import { prisma } from '@/lib/prisma'
 import { useSelector, useDispatch } from 'react-redux'
-import { addItem, addPizzaTopping, clearOrder, setActive } from '@/store/slices/order' 
+import { addItem, removeItem, addPizzaTopping, clearOrder, setActive } from '@/store/slices/order' 
 import { PizzaModel, ToppingModel } from '@/lib/models'
 
 // pull inventory from db
@@ -97,6 +97,16 @@ export default function Server({inventory, menu}) {
         dispatch(setActive(index))
     }
 
+    // removes an item from the current order
+    const handleRemoveItem = (index, item) => {
+        const { price } = item
+        const payload = {
+            index,
+            price
+        }
+        dispatch(removeItem(payload))
+    }
+
     // submits the order by pushing to database
     const submitOrder = async (event) => {
         event.preventDefault()
@@ -177,6 +187,7 @@ export default function Server({inventory, menu}) {
                                     key={order.orderItems.indexOf(item)} 
                                     item={item}
                                     editHandle={() => handleEdit(order.orderItems.indexOf(item))}
+                                    deleteHandle={() => handleRemoveItem(order.orderItems.indexOf(item), item)}
                                     />
                             })
                             }

@@ -78,6 +78,19 @@ const orderSlice = createSlice({
             state.salestax = formatDecimals(tax)
             state.ordertotal = formatDecimals(total)
         },
+        removeItem(state, action) {
+            // removes item from order and subtracts cost from
+            // subtotal, tax, and total
+            const { index, price} = action.payload
+            state.orderItems.splice(index, 1)
+
+            let sub = state.subtotal - price
+            let tax = state.salestax - (TAX_RATE * price)
+            let total = state.ordertotal - ((1 + TAX_RATE) * price)
+            state.subtotal = formatDecimals(sub)
+            state.salestax = formatDecimals(tax)
+            state.ordertotal = formatDecimals(total)
+        },
         addPizzaTopping(state, action) {
             const idx = state.activeOrder
             const currItem = state.orderItems[idx]
@@ -111,7 +124,8 @@ const orderSlice = createSlice({
 export const { 
     setCustomer, 
     setEmployee,
-    addItem, 
+    addItem,
+    removeItem, 
     addPizzaTopping,
     clearOrder,
     setActive,
