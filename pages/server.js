@@ -12,7 +12,7 @@ import Spinner from 'react-bootstrap/Spinner'
 
 import { prisma } from '@/lib/prisma'
 import { useSelector, useDispatch } from 'react-redux'
-import { addItem, removeItem, addPizzaTopping, clearOrder, setActive } from '@/store/slices/order' 
+import { addItem, removeItem, addPizzaTopping, clearOrder } from '@/store/slices/order' 
 import { PizzaModel, ToppingModel } from '@/lib/models'
 
 // pull inventory from db
@@ -89,12 +89,6 @@ export default function Server({inventory, menu}) {
             itemtype: ingredient.itemtype
         }
         dispatch(addPizzaTopping(item))
-    }
-
-    // sets the active item and allows for editing an item in
-    // the order
-    const handleEdit = (index) => {
-        dispatch(setActive(index))
     }
 
     // removes an item from the current order
@@ -186,7 +180,7 @@ export default function Server({inventory, menu}) {
                                 return <Object.OrderDisplay 
                                     key={order.orderItems.indexOf(item)} 
                                     item={item}
-                                    editHandle={() => handleEdit(order.orderItems.indexOf(item))}
+                                    index={order.orderItems.indexOf(item)}
                                     deleteHandle={() => handleRemoveItem(order.orderItems.indexOf(item), item)}
                                     />
                             })

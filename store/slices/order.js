@@ -104,6 +104,12 @@ const orderSlice = createSlice({
                 state.orderItems[idx].toppings.push(action.payload)
             }
         },
+        removePizzaTopping(state, action) {
+            const idx = state.activeOrder
+            const top = state.orderItems[idx].toppings.findIndex(t => t.inventoryid == action.payload.inventoryid)
+            if (top < 0) return
+            state.orderItems[idx].toppings.splice(top, 1)
+        },
         clearOrder(state) {
             state.orderItems = []
             state.customername = ""
@@ -127,6 +133,7 @@ export const {
     addItem,
     removeItem, 
     addPizzaTopping,
+    removePizzaTopping,
     clearOrder,
     setActive,
 } = orderSlice.actions
