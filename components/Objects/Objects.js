@@ -7,7 +7,7 @@ import { setActive, removePizzaTopping } from '@/store/slices/order'
 export const MenuItem = ({butId, name, ...props}) => {
     return (
         <>
-            <Button className={styles.button} onClick={props.onClick} id={butId} variant="primary" >{name}</Button>
+            <Button className={`mx-0 ${styles.button}`} onClick={props.onClick} id={butId} variant="primary" >{name}</Button>
         </>
     )
 }
@@ -17,8 +17,8 @@ export const OrderCost = ({...props}) => {
     
     return (
         <div>
-            <p className="fs-5">Subtotal: ${subtotal}</p>
-            <p className="fs-5">Tax: ${salestax}</p>
+            <p className="fs-5 mb-0">Subtotal: ${subtotal}</p>
+            <p className="fs-5 mb-0">Tax: ${salestax}</p>
             <p className="fs-3">Total: ${ordertotal}</p>
         </div>
     )
@@ -35,7 +35,12 @@ export const RemoveTopping = ({handler, ...props}) => {
     const { ingredient } = props
     return (
         <p className="fs-5 ps-4 mb-0">- {ingredient.ingredientname} 
-            <Button variant="link" size="sm" onClick={handler}>
+            <Button 
+                variant="link" 
+                size="sm" 
+                onClick={handler} 
+                className="py-0"
+                >
                 <i className="fa-solid fa-xmark"></i>
             </Button>
         </p>
@@ -50,7 +55,9 @@ export const OrderDisplay = ({item, index, deleteHandle}) => {
     // the order
     const handleEdit = (idx) => {
         setIsEditing(!isEditing)
-        dispatch(setActive(idx))
+        if (isEditing) {
+            dispatch(setActive(idx))
+        }
     }
 
     const handleRemoveTopping = (item) => {
