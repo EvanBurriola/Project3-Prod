@@ -36,8 +36,11 @@ const canAddToPizza = (pizza, topping) => {
         return !hasSauce
     }
 
-    // otherwise check against max toppings allowed
-    return numtoppings < max
+    let index = pizza.toppings.findIndex(t => t.inventoryid === topping.inventoryid)
+
+    // otherwise check against max toppings allowed and
+    // make sure the topping hasn't already been added
+    return numtoppings < max && index < 0
 }
 
 // setup initial state of all orders
