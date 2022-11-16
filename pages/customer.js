@@ -44,43 +44,6 @@ export default function Customer({inventory, menu}) {
         }
     }, [order.orderItems.length, order.customername])
 
-    const handleNewPizza = (type, price) => {
-        const pizza = {
-            ...PizzaModel,
-            pizzatype: type,
-            price
-        }
-
-        const doughItem = {
-            pizzatype: type,
-            ingredientname: dough.ingredientname,
-            inventoryid: dough.inventoryid,
-            ingredientprice: dough.priceperounce,
-            quantityused: dough.averageamountperunitsold,
-            itemtype: dough.itemtype
-        }
-
-        dispatch(addItem(pizza))
-        dispatch(addPizzaTopping(doughItem))
-    }
-
-    // redux function to add toppings to a pizza
-    const handleAddTopping = (ingredient) => {
-        const lastItem = order.orderItems.length - 1
-        if (!order.orderItems[lastItem]) {
-            return
-        }
-        
-        const item = {
-            pizzatype: order.orderItems[lastItem].pizzatype,
-            ingredientname: ingredient.ingredientname,
-            inventoryid: ingredient.inventoryid,
-            ingredientprice: ingredient.priceperounce,
-            quantityused: ingredient.averageamountperunitsold,
-            itemtype: ingredient.itemtype
-        }
-        dispatch(addPizzaTopping(item))
-    }
 
     // submits the order by pushing to database
     const submitOrder = async (event) => {
@@ -117,9 +80,48 @@ export default function Customer({inventory, menu}) {
         setCustView([true,false,false,false]);
     }
 
+    const handleNewPizza = (type, price, pageIndex) => {
+        const pizza = {
+            ...PizzaModel,
+            pizzatype: type,
+            price
+        }
+
+        const doughItem = {
+            pizzatype: type,
+            ingredientname: dough.ingredientname,
+            inventoryid: dough.inventoryid,
+            ingredientprice: dough.priceperounce,
+            quantityused: dough.averageamountperunitsold,
+            itemtype: dough.itemtype
+        }
+
+        dispatch(addItem(pizza))
+        dispatch(addPizzaTopping(doughItem))
+        next_page(pageIndex)
+    }
+
+    // redux function to add toppings to a pizza
+    const handleAddTopping = (ingredient) => {
+        const lastItem = order.orderItems.length - 1
+        if (!order.orderItems[lastItem]) {
+            return
+        }
+        
+        const item = {
+            pizzatype: order.orderItems[lastItem].pizzatype,
+            ingredientname: ingredient.ingredientname,
+            inventoryid: ingredient.inventoryid,
+            ingredientprice: ingredient.priceperounce,
+            quantityused: ingredient.averageamountperunitsold,
+            itemtype: ingredient.itemtype
+        }
+        dispatch(addPizzaTopping(item))
+    }
+
     return(
         <>
-            {custViews[0] ? <View.cust_start_order inventory={inventory} menu={menu} order={order} pages={custViews} checkoutReady={checkoutReady} handleNewPizza={handleNewPizza} submitOrder={submitOrder} next_click={next_page}/> : <></>}
+            {custViews[0] ? <View.cust_start_order inventory={inventory} menu={menu} order={order} pages={custViews} checkoutReady={checkoutReady} handleNewPizza={handleNewPizza} /> : <></>}
             {custViews[1] ? <View.cust_cheese_sauce inventory={inventory} menu={menu} order={order} pages={custViews} checkoutReady={checkoutReady} handleAddTopping={handleAddTopping} submitOrder={submitOrder} next_click={next_page} back_click={back_page}/> : <></>}
             {custViews[2] ? <View.cust_toppings inventory={inventory} menu={menu} order={order} pages={custViews} checkoutReady={checkoutReady} handleAddTopping={handleAddTopping} submitOrder={submitOrder} next_click={next_page} back_click={back_page}/> : <></>}
             {custViews[3] ? <View.cust_drink inventory={inventory} menu={menu} order={order} pages={custViews} checkoutReady={checkoutReady} handleAddTopping={handleAddTopping} add_more={add_more} submitOrder={submitOrder} back_click={back_page} /> : <></>}

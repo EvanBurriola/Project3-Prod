@@ -11,6 +11,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
 export default function Cust_start_order({inventory, menu, ...props}) {
+    const PAGE_INDEX = 0
 
     return (
         <>
@@ -27,13 +28,13 @@ export default function Cust_start_order({inventory, menu, ...props}) {
                     <Col className="d-flex justify-content-center">
                         <GridSystem colCount={3} md={12} >
                             {menu.length > 0 ? menu.map(item => {
-                                return <Object.MenuItem key={item.typeid} onClick={() => props.handleNewPizza(item.pizzatype, item.itemprice)} butId={item.typeid} name={item.pizzatype} />
+                                return <Object.MenuItem key={item.typeid} onClick={() => props.handleNewPizza(item.pizzatype, item.itemprice, PAGE_INDEX)} butId={item.typeid} name={item.pizzatype} />
                             }) : <p>No tracks are found.</p>
                             }
                         </GridSystem>
                     </Col>
                 </Row>
-                <Button style={{position: "absolute", width: "15%", top: "80%", left: "42.5%"}} onClick={() => props.next_click(0)} variant="primary" >Next Page</Button>
+                {/* <Button style={{position: "absolute", width: "15%", top: "80%", left: "42.5%"}} onClick={() => props.next_click(0)} variant="primary" >Next Page</Button> */}
             </Container>
         </>
     );
