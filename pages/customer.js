@@ -1,4 +1,4 @@
-import * as View from './CustomerViews/index.js'
+import * as View from '../components/CustomerViews/index.js'
 
 import React, { useState, useEffect } from 'react';
 
