@@ -56,7 +56,10 @@ export default function Cust_cheese_sauce({inventory, menu, ...props}) {
                             <h1>Current Order</h1>
                             <Col>
                                 {props.order.orderItems.map(item => {
-                                    return <Object.OrderDisplay key={props.order.orderItems.indexOf(item)} item={item} />
+                                    return <Object.OrderDisplay 
+                                        key={props.order.orderItems.indexOf(item)} 
+                                        item={item}
+                                        index={props.order.orderItems.indexOf(item)} />
                                 })
                                 }
                             </Col>

@@ -1,8 +1,8 @@
 import Button from 'react-bootstrap/Button';
 import styles from '@/styles/server.module.css'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { setActive, removePizzaTopping } from '@/store/slices/order'
+import { setActive, removeItem, removePizzaTopping } from '@/store/slices/order'
 
 export const MenuItem = ({butId, name, ...props}) => {
     return (
@@ -47,17 +47,24 @@ export const RemoveTopping = ({handler, ...props}) => {
     )
 }
 
-export const OrderDisplay = ({item, index, deleteHandle}) => {
+export const OrderDisplay = ({item, index}) => {
     const [isEditing, setIsEditing] = useState(false)
     const dispatch = useDispatch()
 
-    // sets the active item and allows for editing an item in
-    // the order
-    const handleEdit = (idx) => {
-        setIsEditing(!isEditing)
+    useEffect(() => {
         if (isEditing) {
-            dispatch(setActive(idx))
+            dispatch(setActive(index))
         }
+    }, [isEditing])
+
+    // removes an item from the current order
+    const handleRemoveItem = (index, item) => {
+        const { price } = item
+        const payload = {
+            index,
+            price
+        }
+        dispatch(removeItem(payload))
     }
 
     const handleRemoveTopping = (item) => {
@@ -69,10 +76,10 @@ export const OrderDisplay = ({item, index, deleteHandle}) => {
             <div className="d-flex justify-content-between">
                 <p className="fs-3 mb-0">{item.pizzatype}:</p>
                 <div>
-                    <Button variant="link" onClick={() => handleEdit(index)} className="px-1 mx-2">
+                    <Button variant="link" onClick={() => setIsEditing(!isEditing)} className="px-1 mx-2">
                         <i className="fa-regular fa-pen-to-square"></i>
                     </Button>
-                    <Button variant="link" onClick={deleteHandle} className="px-1 mx-2">
+                    <Button variant="link" onClick={() => handleRemoveItem(index, item)} className="px-1 mx-2">
                         <i className="fa-solid fa-trash-can"></i>
                     </Button>
                 </div>

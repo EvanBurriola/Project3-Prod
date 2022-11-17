@@ -91,16 +91,6 @@ export default function Server({inventory, menu}) {
         dispatch(addPizzaTopping(item))
     }
 
-    // removes an item from the current order
-    const handleRemoveItem = (index, item) => {
-        const { price } = item
-        const payload = {
-            index,
-            price
-        }
-        dispatch(removeItem(payload))
-    }
-
     // submits the order by pushing to database
     const submitOrder = async (event) => {
         event.preventDefault()
@@ -181,7 +171,6 @@ export default function Server({inventory, menu}) {
                                     key={order.orderItems.indexOf(item)} 
                                     item={item}
                                     index={order.orderItems.indexOf(item)}
-                                    deleteHandle={() => handleRemoveItem(order.orderItems.indexOf(item), item)}
                                     />
                             })
                             }
