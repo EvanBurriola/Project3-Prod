@@ -1,13 +1,13 @@
 import styles from '@/styles/customer.module.css'
 
 import GridSystem from '@/components/GridSystem/GridSystem.js';
-import * as Object from '@/components/Objects/Objects.js';
+import { MenuItem } from '@/components/Objects/Objects.js';
 
 import React from 'react';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
-export default function Cust_start_order({menu, ...props}) {
+export default function StartOrder({menu, ...props}) {
     const PAGE_INDEX = 0
 
     return (
@@ -21,7 +21,7 @@ export default function Cust_start_order({menu, ...props}) {
                 <Col className="d-flex justify-content-center">
                     <GridSystem colCount={3} md={12} >
                         {menu.length > 0 ? menu.map(item => {
-                            return <Object.MenuItem key={item.typeid} onClick={() => props.handleNewPizza(item.pizzatype, item.itemprice, PAGE_INDEX)} butId={item.typeid} name={item.pizzatype} />
+                            return <MenuItem key={item.typeid} onClick={() => props.handleNewPizza(item.pizzatype, item.itemprice, PAGE_INDEX)} butId={item.typeid} name={item.pizzatype} />
                         }) : <p>No tracks are found.</p>
                         }
                     </GridSystem>

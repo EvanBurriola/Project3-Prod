@@ -1,7 +1,7 @@
 import styles from '@/styles/customer.module.css'
 
 import GridSystem from '@/components/GridSystem/GridSystem.js';
-import * as Object from '@/components/Objects/Objects.js';
+import { MenuItem } from '@/components/Objects/Objects.js';
 
 
 import React from 'react';
@@ -9,7 +9,7 @@ import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
-export default function Cust_cheese_sauce({inventory, menu, ...props}) {
+export default function CheeseSauce({inventory, menu, ...props}) {
 
     return (
         <Col xs={8} md={8}>
@@ -18,7 +18,7 @@ export default function Cust_cheese_sauce({inventory, menu, ...props}) {
             <GridSystem colCount={3} md={4} >
                 {inventory.length > 0 ? inventory.map(item => {
                     if (item.itemtype == "sauce") {
-                        return <Object.MenuItem key={item.inventoryid} onClick={() => props.handleAddTopping(item)} butId={item.inventoryid} name={item.ingredientname} />
+                        return <MenuItem key={item.inventoryid} onClick={() => props.handleAddTopping(item)} butId={item.inventoryid} name={item.ingredientname} />
                     }
                 }) : <p>No tracks are found.</p>
                 }
@@ -27,7 +27,7 @@ export default function Cust_cheese_sauce({inventory, menu, ...props}) {
             <GridSystem colCount={3} md={4} >
                 {inventory.length > 0 ? inventory.map(item => {
                     if (item.itemtype == "cheese") {
-                        return <Object.MenuItem key={item.inventoryid} onClick={() => props.handleAddTopping(item)} butId={item.inventoryid} name={item.ingredientname} />
+                        return <MenuItem key={item.inventoryid} onClick={() => props.handleAddTopping(item)} butId={item.inventoryid} name={item.ingredientname} />
                     }
                 }) : <p>No tracks are found.</p>
                 }   

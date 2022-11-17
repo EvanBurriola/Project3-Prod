@@ -1,6 +1,6 @@
-import * as View from '../components/CustomerViews/index.js'
-import * as Navbar from "@/components/Navbar/Navbar.js";
-import * as Object from '@/components/Objects/Objects.js';
+import { StartOrder, CheeseSauce, Toppings, DrinkSeasonal } from '@/components/CustomerViews/'
+import { NavbarCustomer } from "@/components/Navbar/Navbar.js";
+import { OrderCost, OrderDisplay } from '@/components/Objects/Objects.js';
 
 import React, { useState, useEffect } from 'react';
 import Container from 'react-bootstrap/Container';
@@ -13,7 +13,6 @@ import { prisma } from '@/lib/prisma'
 import { useSelector, useDispatch } from 'react-redux'
 import { addItem, addPizzaTopping, clearOrder } from '@/store/slices/order' 
 import { PizzaModel, ToppingModel } from '@/lib/models'
-import { render } from 'react-dom';
 
 export async function getServerSideProps() {
     const inventory = await prisma.inventory.findMany({
@@ -130,11 +129,11 @@ export default function Customer({inventory, menu}) {
     // returns a specific page view based on the current page
     const renderView = () => {
         if (custViews[1])
-            return <View.cust_cheese_sauce inventory={inventory} handleAddTopping={handleAddTopping} next_click={next_page} back_click={back_page}/>
+            return <CheeseSauce inventory={inventory} handleAddTopping={handleAddTopping} next_click={next_page} back_click={back_page}/>
         if (custViews[2]) 
-            return <View.cust_toppings inventory={inventory} handleAddTopping={handleAddTopping} next_click={next_page} back_click={back_page}/>
+            return <Toppings inventory={inventory} handleAddTopping={handleAddTopping} next_click={next_page} back_click={back_page}/>
         if (custViews[3])
-            return <View.cust_drink inventory={inventory} handleAddTopping={handleAddTopping} add_more={add_more} back_click={back_page} />
+            return <DrinkSeasonal inventory={inventory} handleAddTopping={handleAddTopping} add_more={add_more} back_click={back_page} />
     }
 
     // merges a page view with the rest of the page
@@ -142,7 +141,7 @@ export default function Customer({inventory, menu}) {
     // selection)
     const buildPage = () => {
         if (custViews[0]) {
-            return <View.cust_start_order menu={menu} handleNewPizza={handleNewPizza} /> 
+            return <StartOrder menu={menu} handleNewPizza={handleNewPizza} /> 
         } else {
             let view = renderView()
 
@@ -154,7 +153,7 @@ export default function Customer({inventory, menu}) {
                             <h1>Current Order</h1>
                             <Col>
                                 {order.orderItems.map(item => {
-                                    return <Object.OrderDisplay 
+                                    return <OrderDisplay 
                                         key={order.orderItems.indexOf(item)} 
                                         item={item}
                                         index={order.orderItems.indexOf(item)} />
@@ -164,7 +163,7 @@ export default function Customer({inventory, menu}) {
                         </Row>
                         <Row className="w-100">
                             <Col>
-                                <Object.OrderCost order={order} />
+                                <OrderCost order={order} />
                                 <Form onSubmit={submitOrder}>
                                     <Button type="submit" disabled={!checkoutReady}>Checkout</Button>
                                 </Form>
@@ -180,7 +179,7 @@ export default function Customer({inventory, menu}) {
         <Container fluid>
             <Row>
                 <Col xs={12} md={12}>
-                    <Navbar.NavbarCustomer sticky="top"/>
+                    <NavbarCustomer sticky="top"/>
                 </Col>
             </Row>
             {
