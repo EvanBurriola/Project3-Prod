@@ -1,11 +1,19 @@
 import * as View from '../components/CustomerViews/index.js'
+import * as Navbar from "@/components/Navbar/Navbar.js";
+import * as Object from '@/components/Objects/Objects.js';
 
 import React, { useState, useEffect } from 'react';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Form from 'react-bootstrap/Form';
+import Col from 'react-bootstrap/Col';
+import Button from 'react-bootstrap/Button'
 
 import { prisma } from '@/lib/prisma'
 import { useSelector, useDispatch } from 'react-redux'
 import { addItem, addPizzaTopping, clearOrder } from '@/store/slices/order' 
 import { PizzaModel, ToppingModel } from '@/lib/models'
+import { render } from 'react-dom';
 
 export async function getServerSideProps() {
     const inventory = await prisma.inventory.findMany({
@@ -119,12 +127,65 @@ export default function Customer({inventory, menu}) {
         dispatch(addPizzaTopping(item))
     }
 
+    // returns a specific page view based on the current page
+    const renderView = () => {
+        if (custViews[1])
+            return <View.cust_cheese_sauce inventory={inventory} handleAddTopping={handleAddTopping} next_click={next_page} back_click={back_page}/>
+        if (custViews[2]) 
+            return <View.cust_toppings inventory={inventory} handleAddTopping={handleAddTopping} next_click={next_page} back_click={back_page}/>
+        if (custViews[3])
+            return <View.cust_drink inventory={inventory} handleAddTopping={handleAddTopping} add_more={add_more} back_click={back_page} />
+    }
+
+    // merges a page view with the rest of the page
+    // (basically merges the order info with the button
+    // selection)
+    const buildPage = () => {
+        if (custViews[0]) {
+            return <View.cust_start_order menu={menu} handleNewPizza={handleNewPizza} /> 
+        } else {
+            let view = renderView()
+
+            return (
+                <Row>
+                    {view}
+                    <Col md={4} className="d-flex flex-column align-items-end">
+                        <Row className="w-100 mb-auto">
+                            <h1>Current Order</h1>
+                            <Col>
+                                {order.orderItems.map(item => {
+                                    return <Object.OrderDisplay 
+                                        key={order.orderItems.indexOf(item)} 
+                                        item={item}
+                                        index={order.orderItems.indexOf(item)} />
+                                })
+                                }
+                            </Col>
+                        </Row>
+                        <Row className="w-100">
+                            <Col>
+                                <Object.OrderCost order={order} />
+                                <Form onSubmit={submitOrder}>
+                                    <Button type="submit" disabled={!checkoutReady}>Checkout</Button>
+                                </Form>
+                            </Col>
+                        </Row>
+                    </Col>
+                </Row>
+            )
+        }
+    }
+
     return(
-        <>
-            {custViews[0] ? <View.cust_start_order inventory={inventory} menu={menu} order={order} pages={custViews} checkoutReady={checkoutReady} handleNewPizza={handleNewPizza} /> : <></>}
-            {custViews[1] ? <View.cust_cheese_sauce inventory={inventory} menu={menu} order={order} pages={custViews} checkoutReady={checkoutReady} handleAddTopping={handleAddTopping} submitOrder={submitOrder} next_click={next_page} back_click={back_page}/> : <></>}
-            {custViews[2] ? <View.cust_toppings inventory={inventory} menu={menu} order={order} pages={custViews} checkoutReady={checkoutReady} handleAddTopping={handleAddTopping} submitOrder={submitOrder} next_click={next_page} back_click={back_page}/> : <></>}
-            {custViews[3] ? <View.cust_drink inventory={inventory} menu={menu} order={order} pages={custViews} checkoutReady={checkoutReady} handleAddTopping={handleAddTopping} add_more={add_more} submitOrder={submitOrder} back_click={back_page} /> : <></>}
-        </>
+        <Container fluid>
+            <Row>
+                <Col xs={12} md={12}>
+                    <Navbar.NavbarCustomer sticky="top"/>
+                </Col>
+            </Row>
+            {
+                buildPage()
+            }
+        </Container>
     );
 }
