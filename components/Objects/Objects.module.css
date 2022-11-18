@@ -1,7 +1,7 @@
 .btnSNS {
     font-family: var(--font-playfair) !important;
     background-color: var(--color-offblack) !important;
-    border: 0px !important;
+    border: 1px solid transparent !important;
     color: var(--color-offwhite) !important;
     width: 100%;
     padding: 8%;
@@ -9,18 +9,30 @@
     font-size: 1.3rem;
 }
 
-.btnEdit {
-    background-color: var(--color-black);
-    border: 1px solid transparent;
+.btnSNS:hover {
+    border-color: var(--color-beige) !important;   
+    background-color: #5b5757 !important;
+    transition: all 0.2s ease-in;
 }
 
-.btnEdit:hover {
-    background-color: var(--color-offblack);
-    border-color: var(--color-beige);
-} 
+.btnEdit, .btnEdit:focus-within {
+    color: var(--color-beige) !important;
+}
+
+.btnEdit:hover, .btnEdit:active {
+    color: var(--color-offwhite) !important;
+}
+
+.btnNotEdit, .btnNotEdit:focus-within {
+    color: var(--color-offwhite) !important;
+}
+
+.btnNotEdit:hover, .btnNotEdit:active {
+    color: var(--color-beige) !important;
+}
 
 .btnDelete{
-    color: rgb(207, 31, 31) !important;
+    color: rgb(229 54 54) !important;
 }
 
 .editContainer{

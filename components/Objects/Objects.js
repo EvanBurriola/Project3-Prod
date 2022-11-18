@@ -51,12 +51,16 @@ export const RemoveTopping = ({handler, ...props}) => {
 
 export const OrderDisplay = ({item, index}) => {
     const [isEditing, setIsEditing] = useState(false)
+    const [btnStyle, setBtnStyle] = useState(styles.btnNotEdit)
     const currentItem = useSelector((state) => state.order.activeOrder)
     const dispatch = useDispatch()
 
     useEffect(() => {
         if (isEditing) {
+            setBtnStyle(styles.btnEdit)
             dispatch(setActive(index))
+        } else {
+            setBtnStyle(styles.btnNotEdit)
         }
     }, [isEditing])
 
@@ -84,13 +88,13 @@ export const OrderDisplay = ({item, index}) => {
     
     return (
         <Col md={12} className={`${isEditing ? styles.editContainer : ""} ${isEditing ? "shadow" : ""} py-2`}>
-            <div className="d-flex justify-content-between">
+            <div className="d-flex justify-content-between px-2">
                 <p className="fs-3 mb-0">{item.pizzatype}:</p>
                 <div>
-                    <Button variant="primary" className={`${styles.btnEdit} px-1 mx-2`} onClick={() => setIsEditing(!isEditing)}>
+                    <Button variant="link" className={`${btnStyle} px-1 mx-2`} onClick={() => setIsEditing(!isEditing)}>
                         <i className="fa-regular fa-pen-to-square"></i>
                     </Button>
-                    <Button variant="primary" className={`${styles.btnEdit} ${styles.btnDelete} px-1 mx-2`} onClick={() => handleRemoveItem(index, item)}>
+                    <Button variant="link" className={`${styles.btnEdit} ${styles.btnDelete} px-1 mx-2`} onClick={() => handleRemoveItem(index, item)}>
                         <i className="fa-solid fa-trash-can"></i>
                     </Button>
                 </div>
