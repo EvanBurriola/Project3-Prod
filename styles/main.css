@@ -1,8 +1,23 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display&family=Poppins:wght@200;400;600;700;800&family=Source+Code+Pro&display=swap');
+
+:root {
+  --font-poppings: 'Poppins', sans-serif;
+  --font-src-code: 'Source Code Pro', monospace;
+  --font-playfair: 'Playfair Display', serif;
+
+  --color-black: #252323;
+  --color-offblack: #373434;
+  --color-silver: #8B939C;
+  --color-offwhite: #F8F0F0;
+  --color-beige: #FCB353;
+}
+
 html,
 body {
   padding: 0;
   margin: 0;
   height: 100%;
+  background-color: var(--color-black);
 }
 
 #__next,
@@ -17,4 +32,13 @@ a {
 
 * {
   box-sizing: border-box;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-poppings);
+  color: var(--color-beige);
+}
+
+p {
+  color: var(--color-offwhite);
 }
