@@ -1,4 +1,6 @@
 import * as Navbar from "@/components/Navbar/Navbar.js";
+import styles from '@/styles/server.module.css'
+
 import GridSystem from '@/components/GridSystem/GridSystem.js';
 import * as Object from '@/components/Objects/Objects.js';
 
@@ -119,7 +121,7 @@ export default function Server({inventory, menu}) {
                     <h1>Pizza Type</h1>
                     <GridSystem colCount={3} md={4} >
                         {menu.length > 0 ? menu.map(item => {
-                            return <Object.MenuItem key={item.typeid} onClick={() => handleNewPizza(item.pizzatype, item.itemprice)} butId={item.typeid} name={item.pizzatype} />
+                            return <Object.MenuItem key={item.typeid} style={styles.menuItemBtn} onClick={() => handleNewPizza(item.pizzatype, item.itemprice)} butId={item.typeid} name={item.pizzatype} />
                         }) : <p>No tracks are found.</p>
                         }
                     </GridSystem>
@@ -127,7 +129,7 @@ export default function Server({inventory, menu}) {
                     <GridSystem colCount={3} md={4} >
                         {inventory.length > 0 ? inventory.map(item => {
                             if (item.itemtype == "sauce") {
-                                return <Object.MenuItem key={item.inventoryid} onClick={() => handleAddTopping(item)} butId={item.inventoryid} name={item.ingredientname} />
+                                return <Object.MenuItem key={item.inventoryid} style={styles.menuItemBtn} onClick={() => handleAddTopping(item)} butId={item.inventoryid} name={item.ingredientname} />
                             }
                         }) : <p>No tracks are found.</p>
                         }
@@ -136,7 +138,7 @@ export default function Server({inventory, menu}) {
                     <GridSystem colCount={3} md={4} >
                         {inventory.length > 0 ? inventory.map(item => {
                             if (item.itemtype == "cheese") {
-                                return <Object.MenuItem key={item.inventoryid} onClick={() => handleAddTopping(item)} butId={item.inventoryid} name={item.ingredientname} />
+                                return <Object.MenuItem key={item.inventoryid} style={styles.menuItemBtn} onClick={() => handleAddTopping(item)} butId={item.inventoryid} name={item.ingredientname} />
                             }
                         }) : <p>No tracks are found.</p>
                         }
@@ -145,7 +147,7 @@ export default function Server({inventory, menu}) {
                     <GridSystem colCount={3} md={4} >
                         {inventory.length > 0 ? inventory.map(item => {
                             if (item.itemtype == "other") {
-                                return <Object.MenuItem key={item.inventoryid} onClick={() => handleAddTopping(item)} butId={item.inventoryid} name={item.ingredientname} />
+                                return <Object.MenuItem key={item.inventoryid} style={styles.menuItemBtn} onClick={() => handleAddTopping(item)} butId={item.inventoryid} name={item.ingredientname} />
                             }
                         }) : <p>No tracks are found.</p>
                         }
@@ -156,7 +158,7 @@ export default function Server({inventory, menu}) {
                     <GridSystem colCount={3} md={4} >
                         {inventory.length > 0 ? inventory.map(item => {
                             if (item.itemtype == "topping") {
-                                return <Object.MenuItem key={item.inventoryid} onClick={() => handleAddTopping(item)} butId={item.inventoryid} name={item.ingredientname} />
+                                return <Object.MenuItem key={item.inventoryid} style={styles.menuItemBtn} onClick={() => handleAddTopping(item)} butId={item.inventoryid} name={item.ingredientname} />
                             }
                         }) : <p>No tracks are found.</p>
                         }
@@ -180,7 +182,11 @@ export default function Server({inventory, menu}) {
                         <Col>
                             <Object.OrderCost order={order} />
                             <Form onSubmit={submitOrder}>
-                                <Button type="submit" disabled={!checkoutReady}>
+                                <Button 
+                                    type="submit" 
+                                    disabled={!checkoutReady}
+                                    className={`${styles.btnNav}`}
+                                    >
                                     {isSubmitting && <Spinner 
                                         as="span"
                                         size="sm"

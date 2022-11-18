@@ -1,3 +1,5 @@
+import styles from "@/styles/customer.module.css"
+
 import { StartOrder, CheeseSauce, Toppings, DrinkSeasonal } from '@/components/CustomerViews/'
 import { NavbarCustomer } from "@/components/Navbar/Navbar.js";
 import { OrderCost, OrderDisplay } from '@/components/Objects/Objects.js';
@@ -8,11 +10,14 @@ import Row from 'react-bootstrap/Row';
 import Form from 'react-bootstrap/Form';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button'
+import Spinner from 'react-bootstrap/Spinner'
 
 import { prisma } from '@/lib/prisma'
 import { useSelector, useDispatch } from 'react-redux'
 import { addItem, addPizzaTopping, clearOrder } from '@/store/slices/order' 
 import { PizzaModel, ToppingModel } from '@/lib/models'
+
+import { useRouter } from 'next/router';
 
 export async function getServerSideProps() {
     const inventory = await prisma.inventory.findMany({
@@ -36,9 +41,11 @@ export async function getServerSideProps() {
 export default function Customer({inventory, menu}) {
     const order = useSelector((state) => state.order)
     const dispatch = useDispatch()
+    const router = useRouter()
 
     const dough = inventory.find(item => item.ingredientname === 'Dough')
 
+    const [isSubmitting, setIsSubmitting] = useState(false)
     const [custViews, setCustView] = useState([true, false ,false, false])
 
     // activate or deactive checkout button based on order
@@ -52,21 +59,30 @@ export default function Customer({inventory, menu}) {
     }, [order.orderItems.length, order.customername])
 
 
-    // submits the order by pushing to database
+    // submits the order by pushing to database and sends
+    // user to receipt page
     const submitOrder = async (event) => {
         event.preventDefault()
+        setIsSubmitting(true)
         try {
             const body = { order }
-            await fetch('/api/order', {
+            const response = await fetch('/api/order', {
                 method: "POST",
                 body: JSON.stringify(body)
             })
-
+            const result = await response.json()
+            const { orderid } = result
+            router.push({
+                pathname: '/order/[id]',
+                query: { id: orderid }
+            })
             dispatch(clearOrder())
-            setCustView([true,false,false,false]);
-        } catch (error) {
-            console.log(error);
+            setIsSubmitting(false)
+        } catch (err) {
+            console.log(err)
         }
+            
+            //setCustView([true,false,false,false]);
     }
 
     const next_page = (page) => {
@@ -149,9 +165,9 @@ export default function Customer({inventory, menu}) {
                 <Row>
                     {view}
                     <Col md={4} className="d-flex flex-column align-items-end">
-                        <Row className="w-100 mb-auto">
-                            <h1>Current Order</h1>
-                            <Col>
+                        <Row className={`w-100 mb-auto`}>
+                            <h1 className={`${styles.typeTitle}`}>Current Order</h1>
+                            <Col className={`${styles.orderContainer}`}>
                                 {order.orderItems.map(item => {
                                     return <OrderDisplay 
                                         key={order.orderItems.indexOf(item)} 
@@ -161,11 +177,25 @@ export default function Customer({inventory, menu}) {
                                 }
                             </Col>
                         </Row>
-                        <Row className="w-100">
+                        <Row className="w-100 mt-5">
                             <Col>
                                 <OrderCost order={order} />
                                 <Form onSubmit={submitOrder}>
-                                    <Button type="submit" disabled={!checkoutReady}>Checkout</Button>
+                                    <Button type="submit" 
+                                        disabled={!checkoutReady} 
+                                        className={`${styles.btnNav}`}
+                                        >
+                                        {isSubmitting && <Spinner 
+                                            as="span"
+                                            size="sm"
+                                            role="status"
+                                            aria-hidden="true"
+                                            animation="border"
+                                            className="me-1"
+                                            /> 
+                                        }
+                                        Checkout
+                                    </Button>
                                 </Form>
                             </Col>
                         </Row>
@@ -178,9 +208,7 @@ export default function Customer({inventory, menu}) {
     return(
         <Container fluid>
             <Row>
-                <Col xs={12} md={12}>
-                    <NavbarCustomer sticky="top"/>
-                </Col>
+                <NavbarCustomer sticky="top"/>
             </Row>
             {
                 buildPage()
