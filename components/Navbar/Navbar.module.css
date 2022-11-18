@@ -3,3 +3,7 @@
 {
     height: 64px !important;
 }
+
+.navOffWhite {
+    background-color: var(--color-offwhite);
+}
