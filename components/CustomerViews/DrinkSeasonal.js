@@ -12,9 +12,9 @@ import Col from 'react-bootstrap/Col';
 export default function DrinkSeasonal({inventory, menu, ...props}) {
     
     return (
-        <Col xs={8} md={8}>
-            <Row>
-                <h1>Drinks and Seasonal Items</h1>
+        <Col xs={8} md={8} className="d-flex flex-column justify-content-end">
+            <Row className="mb-auto">
+                <h1 className={`${styles.typeTitle}`}>Drinks and Seasonal Items</h1>
                 <GridSystem colCount={3} md={4} >
                     {inventory.length > 0 ? inventory.map(item => {
                         if (item.itemtype == "other") {
@@ -26,8 +26,8 @@ export default function DrinkSeasonal({inventory, menu, ...props}) {
             </Row>
             <Row>
                 <Col className="d-flex justify-content-end">
-                    <Button className="me-auto" onClick={() => props.back_click(3)} variant="primary" >Previous Page</Button>
-                    <Button onClick={() => props.add_more()} variant="primary" >Add more</Button>
+                    <Button className={`me-auto ${styles.btnNav}`} onClick={() => props.back_click(3)} variant="primary" >Previous Page</Button>
+                    <Button  className={`${styles.btnNav}`} onClick={() => props.add_more()} variant="primary" >Add more</Button>
                 </Col>
             </Row>
         </Col>
