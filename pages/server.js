@@ -167,16 +167,14 @@ export default function Server({inventory, menu}) {
                 <Col md={4} className="d-flex flex-column align-items-end">
                     <Row className="w-100 mb-auto">
                         <h1>Current Order</h1>
-                        <Col>
-                            {order.orderItems.map(item => {
-                                return <Object.OrderDisplay 
-                                    key={order.orderItems.indexOf(item)} 
-                                    item={item}
-                                    index={order.orderItems.indexOf(item)}
-                                    />
-                            })
-                            }
-                        </Col>
+                        {order.orderItems.map(item => {
+                            return <Object.OrderDisplay 
+                                key={order.orderItems.indexOf(item)} 
+                                item={item}
+                                index={order.orderItems.indexOf(item)}
+                                />
+                        })
+                        }
                     </Row>
                     <Row className="w-100">
                         <Col>

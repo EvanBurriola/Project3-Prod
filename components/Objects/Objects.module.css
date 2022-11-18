@@ -9,3 +9,21 @@
     font-size: 1.3rem;
 }
 
+.btnEdit {
+    background-color: var(--color-black);
+    border: 1px solid transparent;
+}
+
+.btnEdit:hover {
+    background-color: var(--color-offblack);
+    border-color: var(--color-beige);
+} 
+
+.btnDelete{
+    color: rgb(207, 31, 31) !important;
+}
+
+.editContainer{
+    background-color: var(--color-offblack);
+    border-radius: 1.5rem;
+}

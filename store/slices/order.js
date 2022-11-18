@@ -93,6 +93,8 @@ const orderSlice = createSlice({
             state.subtotal = formatDecimals(sub)
             state.salestax = formatDecimals(tax)
             state.ordertotal = formatDecimals(total)
+
+            state.activeOrder = state.orderItems.length - 1
         },
         addPizzaTopping(state, action) {
             const idx = state.activeOrder
