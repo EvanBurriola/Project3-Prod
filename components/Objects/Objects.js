@@ -1,5 +1,5 @@
 import Button from 'react-bootstrap/Button';
-import styles from '@/styles/server.module.css'
+import styles from './Objects.module.css'
 import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { setActive, removeItem, removePizzaTopping } from '@/store/slices/order'
@@ -7,7 +7,7 @@ import { setActive, removeItem, removePizzaTopping } from '@/store/slices/order'
 export const MenuItem = ({butId, name, ...props}) => {
     return (
         <>
-            <Button className={`mx-0 ${styles.button}`} onClick={props.onClick} id={butId} variant="primary" >{name}</Button>
+            <Button className={`mx-0 ${styles.btnSNS} ${props.style}`} onClick={props.onClick} id={butId} variant="primary" >{name}</Button>
         </>
     )
 }

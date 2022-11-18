@@ -1,0 +1,11 @@
+.btnSNS {
+    font-family: var(--font-playfair) !important;
+    background-color: var(--color-offblack) !important;
+    border: 0px !important;
+    color: var(--color-offwhite) !important;
+    width: 100%;
+    padding: 8%;
+    margin: 5%;
+    font-size: 1.3rem;
+}
+
