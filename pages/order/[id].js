@@ -4,6 +4,10 @@ import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Receipt from '@/components/Objects/Receipt'
+import { useRouter } from 'next/router'
+import { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
+import { clearOrder } from '@/store/slices/order'
 
 export async function getServerSideProps(context) {
     // grab orderid passed in route
@@ -53,6 +57,15 @@ export default function OrderReceipt({order, pizzas}) {
         order,
         pizzas
     }
+    const router = useRouter()
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(clearOrder())
+        const timer = setTimeout(() => {
+            router.push("/customer")
+        }, 5000);
+    }, []);
 
     return (
         <Container className="d-flex flex-column min-vh-100 justify-content-center align-items-center">

@@ -76,7 +76,7 @@ export default function Customer({inventory, menu}) {
                 pathname: '/order/[id]',
                 query: { id: orderid }
             })
-            dispatch(clearOrder())
+            //dispatch(clearOrder())
             setIsSubmitting(false)
         } catch (err) {
             console.log(err)
