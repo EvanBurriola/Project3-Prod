@@ -3,6 +3,7 @@ import styles from '@/styles/server.module.css'
 
 import GridSystem from '@/components/GridSystem/GridSystem.js';
 import * as Object from '@/components/Objects/Objects.js';
+import SubmitNotification from "@/components/Objects/SubmitNotifcation";
 
 import React, { useState, useEffect } from 'react';
 import Container from 'react-bootstrap/Container';
@@ -44,6 +45,7 @@ export default function Server({inventory, menu}) {
     const dough = inventory.find(item => item.ingredientname === 'Dough')
 
     const [isSubmitting, setIsSubmitting] = useState(false)
+    const [orderSubmitted, orderDidSubmit] = useState(false)
 
     // activate or deactive checkout button based on order
     const [checkoutReady, setCheckoutReady] = useState(false)
@@ -106,6 +108,7 @@ export default function Server({inventory, menu}) {
 
             dispatch(clearOrder())
             setIsSubmitting(false)
+            orderDidSubmit(true)
         } catch (error) {
             console.log(error);
         }
@@ -198,6 +201,7 @@ export default function Server({inventory, menu}) {
                                 </Button>
                             </Form>
                         </Col>
+                        {orderSubmitted && <SubmitNotification onAnimationEnd={() => orderDidSubmit(false)} />}
                     </Row>
                 </Col>
             </Row>
