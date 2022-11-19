@@ -5,10 +5,15 @@ const RestockItem = ({item}) =>{
 =======
 
 const RestockItem = ({item}) =>{
+<<<<<<< HEAD
     if(item.quantityounces < item.minimumquantity){
         return(
             <tr>        
 >>>>>>> Reorganized and started Reports
+=======
+    return(
+        <tr>        
+>>>>>>> Added delete for inventory and menu
             <td> {item.inventoryid} </td>
             <td> {item.ingredientname} </td>
             <td> {item.quantityounces} </td>
@@ -18,12 +23,16 @@ const RestockItem = ({item}) =>{
             <td> {item.itemtype} </td>
         </tr>
 <<<<<<< HEAD
+<<<<<<< HEAD
     )
 =======
         )
     }
     return
 >>>>>>> Reorganized and started Reports
+=======
+    )
+>>>>>>> Added delete for inventory and menu
 }
 
 export default RestockItem;

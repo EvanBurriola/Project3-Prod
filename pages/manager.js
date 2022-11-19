@@ -13,6 +13,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 <<<<<<< HEAD
+<<<<<<< HEAD
 import DateSelect, { DateEnd, DateStart } from '../components/TextEntry/Datepicker.js';
 import InventoryTable, { InventoryDisplay } from '@/components/Table/InventoryTable.js';
 <<<<<<< HEAD
@@ -28,6 +29,17 @@ import MenuTable from '@/components/Table/MenuTable.js';
 import { prisma } from '@/lib/prisma'
 import { useState, useEffect } from 'react'
 import DatePicker from 'react-datepicker';
+=======
+import InventoryTable from '@/components/Table/InventoryTable.js';
+import MenuTable from '@/components/Table/MenuTable.js';
+import { prisma } from '@/lib/prisma'
+import { useState } from 'react'
+import DatePicker from 'react-datepicker';
+
+import styles from "@/styles/manager.module.css"
+import "react-datepicker/dist/react-datepicker.css";
+import RestockTable from '@/components/Table/RestockTable';
+>>>>>>> Added delete for inventory and menu
 
 <<<<<<< HEAD
 import "react-datepicker/dist/react-datepicker.css";
@@ -61,6 +73,7 @@ export async function getServerSideProps(){
   }
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 export default function Manager({inventory}) {
   const { data: session } = useSession()
@@ -178,6 +191,29 @@ export default function Manager({inventory}) {
 =======
 export default function server({inventory, menu}) {
 >>>>>>> Manager dashboard layout completed
+=======
+
+
+export default function manager({inventory, menu}) {
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
+  const [reportType, setReportType] = useState("");
+
+  const generateReport = async () => {
+    //event.preventDefault()
+    try {
+      const body = { startDate, endDate, reportType }
+      const result = await fetch('/api/manager/reports', {
+        method: "GET",
+        body: JSON.stringify(body)
+      })
+      //return <RestockTable inventory={result} />
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+>>>>>>> Added delete for inventory and menu
   return (
     <Container fluid className="h-100">
       <Navbar.NavbarManager user={session.user} />
@@ -295,8 +331,60 @@ export default function server({inventory, menu}) {
           <InventoryDisplay inventory={inventory}/> 
         </Col>
       </Row>
+<<<<<<< HEAD
 
     </Container> 
 >>>>>>> Manager dashboard layout completed
+=======
+      <Row>
+        <p> {"\n"} </p>
+        <h3> Reports </h3>
+        <form /*onSubmit={generateReport}*/>
+          <Row>
+            <Col> 
+              <DatePicker 
+                required = "required"
+                placeholderText = "Start Date"
+                showTimeSelect
+                dateFormat="yyyy-MM-dd hh:mm:ss"
+                selected = {startDate}
+                selectsStart
+                startDate = {startDate}
+                endDate = {endDate}
+                onChange = {(date) => setStartDate(date)}
+              />
+              <DatePicker
+                required = "required"
+                placeholderText = "End Date"
+                showTimeSelect
+                dateFormat="yyyy-MM-dd hh:mm:ss"
+                selected = {endDate}
+                selectsEnd
+                startDate={startDate}
+                endDate = {endDate}
+                minDate = {startDate}
+                onChange = {date => setEndDate(date)}
+              />
+            </Col>
+          </Row>
+          <Row> 
+            <Col> 
+              <button onClick={(event) => setReportType(event.target.id)} type = "submit" id="restock"> Restock </button>
+              <button onClick={(event) => setReportType(event.target.id)} type = "submit" id="sales"> Sales </button>
+              <button onClick={(event) => setReportType(event.target.id)} type = "submit" id="excess"> Excess </button> 
+              <button onClick={(event) => setReportType(event.target.id)} type = "submit" id="together"> What Sales Together </button> 
+              <p> {"\n"} </p>
+            </Col>
+          </Row>
+        </form>
+        {(() => {
+          if (reportType !== "") {
+            return generateReport();
+          }
+          return null
+        })()}
+      </Row>
+    </Container>
+>>>>>>> Added delete for inventory and menu
   )
 }
