@@ -20,6 +20,8 @@ export const InventoryTable = ({inventory}) => {
     const [itemChange, setItemChange] = useState("");
     const [infoChange, setInfoChange] = useState("");
     const [changeTo, setChangeTo] = useState(0);
+    // Delete Item
+    const [itemDelete, setItemDelete] = useState("");
 
     const changeItem = async (event) => {
         event.preventDefault()
@@ -64,6 +66,26 @@ export const InventoryTable = ({inventory}) => {
         }
         window.location.reload();
     };
+
+    const deleteItem = async (event) =>{
+        event.preventDefault();
+        
+        try{
+            const inventoryID = inventory.find(item => item.ingredientname == itemDelete).inventoryid;
+            console.log(itemDelete, inventoryID);
+            const body = {
+                inventoryID
+            }
+            await fetch('api/manager/deleteItem',{
+                method: "POST",
+                body: JSON.stringify(body),
+            });
+        }
+        catch(error){
+            console.error(error);
+        }
+        window.location.reload();
+    }
 
     return (
         <div>
@@ -161,6 +183,19 @@ export const InventoryTable = ({inventory}) => {
                     onChange={(event) => setItemType(event.target.value)}
                 />
                 <button type = "submit"> Add </button>
+            </form>
+            <p> {"\n"} </p>
+            <h4> Delete Inventory Item </h4>
+            <form onSubmit={deleteItem}>
+                <label for="inventory item"> Select Inventory Item to Delete: </label>
+                <select name="inventoryItem" id="inventoryItem" onChange={(event) => setItemDelete(event.target.value)}>
+                    <option value="" selected disabled hidden> Select Here </option>
+                    {inventory.map(item => {
+                        return <InventoryDropDown key={item.inventoryid} item={item} />
+                    })
+                    }
+                </select>
+                <button type = "submit"> Delete Item </button> 
             </form>
         </div>
     )
