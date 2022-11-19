@@ -29,7 +29,11 @@ export const InventoryTable = ({inventory}) => {
     // Change Item
     const [itemChange, setItemChange] = useState("");
     const [infoChange, setInfoChange] = useState("");
+<<<<<<< HEAD
     const [changeTo, setChangeTo] = useSgtate(0);
+=======
+    const [changeTo, setChangeTo] = useState(0);
+>>>>>>> Added delete for inventory and menu
     // Delete Item
     const [itemDelete, setItemDelete] = useState("");
 
