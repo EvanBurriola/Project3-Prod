@@ -14,10 +14,24 @@ import MonthlySales from '@/components/Table/MonthlySales.js';
 import RestockTable from '@/components/Table/RestockTable.js';
 import MenuTable from '@/components/Table/MenuTable.js';
 import { prisma } from '@/lib/prisma'
+import { useState } from 'react'
+import DatePicker from 'react-datepicker';
+
+import styles from "@/styles/manager.module.css"
+import "react-datepicker/dist/react-datepicker.css";
+import RestockTable from '@/components/Table/RestockTable';
 
 export async function getServerSideProps(){
-  const inventory = await prisma.inventory.findMany()
-  const menu = await prisma.menuitems.findMany()
+  const inventory = await prisma.inventory.findMany({
+    orderBy: {
+      inventoryid: 'asc',
+    },
+  })
+  const menu = await prisma.menuitems.findMany({
+    orderBy: {
+      typeid: 'asc',
+    },
+  })
   return {
       props: {
           inventory,
@@ -26,7 +40,27 @@ export async function getServerSideProps(){
   }
 }
 
-export default function server({inventory, menu}) {
+
+
+export default function manager({inventory, menu}) {
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
+  const [reportType, setReportType] = useState("");
+
+  const generateReport = async () => {
+    //event.preventDefault()
+    try {
+      const body = { startDate, endDate, reportType }
+      const result = await fetch('/api/manager/reports', {
+        method: "GET",
+        body: JSON.stringify(body)
+      })
+      //return <RestockTable inventory={result} />
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <Container>
       <Navbar.NavbarManager />
@@ -53,7 +87,54 @@ export default function server({inventory, menu}) {
           <InventoryDisplay inventory={inventory}/> 
         </Col>
       </Row>
-
-    </Container> 
+      <Row>
+        <p> {"\n"} </p>
+        <h3> Reports </h3>
+        <form /*onSubmit={generateReport}*/>
+          <Row>
+            <Col> 
+              <DatePicker 
+                required = "required"
+                placeholderText = "Start Date"
+                showTimeSelect
+                dateFormat="yyyy-MM-dd hh:mm:ss"
+                selected = {startDate}
+                selectsStart
+                startDate = {startDate}
+                endDate = {endDate}
+                onChange = {(date) => setStartDate(date)}
+              />
+              <DatePicker
+                required = "required"
+                placeholderText = "End Date"
+                showTimeSelect
+                dateFormat="yyyy-MM-dd hh:mm:ss"
+                selected = {endDate}
+                selectsEnd
+                startDate={startDate}
+                endDate = {endDate}
+                minDate = {startDate}
+                onChange = {date => setEndDate(date)}
+              />
+            </Col>
+          </Row>
+          <Row> 
+            <Col> 
+              <button onClick={(event) => setReportType(event.target.id)} type = "submit" id="restock"> Restock </button>
+              <button onClick={(event) => setReportType(event.target.id)} type = "submit" id="sales"> Sales </button>
+              <button onClick={(event) => setReportType(event.target.id)} type = "submit" id="excess"> Excess </button> 
+              <button onClick={(event) => setReportType(event.target.id)} type = "submit" id="together"> What Sales Together </button> 
+              <p> {"\n"} </p>
+            </Col>
+          </Row>
+        </form>
+        {(() => {
+          if (reportType !== "") {
+            return generateReport();
+          }
+          return null
+        })()}
+      </Row>
+    </Container>
   )
 }
