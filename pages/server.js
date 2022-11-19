@@ -1,6 +1,9 @@
 import * as Navbar from "@/components/Navbar/Navbar.js";
+import styles from '@/styles/server.module.css'
+
 import GridSystem from '@/components/GridSystem/GridSystem.js';
 import * as Object from '@/components/Objects/Objects.js';
+import SubmitNotification from "@/components/Objects/SubmitNotifcation";
 
 import React, { useState, useEffect } from 'react';
 import Container from 'react-bootstrap/Container';
@@ -8,10 +11,11 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
+import Spinner from 'react-bootstrap/Spinner'
 
 import { prisma } from '@/lib/prisma'
 import { useSelector, useDispatch } from 'react-redux'
-import { addItem, addPizzaTopping, clearOrder } from '@/store/slices/order' 
+import { addItem, removeItem, addPizzaTopping, clearOrder } from '@/store/slices/order' 
 import { PizzaModel, ToppingModel } from '@/lib/models'
 
 // pull inventory from db
@@ -39,6 +43,9 @@ export default function Server({inventory, menu}) {
     const dispatch = useDispatch()
 
     const dough = inventory.find(item => item.ingredientname === 'Dough')
+
+    const [isSubmitting, setIsSubmitting] = useState(false)
+    const [orderSubmitted, orderDidSubmit] = useState(false)
 
     // activate or deactive checkout button based on order
     const [checkoutReady, setCheckoutReady] = useState(false)
@@ -92,6 +99,7 @@ export default function Server({inventory, menu}) {
     const submitOrder = async (event) => {
         event.preventDefault()
         try {
+            setIsSubmitting(true)
             const body = { order }
             await fetch('/api/order', {
                 method: "POST",
@@ -99,6 +107,8 @@ export default function Server({inventory, menu}) {
             })
 
             dispatch(clearOrder())
+            setIsSubmitting(false)
+            orderDidSubmit(true)
         } catch (error) {
             console.log(error);
         }
@@ -114,7 +124,7 @@ export default function Server({inventory, menu}) {
                     <h1>Pizza Type</h1>
                     <GridSystem colCount={3} md={4} >
                         {menu.length > 0 ? menu.map(item => {
-                            return <Object.MenuItem key={item.typeid} onClick={() => handleNewPizza(item.pizzatype, item.itemprice)} butId={item.typeid} name={item.pizzatype} />
+                            return <Object.MenuItem key={item.typeid} style={styles.menuItemBtn} onClick={() => handleNewPizza(item.pizzatype, item.itemprice)} butId={item.typeid} name={item.pizzatype} />
                         }) : <p>No tracks are found.</p>
                         }
                     </GridSystem>
@@ -122,7 +132,7 @@ export default function Server({inventory, menu}) {
                     <GridSystem colCount={3} md={4} >
                         {inventory.length > 0 ? inventory.map(item => {
                             if (item.itemtype == "sauce") {
-                                return <Object.MenuItem key={item.inventoryid} onClick={() => handleAddTopping(item)} butId={item.inventoryid} name={item.ingredientname} />
+                                return <Object.MenuItem key={item.inventoryid} style={styles.menuItemBtn} onClick={() => handleAddTopping(item)} butId={item.inventoryid} name={item.ingredientname} />
                             }
                         }) : <p>No tracks are found.</p>
                         }
@@ -131,7 +141,7 @@ export default function Server({inventory, menu}) {
                     <GridSystem colCount={3} md={4} >
                         {inventory.length > 0 ? inventory.map(item => {
                             if (item.itemtype == "cheese") {
-                                return <Object.MenuItem key={item.inventoryid} onClick={() => handleAddTopping(item)} butId={item.inventoryid} name={item.ingredientname} />
+                                return <Object.MenuItem key={item.inventoryid} style={styles.menuItemBtn} onClick={() => handleAddTopping(item)} butId={item.inventoryid} name={item.ingredientname} />
                             }
                         }) : <p>No tracks are found.</p>
                         }
@@ -140,7 +150,7 @@ export default function Server({inventory, menu}) {
                     <GridSystem colCount={3} md={4} >
                         {inventory.length > 0 ? inventory.map(item => {
                             if (item.itemtype == "other") {
-                                return <Object.MenuItem key={item.inventoryid} onClick={() => handleAddTopping(item)} butId={item.inventoryid} name={item.ingredientname} />
+                                return <Object.MenuItem key={item.inventoryid} style={styles.menuItemBtn} onClick={() => handleAddTopping(item)} butId={item.inventoryid} name={item.ingredientname} />
                             }
                         }) : <p>No tracks are found.</p>
                         }
@@ -151,7 +161,7 @@ export default function Server({inventory, menu}) {
                     <GridSystem colCount={3} md={4} >
                         {inventory.length > 0 ? inventory.map(item => {
                             if (item.itemtype == "topping") {
-                                return <Object.MenuItem key={item.inventoryid} onClick={() => handleAddTopping(item)} butId={item.inventoryid} name={item.ingredientname} />
+                                return <Object.MenuItem key={item.inventoryid} style={styles.menuItemBtn} onClick={() => handleAddTopping(item)} butId={item.inventoryid} name={item.ingredientname} />
                             }
                         }) : <p>No tracks are found.</p>
                         }
@@ -160,20 +170,38 @@ export default function Server({inventory, menu}) {
                 <Col md={4} className="d-flex flex-column align-items-end">
                     <Row className="w-100 mb-auto">
                         <h1>Current Order</h1>
-                        <Col>
-                            {order.orderItems.map(item => {
-                                return <Object.OrderDisplay key={order.orderItems.indexOf(item)} item={item} />
-                            })
-                            }
-                        </Col>
+                        {order.orderItems.map(item => {
+                            return <Object.OrderDisplay 
+                                key={order.orderItems.indexOf(item)} 
+                                item={item}
+                                index={order.orderItems.indexOf(item)}
+                                />
+                        })
+                        }
                     </Row>
                     <Row className="w-100">
                         <Col>
                             <Object.OrderCost order={order} />
                             <Form onSubmit={submitOrder}>
-                                <Button type="submit" disabled={!checkoutReady}>Checkout</Button>
+                                <Button 
+                                    type="submit" 
+                                    disabled={!checkoutReady}
+                                    className={`${styles.btnNav}`}
+                                    >
+                                    {isSubmitting && <Spinner 
+                                        as="span"
+                                        size="sm"
+                                        role="status"
+                                        aria-hidden="true"
+                                        animation="border"
+                                        className="me-1"
+                                        /> 
+                                    }
+                                    Checkout
+                                </Button>
                             </Form>
                         </Col>
+                        {orderSubmitted && <SubmitNotification onAnimationEnd={() => orderDidSubmit(false)} />}
                     </Row>
                 </Col>
             </Row>

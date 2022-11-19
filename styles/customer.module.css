@@ -1,0 +1,15 @@
+.orderContainer {
+    max-height: 40vh;
+    overflow: auto;
+}
+
+.typeTitle {
+    font-size: 2.5rem;
+}
+
+.btnNav {
+    font-family: var(--font-playfair) !important;
+    background-color: var(--color-beige) !important;
+    border: 0px !important;
+    color: var(--color-offblack) !important;
+}

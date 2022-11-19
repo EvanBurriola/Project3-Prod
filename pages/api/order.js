@@ -17,7 +17,10 @@ export default async function handler(req, res) {
     let toppings = []
 
     // remove unecessary args in order + keep list of all ingredients
+    // TODO: refactor this so future change to order won't need to
+    //       consider this
     delete order.orderItems
+    delete order.activeOrder
     orderItems.forEach((item) => {
         toppings.push(item.toppings);
         delete item.pizzatype

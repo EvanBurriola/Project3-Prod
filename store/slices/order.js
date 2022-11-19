@@ -36,8 +36,11 @@ const canAddToPizza = (pizza, topping) => {
         return !hasSauce
     }
 
-    // otherwise check against max toppings allowed
-    return numtoppings < max
+    let index = pizza.toppings.findIndex(t => t.inventoryid === topping.inventoryid)
+
+    // otherwise check against max toppings allowed and
+    // make sure the topping hasn't already been added
+    return numtoppings < max && index < 0
 }
 
 // setup initial state of all orders
@@ -50,6 +53,7 @@ const initialState = {
     subtotal: 0,
     salestax: 0,
     ordertotal: 0,
+    activeOrder: 0,
 }
 
 const orderSlice = createSlice({
@@ -67,6 +71,7 @@ const orderSlice = createSlice({
         addItem(state, action) {
             const { price } = action.payload
             state.orderItems.push(action.payload)
+            state.activeOrder = state.orderItems.length - 1
             // update price based on current pizza
             let sub = state.subtotal + price
             let tax = state.salestax + (TAX_RATE * price)
@@ -76,18 +81,39 @@ const orderSlice = createSlice({
             state.salestax = formatDecimals(tax)
             state.ordertotal = formatDecimals(total)
         },
+        removeItem(state, action) {
+            // removes item from order and subtracts cost from
+            // subtotal, tax, and total
+            const { index, price} = action.payload
+            state.orderItems.splice(index, 1)
+
+            let sub = state.subtotal - price
+            let tax = state.salestax - (TAX_RATE * price)
+            let total = state.ordertotal - ((1 + TAX_RATE) * price)
+            state.subtotal = formatDecimals(sub)
+            state.salestax = formatDecimals(tax)
+            state.ordertotal = formatDecimals(total)
+
+            state.activeOrder = state.orderItems.length - 1
+        },
         addPizzaTopping(state, action) {
-            const idx = state.orderItems.length - 1
-            const lastItem = state.orderItems[idx]
-            if (!lastItem) {
+            const idx = state.activeOrder
+            const currItem = state.orderItems[idx]
+            if (!currItem) {
                 return
             }
 
             // accounts for dough being a topping, don't add
             // to current pizza if we will exceed the maximum
-            if (canAddToPizza(lastItem, action.payload)) {
+            if (canAddToPizza(currItem, action.payload)) {
                 state.orderItems[idx].toppings.push(action.payload)
             }
+        },
+        removePizzaTopping(state, action) {
+            const idx = state.activeOrder
+            const top = state.orderItems[idx].toppings.findIndex(t => t.inventoryid == action.payload.inventoryid)
+            if (top < 0) return
+            state.orderItems[idx].toppings.splice(top, 1)
         },
         clearOrder(state) {
             state.orderItems = []
@@ -95,16 +121,26 @@ const orderSlice = createSlice({
             state.subtotal = 0
             state.salestax = 0
             state.ordertotal = 0
-        }
+            state.activeOrder = 0
+        },
+        setActive(state, action) {
+            // sets the active item to the payload or last index if payload
+            // is too large
+            state.activeOrder = (action.payload < state.orderItems.length) ?
+                action.payload : state.orderItems.length - 1
+        },
     },
 })
 
 export const { 
     setCustomer, 
     setEmployee,
-    addItem, 
+    addItem,
+    removeItem, 
     addPizzaTopping,
-    clearOrder 
+    removePizzaTopping,
+    clearOrder,
+    setActive,
 } = orderSlice.actions
 
 export default orderSlice.reducer
