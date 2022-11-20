@@ -6,7 +6,7 @@ import SalesToppingItem from '../Items/SalesToppingItem'
 const SalesTables = ({pizzaTable, toppingTable}) => {
     return(
         <div>
-            <table className={styles.tableStyle} id = "excelDateTable">
+            <table className={styles.tableStyle} id = "pizzaTable">
                 <thead>
                     <tr>
                         <th> Pizza Type </th>
@@ -21,7 +21,7 @@ const SalesTables = ({pizzaTable, toppingTable}) => {
                     }
                 </tbody>
             </table>
-            <table className = {styles.tableStyle} id = "excelDateTable">
+            <table className = {styles.tableStyle} id = "toppingTable">
                 <thead>
                     <tr>
                         <th> Topping </th>

@@ -76,7 +76,7 @@ const MenuTable = ({menu}) => {
 
     return(
         <div>
-            <table className={styles.tableStyle} id ="excelDataTable">
+            <table className={styles.tableStyle} id ="menuTable">
                 <thead>
                     <tr>
                         <th> Type ID </th>

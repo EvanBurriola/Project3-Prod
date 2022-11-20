@@ -12,6 +12,7 @@ export default async function handler(req, res) {
     }
 
     const { startDate, endDate, reportType } = JSON.parse(req.body)
+    console.log(startDate, endDate)
 
     if(reportType == 'restock'){
         const result = await prisma.$queryRaw`SELECT * FROM inventory WHERE quantityounces < minimumquantity`
@@ -19,9 +20,12 @@ export default async function handler(req, res) {
         res.json(result)
     }
     else if(reportType == 'salesPizza'){
-        const result = await prisma.$queryRaw(
-            Prisma.sql`SELECT * FROM GetPizzaTypeSales('${startDate}', '${endDate}');`
-        )
+        const query = 'SELECT * FROM GetPizzaTypeSales(' + startDate + ', ' + endDate + ');'
+        console.log(query)
+        // const result = await prisma.$queryRaw(
+        //     Prisma.sql`SELECT * FROM GetPizzaTypeSales('${startDate}', '${endDate}');`
+        // )
+        const result = await prisma.$queryRaw`SELECT * FROM GetPizzaTypeSales('${startDate}', '${endDate}');`
         console.log(result)
         res.json(toJson(result))
     }
