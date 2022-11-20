@@ -6,7 +6,7 @@ import { useState } from 'react';
 import InventoryDropDown from '../Dropdown/InventoryDropDown';
 import AccordionButton from 'node_modules/react-bootstrap/esm/AccordionButton';
 
-import styles from '@/styles/manager.module.css';
+import styles from '@/styles/Home.module.css'
 
 export const InventoryTable = ({inventory}) => {
     //Add Item
@@ -88,9 +88,9 @@ export const InventoryTable = ({inventory}) => {
     }
 
     return (
-        <div>
-            <table style={{"borderWidth":"1px", 'borderColor':"#aaaaaa", 'borderStyle':'solid'}} id ="excelDataTable">
-                <thead style = {{"borderWidth":"1px", 'borderColor':"#aaaaaa", 'borderStyle':'solid'}}>
+        <div className={styles.tableWrapper}>
+            <table className = {styles.tableStyle} id ="excelDataTable">
+                <thead>
                     <tr>
                         <th> Inventory ID </th>
                         <th> Item Name </th>
