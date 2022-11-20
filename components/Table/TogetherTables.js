@@ -8,7 +8,7 @@ import Together4Item from '../Items/Together4Item'
 const TogetherTables = ({together1Table, together2Table, together3Table, together4Table}) => {
     return (
         <div>
-            <table className = {styles.tableStyle} id = "excelDateTable">
+            <table className = {styles.tableStyle} id = "BYOTable">
                 <thead>
                     <tr>
                         <th> Pizza Type </th>
@@ -23,7 +23,7 @@ const TogetherTables = ({together1Table, together2Table, together3Table, togethe
                 </tbody>
             </table>
             <p> {"\n"} </p>
-            <table className = {styles.tableStyle} id = "excelDateTable">
+            <table className = {styles.tableStyle} id = "CheeseTable">
                 <thead>
                     <tr>
                         <th> Pizza Type </th>
@@ -38,7 +38,7 @@ const TogetherTables = ({together1Table, together2Table, together3Table, togethe
                 </tbody>
             </table>
             <p> {"\n"} </p>
-            <table className = {styles.tableStyle} id = "excelDateTable">
+            <table className = {styles.tableStyle} id = "1TopTable">
                 <thead>
                     <tr>
                         <th> Pizza Type </th>
@@ -53,7 +53,7 @@ const TogetherTables = ({together1Table, together2Table, together3Table, togethe
                 </tbody>
             </table>
             <p> {"\n"} </p>
-            <table className = {styles.tableStyle} id = "excelDateTable">
+            <table className = {styles.tableStyle} id = "ComboTable">
                 <thead>
                     <tr>
                         <th> Pizza Type </th>

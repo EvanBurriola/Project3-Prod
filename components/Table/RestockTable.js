@@ -33,7 +33,7 @@ const RestockTable = ({restockTable}) => {
 
     return(
         <div>
-            <table className = {styles.tableStyle} id ="excelDataTable">
+            <table className = {styles.tableStyle} id ="restockTable">
                 <thead>
                     <tr>
                         <th> Inventory ID </th>

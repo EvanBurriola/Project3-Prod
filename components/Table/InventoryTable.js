@@ -64,7 +64,7 @@ export const InventoryTable = ({inventory}) => {
         catch(error){
             console.error(error);
         }
-        window.location.reload();
+        // window.location.reload();
     };
 
     const deleteItem = async (event) =>{
@@ -89,7 +89,7 @@ export const InventoryTable = ({inventory}) => {
 
     return (
         <div className={styles.tableWrapper}>
-            <table className = {styles.tableStyle} id ="excelDataTable">
+            <table className = {styles.tableStyle} id ="inventoryTable">
                 <thead>
                     <tr>
                         <th> Inventory ID </th>
@@ -204,7 +204,7 @@ export const InventoryTable = ({inventory}) => {
 export const InventoryDisplay = ({inventory}) => {
     return (
         <div className={styles.tableWrapper}>
-            <table className = {styles.tableStyle} id ="excelDataTable">
+            <table className = {styles.tableStyle} id ="inventroyTable">
                 <thead>
                     <tr>
                         <th> Inventory ID </th>

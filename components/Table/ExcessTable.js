@@ -5,7 +5,7 @@ import ExcessItem from '../Items/ExcessItem'
 const ExcessTable = ({excessTable}) => {
     return (
         <div>
-            <table className = {styles.tableStyle} id = "excelDateTable">
+            <table className = {styles.tableStyle} id = "excessTable">
                 <thead>
                     <tr>
                         <th> Ingredient Name </th>
