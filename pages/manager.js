@@ -45,6 +45,7 @@ import "react-datepicker/dist/react-datepicker.css";
 //Tables
 import RestockTable from '@/components/Table/RestockTable';
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> Added delete for inventory and menu
 =======
 import SalesPizzaTable from '@/components/Table/SalesPizzaTable';
@@ -66,6 +67,11 @@ import TogetherTables from '@/components/Table/TogetherTables';
 
 import { useSession } from "next-auth/react"
 import { useRouter } from 'next/router'
+=======
+import SalesTables from '@/components/Table/SalesTables';
+import ExcessTable from '@/components/Table/excessTable';
+import TogetherTables from '@/components/Table/TogetherTables';
+>>>>>>> Refactored report tables. Still need to fix bug in reports
 
 =======
 >>>>>>> Manager dashboard layout completed
@@ -261,7 +267,7 @@ export default function manager({inventory, menu}) {
           method: 'POST',
           body: JSON.stringify(bodyTopping)
         })
-        return <SalesPizzaTable pizzaTable={resultPizza}/>// <SalesToppingTable toppingTable={resultTopping} /> 
+        return <SalesTables pizzaTable={resultPizza} toppingTable={resultTopping} />
       }
       else if(reportType == 'excess'){
         const body = { startDate, endDate, reportType }
@@ -296,10 +302,7 @@ export default function manager({inventory, menu}) {
           method: 'POST',
           body: JSON.stringify(body4)
         })
-        return <Together1Table together1Table={result1} />
-        // <Together2Table together2Table={result2} />
-        // <Together3Table together3Table={result3} />
-        // <Together4Table together4Table={result4} />
+        return <TogetherTables together1Table={result1} together2Table={result2} together3Table={result3} together4Table={result4}/>
       }
     } catch (error) {
       console.log(error);
