@@ -1,22 +1,13 @@
 import React from 'react';
 
 // TODO: import data from database (Connect to the database)
-<<<<<<< HEAD
 import { useState, Fragment } from 'react';
-=======
-import TableItem from '../Items/TableItem';
-import { useState } from 'react';
->>>>>>> Reorganized and started Reports
 import InventoryDropDown from '../Dropdown/InventoryDropDown';
 import AccordionButton from 'node_modules/react-bootstrap/esm/AccordionButton';
 import EditableItem from '../Items/EditableItem';
 import { TableItem, EditableTableItem } from '../Items/TableItem';
 
-<<<<<<< HEAD
 import styles from '@/styles/manager.module.css'
-=======
-import styles from '@/styles/manager.module.css';
->>>>>>> Manager dashboard layout completed
 
 export const InventoryTable = ({inventory}) => {
     //Add Item
@@ -29,11 +20,7 @@ export const InventoryTable = ({inventory}) => {
     // Change Item
     const [itemChange, setItemChange] = useState("");
     const [infoChange, setInfoChange] = useState("");
-<<<<<<< HEAD
-    const [changeTo, setChangeTo] = useSgtate(0);
-=======
     const [changeTo, setChangeTo] = useState(0);
->>>>>>> Added delete for inventory and menu
     // Delete Item
     const [itemDelete, setItemDelete] = useState("");
 
@@ -78,11 +65,7 @@ export const InventoryTable = ({inventory}) => {
         catch(error){
             console.error(error);
         }
-<<<<<<< HEAD
         // window.location.reload();
-=======
-        window.location.reload();
->>>>>>> Added reload for Add Item
     };
 
     const deleteItem = async (event) =>{
@@ -222,11 +205,7 @@ export const InventoryTable = ({inventory}) => {
 export const InventoryDisplay = ({inventory}) => {
     return (
         <div className={styles.tableWrapper}>
-<<<<<<< HEAD
             <table className = {styles.tableStyle} id ="inventroyTable">
-=======
-            <table className = {styles.tableStyle} id ="excelDataTable">
->>>>>>> Manager dashboard layout completed
                 <thead>
                     <tr>
                         <th> Inventory ID </th>
@@ -238,11 +217,7 @@ export const InventoryDisplay = ({inventory}) => {
                         <th> Item Type </th>
                     </tr>
                 </thead>
-<<<<<<< HEAD
                 <tbody>
-=======
-                <tbody style = {{"borderWidth":"1px", 'borderColor':"#aaaaaa", 'borderStyle':'solid'}}>
->>>>>>> Manager dashboard layout completed
                     {inventory.map(item => {
                         return <TableItem key={item.inventoryid} item={item} />
                     }) 
@@ -252,7 +227,6 @@ export const InventoryDisplay = ({inventory}) => {
             </table>
         </div>
     )
-<<<<<<< HEAD
 }
 
 export const EditableInventory = ({inventory}) => {
@@ -419,11 +393,7 @@ export const EditableInventory = ({inventory}) => {
             </thead>
             <tbody>
                 {inventories.map((item) => (
-<<<<<<< HEAD
-                    <Fragment key={item.inventoryID}>
-=======
                     <Fragment>
->>>>>>> design/editable table
                         {editInventoryID === item.inventoryid ? (
                             <EditableItem 
                             editFormData = {editFormData}
@@ -488,6 +458,4 @@ export const EditableInventory = ({inventory}) => {
 
         </div>
     )
-=======
->>>>>>> Manager dashboard layout completed
 }

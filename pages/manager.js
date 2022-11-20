@@ -3,102 +3,26 @@ import * as Navbar from '@/components/Navbar/Navbar.js';
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '@/styles/Home.module.css'
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 import stylesManager from '@/styles/manager.module.css'
-=======
->>>>>>> Manager dashboard layout completed
-=======
-import stylesManager from '@/styles/manager.module.css'
->>>>>>> design/editable table
-=======
->>>>>>> Manager dashboard layout completed
 
 import React from 'react';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 import DateSelect, { DateEnd, DateStart } from '../components/TextEntry/Datepicker.js';
-import InventoryTable, { InventoryDisplay } from '@/components/Table/InventoryTable.js';
-<<<<<<< HEAD
-=======
-=======
-import DateSelect, { DateEnd, DateStart } from '../components/TextEntry/Datepicker.js';
-import InventoryTable, { InventoryDisplay } from '@/components/Table/InventoryTable.js';
->>>>>>> Manager dashboard layout completed
-import MonthlySales from '@/components/Table/MonthlySales.js';
-import RestockTable from '@/components/Table/RestockTable.js';
->>>>>>> Manager dashboard layout completed
-=======
-import InventoryTable from '@/components/Table/InventoryTable.js';
-import ReportsTable from '@/components/Table/ReportsTable.js';
->>>>>>> Reorganized and started Reports
-import MenuTable from '@/components/Table/MenuTable.js';
+import { InventoryDisplay } from '@/components/Table/InventoryTable.js';
+import { MenuDisplay } from '@/components/Table/MenuTable.js';
 import { prisma } from '@/lib/prisma'
-<<<<<<< HEAD
 import { useState, useEffect } from 'react'
 import DatePicker from 'react-datepicker';
-=======
-import InventoryTable from '@/components/Table/InventoryTable.js';
-=======
-import {InventoryTable} from '@/components/Table/InventoryTable.js';
->>>>>>> Created Files for tables. Need to fix bug in manager
-import MenuTable from '@/components/Table/MenuTable.js';
-import { InventoryDisplay } from '@/components/Table/InventoryTable.js';
-import { prisma } from '@/lib/prisma'
-import { useState } from 'react'
-import DatePicker from 'react-datepicker';
 
-<<<<<<< HEAD
-import "react-datepicker/dist/react-datepicker.css";
-//Tables
-import RestockTable from '@/components/Table/RestockTable';
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> Added delete for inventory and menu
-=======
-import SalesPizzaTable from '@/components/Table/SalesPizzaTable';
-import SalesToppingTable from '@/components/Table/SalesToppingTable';
-import ExcessTable from '@/components/Table/excessTable';
-import Together1Table from '@/components/Table/Together1Table';
-import Together2Table from '@/components/Table/Together2Table';
-import Together3Table from '@/components/Table/Together3Table';
-import Together4Table from '@/components/Table/Together4Table';
->>>>>>> Created Files for tables. Need to fix bug in manager
-=======
-import { useState } from 'react'
-import DatePicker from 'react-datepicker';
-
-import styles from "@/styles/manager.module.css"
-import "react-datepicker/dist/react-datepicker.css";
-import RestockTable from '@/components/Table/RestockTable';
->>>>>>> Added delete for inventory and menu
-
-<<<<<<< HEAD
 import "react-datepicker/dist/react-datepicker.css";
 //Tables
 import RestockTable from '@/components/Table/RestockTable';
 import SalesTables from '@/components/Table/SalesTables';
-import ExcessTable from '@/components/Table/ExcessTable';
-import TogetherTables from '@/components/Table/TogetherTables';
-
-import { useSession } from "next-auth/react"
-import { useRouter } from 'next/router'
-=======
-import SalesTables from '@/components/Table/SalesTables';
 import ExcessTable from '@/components/Table/excessTable';
 import TogetherTables from '@/components/Table/TogetherTables';
->>>>>>> Refactored report tables. Still need to fix bug in reports
 
-=======
->>>>>>> Manager dashboard layout completed
-=======
->>>>>>> Manager dashboard layout completed
 export async function getServerSideProps(){
   const inventory = await prisma.inventory.findMany({
     orderBy: {
@@ -118,27 +42,7 @@ export async function getServerSideProps(){
   }
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-export default function Manager({inventory}) {
-  const { data: session } = useSession()
-  const router = useRouter()
-
-  // Prefetch the redirect page for unathorized users
-  useEffect(() => {
-    router.prefetch('/unauthorized')
-  }, [])
-
-  // redirect if the user doesn't have a manager role
-  useEffect(() => {
-    if(session?.user.role != "M"){
-      router.push("/unauthorized")
-    }
-  }, [session])
-
+export default function manager({inventory, menu}) {
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   const [reportType, setReportType] = useState("");
@@ -236,169 +140,24 @@ export default function Manager({inventory}) {
   }, [reportType])
 
 
-=======
-export default function server({inventory, menu}) {
->>>>>>> Manager dashboard layout completed
-=======
-
-
-=======
->>>>>>> Created Files for tables. Need to fix bug in manager
-export default function manager({inventory, menu}) {
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
-  const [reportType, setReportType] = useState("");
-
-  const generateReport = async (event) => {
-    event.preventDefault()
-    console.log(startDate, endDate)
-
-    if(startDate != null){
-      startDate = startDate.getUTCFullYear() + '-' +
-      ('00' + (startDate.getUTCMonth()+1)).slice(-2) + '-' +
-      ('00' + startDate.getUTCDate()).slice(-2) + ' ' + 
-      ('00' + startDate.getUTCHours()).slice(-2) + ':' + 
-      ('00' + startDate.getUTCMinutes()).slice(-2) + ':' + 
-      ('00' + startDate.getUTCSeconds()).slice(-2);
-    }
-    if(endDate != null){
-      endDate = endDate.getUTCFullYear() + '-' +
-      ('00' + (endDate.getUTCMonth()+1)).slice(-2) + '-' +
-      ('00' + endDate.getUTCDate()).slice(-2) + ' ' + 
-      ('00' + endDate.getUTCHours()).slice(-2) + ':' + 
-      ('00' + endDate.getUTCMinutes()).slice(-2) + ':' + 
-      ('00' + endDate.getUTCSeconds()).slice(-2);
-    }
-
-    // console.log(new Date(startDate), new Date(endDate))
-    //event.preventDefault()
-    try {
-      console.log("MAIN")
-      console.log(result)
-      if(reportType == 'restock'){
-        const body = { startDate, endDate, reportType }
-        const result = await fetch('/api/manager/reports', {
-          method: 'POST',
-          body: JSON.stringify(body)
-        })
-        return <RestockTable restockTable={result} />
-      }
-      else if(reportType == 'sales'){
-        reportType = "salesPizza"
-        const bodyPizza = { startDate, endDate, reportType }
-        const resultPizza = await fetch('/api/manager/reports', {
-          method: 'POST',
-          body: JSON.stringify(bodyPizza)
-        })
-        reportType = "salesTopping"
-        const bodyTopping = { startDate, endDate, reportType }
-        const resultTopping = await fetch('/api/manager/reports', {
-          method: 'POST',
-          body: JSON.stringify(bodyTopping)
-        })
-        return <SalesTables pizzaTable={resultPizza} toppingTable={resultTopping} />
-      }
-      else if(reportType == 'excess'){
-        const body = { startDate, endDate, reportType }
-        const result = await fetch('/api/manager/reports', {
-          method: 'POST',
-          body: JSON.stringify(body)
-        })
-        return <ExcessTable excessTable={result} />
-      }
-      else if(reportType == 'together'){
-        reportType = "together1"
-        const body1 = { startDate, endDate, reportType }
-        const result1 = await fetch('/api/manager/reports', {
-          method: 'POST',
-          body: JSON.stringify(body1)
-        })
-        reportType = "together2"
-        const body2 = { startDate, endDate, reportType }
-        const result2 = await fetch('/api/manager/reports', {
-          method: 'POST',
-          body: JSON.stringify(body2)
-        })
-        reportType = "together3"
-        const body3 = { startDate, endDate, reportType }
-        const result3 = await fetch('/api/manager/reports', {
-          method: 'POST',
-          body: JSON.stringify(body3)
-        })
-        reportType = "together4"
-        const body4 = { startDate, endDate, reportType }
-        const result4 = await fetch('/api/manager/reports', {
-          method: 'POST',
-          body: JSON.stringify(body4)
-        })
-        return <TogetherTables together1Table={result1} together2Table={result2} together3Table={result3} together4Table={result4}/>
-      }
-=======
-
-
-export default function manager({inventory, menu}) {
-  const [startDate, setStartDate] = useState(null);
-  const [endDate, setEndDate] = useState(null);
-  const [reportType, setReportType] = useState("");
-
-  const generateReport = async () => {
-    //event.preventDefault()
-    try {
-      const body = { startDate, endDate, reportType }
-      const result = await fetch('/api/manager/reports', {
-        method: "GET",
-        body: JSON.stringify(body)
-      })
-      //return <RestockTable inventory={result} />
->>>>>>> Added delete for inventory and menu
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-<<<<<<< HEAD
->>>>>>> Added delete for inventory and menu
-=======
-export default function server({inventory, menu}) {
->>>>>>> Manager dashboard layout completed
-=======
->>>>>>> Added delete for inventory and menu
   return (
     <Container fluid className="h-100">
-<<<<<<< HEAD
-      <Navbar.NavbarManager user={session.user} />
-=======
       <Navbar.NavbarManager />
->>>>>>> design/editable table
       <Row>
         <h1> Dashboard </h1>
       </Row>
       <Row>
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
         <Col md="5"> <h4 className = {styles.header}> Reports </h4> </Col>
         <Col md="7"> <h4 className = {styles.header}> Inventory at a Glance </h4></Col>
-=======
-        <Col> <h4 className = {styles.header}> Reports </h4> </Col>
-        <Col> <h4 className = {styles.header}> Inventory at a Glance </h4></Col>
->>>>>>> Manager dashboard layout completed
-=======
-        <Col md="5"> <h4 className = {styles.header}> Reports </h4> </Col>
-        <Col md="7"> <h4 className = {styles.header}> Inventory at a Glance </h4></Col>
->>>>>>> Changed ID names of tables
       </Row>
       <Row> 
-<<<<<<< HEAD
         <Col>
           <Row>
-<<<<<<< HEAD
-<<<<<<< HEAD
             <Row>
             <p> {"\n"} </p>
         <Row>
           <Col md = "5"> 
+            <h6> Select Start Date: </h6>
             <DatePicker 
               required = "required"
               placeholderText = "Start Date"
@@ -410,6 +169,7 @@ export default function server({inventory, menu}) {
               endDate = {endDate}
               onChange = {(date) => setStartDate(date)}
             />
+            <h6> Select End Date: </h6>
             <DatePicker
               required = "required"
               placeholderText = "End Date"
@@ -449,209 +209,14 @@ export default function server({inventory, menu}) {
           return null
         })()}
             </Row>
+            <Col md="7"> <h4 className = {styles.header}> Menu at a Glance </h4></Col>
+            <MenuDisplay menu={menu}/>
           </Row>
         </Col>
         <Col md = "7">
           <InventoryDisplay inventory={inventory}/> 
         </Col>
-=======
-        <h2 className = {styles.header}> Inventory At a Glance </h2>
-        <InventoryTable inventory={inventory}/>
->>>>>>> Reorganized and started Reports
-      </Row>
-      {/* <Row>
-        <Col>
-          <InventoryTable inventory={inventory}/> 
-        </Col>
-      </Row> */}
-      {/* <Row>
-        <MenuTable menu={menu}/>
-<<<<<<< HEAD
-      </Row> */}
-=======
-      </Row>
-      <Row>
-        <p> {"\n"} </p>
-        <h3> Reports </h3>
-        
-        <ReportsTable inventory={inventory}/>
-      </Row>
->>>>>>> Reorganized and started Reports
-    </Container>
-=======
-            <form>
-              <DateSelect />
-            </form>
-          </Row>
-          <Row>
-=======
->>>>>>> Created Files for tables. Need to fix bug in manager
-            <h1> {"\n"}</h1>
-            <h4 className = {styles.header}> Monthly Sales </h4> 
-          </Row>
-        </Col>
-        <Col>
-          <InventoryDisplay inventory={inventory}/> 
-        </Col>
-      </Row>
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-    </Container> 
->>>>>>> Manager dashboard layout completed
-=======
-      <Row>
-=======
-      {/* <Row>
->>>>>>> Changed ID names of tables
-        <Col>
-          <InventoryTable inventory={inventory}/> 
-        </Col>
-      </Row> */}
-      <Row>
-        <MenuTable menu={menu}/>
-      </Row>
-      <Row>
-=======
-        <Col md = "5">
-        <Row>
->>>>>>> design/editable table
-        <p> {"\n"} </p>
-        <button onClick={(event) => setReportType(event.target.id)} id="restock" className = {stylesManager.button}> Restock </button>
-        <form /*onSubmit={generateReport}*/>
-          <Row>
-            <Col> 
-              <DatePicker 
-                required = "required"
-                placeholderText = "Start Date"
-                showTimeSelect
-                dateFormat="yyyy-MM-dd hh:mm:ss"
-                selected = {startDate}
-                selectsStart
-                startDate = {startDate}
-                endDate = {endDate}
-                onChange = {(date) => setStartDate(date)}
-              />
-              <DatePicker
-                required = "required"
-                placeholderText = "End Date"
-                showTimeSelect
-                dateFormat="yyyy-MM-dd hh:mm:ss"
-                selected = {endDate}
-                selectsEnd
-                startDate={startDate}
-                endDate = {endDate}
-                minDate = {startDate}
-                onChange = {date => setEndDate(date)}
-              />
-            </Col>
-          </Row>
-          <Row> 
-            <Col> 
-              <button onClick={(event) => setReportType(event.target.id)} className = {stylesManager.button} type = "submit" id="sales"> Sales </button>
-              <button onClick={(event) => setReportType(event.target.id)} className = {stylesManager.button} type = "submit" id="excess"> Excess </button> 
-              <button onClick={(event) => setReportType(event.target.id)} className = {stylesManager.button} type = "submit" id="together"> What Sales Together </button> 
-              <p> {"\n"} </p>
-            </Col>
-          </Row>
-        </form>
-        {(() => {
-          if (reportType !== "") {
-            return generateReport(event);
-          }
-          return null
-        })()}
-      </Row>
-        </Col>
-        <Col md = "7">
-          <InventoryDisplay inventory={inventory}/> 
-        </Col>
-      </Row>
-      {/* <Row>
-        <Col>
-          <InventoryTable inventory={inventory}/> 
-        </Col>
-      </Row> */}
-      {/* <Row>
-        <MenuTable menu={menu}/>
-      </Row> */}
-      
-    </Container>
->>>>>>> Added delete for inventory and menu
-=======
-        <Col> <h4 className = {styles.header}> Reports </h4> </Col>
-        <Col> <h4 className = {styles.header}> Inventory at a Glance </h4></Col>
-      </Row>
-      <Row> 
-        <Col>
-          <Row>
-            <form>
-              <DateSelect />
-            </form>
-          </Row>
-          <Row>
-            <h1> {"\n"}</h1>
-            <h4 className = {styles.header}> Monthly Sales </h4> 
-          </Row>
-        </Col>
-        <Col>
-          <InventoryDisplay inventory={inventory}/> 
-        </Col>
-      </Row>
-<<<<<<< HEAD
-
-    </Container> 
->>>>>>> Manager dashboard layout completed
-=======
-      <Row>
-        <p> {"\n"} </p>
-        <h3> Reports </h3>
-        <form /*onSubmit={generateReport}*/>
-          <Row>
-            <Col> 
-              <DatePicker 
-                required = "required"
-                placeholderText = "Start Date"
-                showTimeSelect
-                dateFormat="yyyy-MM-dd hh:mm:ss"
-                selected = {startDate}
-                selectsStart
-                startDate = {startDate}
-                endDate = {endDate}
-                onChange = {(date) => setStartDate(date)}
-              />
-              <DatePicker
-                required = "required"
-                placeholderText = "End Date"
-                showTimeSelect
-                dateFormat="yyyy-MM-dd hh:mm:ss"
-                selected = {endDate}
-                selectsEnd
-                startDate={startDate}
-                endDate = {endDate}
-                minDate = {startDate}
-                onChange = {date => setEndDate(date)}
-              />
-            </Col>
-          </Row>
-          <Row> 
-            <Col> 
-              <button onClick={(event) => setReportType(event.target.id)} type = "submit" id="restock"> Restock </button>
-              <button onClick={(event) => setReportType(event.target.id)} type = "submit" id="sales"> Sales </button>
-              <button onClick={(event) => setReportType(event.target.id)} type = "submit" id="excess"> Excess </button> 
-              <button onClick={(event) => setReportType(event.target.id)} type = "submit" id="together"> What Sales Together </button> 
-              <p> {"\n"} </p>
-            </Col>
-          </Row>
-        </form>
-        {(() => {
-          if (reportType !== "") {
-            return generateReport();
-          }
-          return null
-        })()}
       </Row>
     </Container>
->>>>>>> Added delete for inventory and menu
   )
 }
