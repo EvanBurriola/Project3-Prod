@@ -219,11 +219,14 @@ export default function server({inventory, menu}) {
 =======
 >>>>>>> Created Files for tables. Need to fix bug in manager
 export default function manager({inventory, menu}) {
-  const [startDate, setStartDate] = useState(null);
-  const [endDate, setEndDate] = useState(null);
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date());
   const [reportType, setReportType] = useState("");
 
-  const generateReport = async () => {
+  const generateReport = async (event) => {
+    event.preventDefault()
+    console.log(startDate, endDate)
+
     if(startDate != null){
       startDate = startDate.getUTCFullYear() + '-' +
       ('00' + (startDate.getUTCMonth()+1)).slice(-2) + '-' +
@@ -319,12 +322,17 @@ export default function manager({inventory, menu}) {
       <Row>
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         <Col md="5"> <h4 className = {styles.header}> Reports </h4> </Col>
         <Col md="7"> <h4 className = {styles.header}> Inventory at a Glance </h4></Col>
 =======
         <Col> <h4 className = {styles.header}> Reports </h4> </Col>
         <Col> <h4 className = {styles.header}> Inventory at a Glance </h4></Col>
 >>>>>>> Manager dashboard layout completed
+=======
+        <Col md="5"> <h4 className = {styles.header}> Reports </h4> </Col>
+        <Col md="7"> <h4 className = {styles.header}> Inventory at a Glance </h4></Col>
+>>>>>>> Changed ID names of tables
       </Row>
       <Row> 
         <Col>
@@ -431,15 +439,19 @@ export default function manager({inventory, menu}) {
         </Col>
       </Row>
 <<<<<<< HEAD
+<<<<<<< HEAD
 
     </Container> 
 >>>>>>> Manager dashboard layout completed
 =======
       <Row>
+=======
+      {/* <Row>
+>>>>>>> Changed ID names of tables
         <Col>
           <InventoryTable inventory={inventory}/> 
         </Col>
-      </Row>
+      </Row> */}
       <Row>
         <MenuTable menu={menu}/>
       </Row>
@@ -477,7 +489,6 @@ export default function manager({inventory, menu}) {
           </Row>
           <Row> 
             <Col> 
-              <button onClick={(event) => setReportType(event.target.id)} type = "submit" id="restock"> Restock </button>
               <button onClick={(event) => setReportType(event.target.id)} type = "submit" id="sales"> Sales </button>
               <button onClick={(event) => setReportType(event.target.id)} type = "submit" id="excess"> Excess </button> 
               <button onClick={(event) => setReportType(event.target.id)} type = "submit" id="together"> What Sales Together </button> 
@@ -487,7 +498,7 @@ export default function manager({inventory, menu}) {
         </form>
         {(() => {
           if (reportType !== "") {
-            return generateReport();
+            return generateReport(event);
           }
           return null
         })()}
