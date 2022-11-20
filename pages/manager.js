@@ -13,13 +13,21 @@ import InventoryTable, { InventoryDisplay } from '@/components/Table/InventoryTa
 import MonthlySales from '@/components/Table/MonthlySales.js';
 import RestockTable from '@/components/Table/RestockTable.js';
 import MenuTable from '@/components/Table/MenuTable.js';
+import { InventoryDisplay } from '@/components/Table/InventoryTable.js';
 import { prisma } from '@/lib/prisma'
 import { useState } from 'react'
 import DatePicker from 'react-datepicker';
 
-import styles from "@/styles/manager.module.css"
 import "react-datepicker/dist/react-datepicker.css";
+//Tables
 import RestockTable from '@/components/Table/RestockTable';
+import SalesPizzaTable from '@/components/Table/SalesPizzaTable';
+import SalesToppingTable from '@/components/Table/SalesToppingTable';
+import ExcessTable from '@/components/Table/excessTable';
+import Together1Table from '@/components/Table/Together1Table';
+import Together2Table from '@/components/Table/Together2Table';
+import Together3Table from '@/components/Table/Together3Table';
+import Together4Table from '@/components/Table/Together4Table';
 
 export async function getServerSideProps(){
   const inventory = await prisma.inventory.findMany({
@@ -40,22 +48,95 @@ export async function getServerSideProps(){
   }
 }
 
-
-
 export default function manager({inventory, menu}) {
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const [reportType, setReportType] = useState("");
 
   const generateReport = async () => {
+    if(startDate != null){
+      startDate = startDate.getUTCFullYear() + '-' +
+      ('00' + (startDate.getUTCMonth()+1)).slice(-2) + '-' +
+      ('00' + startDate.getUTCDate()).slice(-2) + ' ' + 
+      ('00' + startDate.getUTCHours()).slice(-2) + ':' + 
+      ('00' + startDate.getUTCMinutes()).slice(-2) + ':' + 
+      ('00' + startDate.getUTCSeconds()).slice(-2);
+    }
+    if(endDate != null){
+      endDate = endDate.getUTCFullYear() + '-' +
+      ('00' + (endDate.getUTCMonth()+1)).slice(-2) + '-' +
+      ('00' + endDate.getUTCDate()).slice(-2) + ' ' + 
+      ('00' + endDate.getUTCHours()).slice(-2) + ':' + 
+      ('00' + endDate.getUTCMinutes()).slice(-2) + ':' + 
+      ('00' + endDate.getUTCSeconds()).slice(-2);
+    }
+
+    // console.log(new Date(startDate), new Date(endDate))
     //event.preventDefault()
     try {
-      const body = { startDate, endDate, reportType }
-      const result = await fetch('/api/manager/reports', {
-        method: "GET",
-        body: JSON.stringify(body)
-      })
-      //return <RestockTable inventory={result} />
+      console.log("MAIN")
+      console.log(result)
+      if(reportType == 'restock'){
+        const body = { startDate, endDate, reportType }
+        const result = await fetch('/api/manager/reports', {
+          method: 'POST',
+          body: JSON.stringify(body)
+        })
+        return <RestockTable restockTable={result} />
+      }
+      else if(reportType == 'sales'){
+        reportType = "salesPizza"
+        const bodyPizza = { startDate, endDate, reportType }
+        const resultPizza = await fetch('/api/manager/reports', {
+          method: 'POST',
+          body: JSON.stringify(bodyPizza)
+        })
+        reportType = "salesTopping"
+        const bodyTopping = { startDate, endDate, reportType }
+        const resultTopping = await fetch('/api/manager/reports', {
+          method: 'POST',
+          body: JSON.stringify(bodyTopping)
+        })
+        return <SalesPizzaTable pizzaTable={resultPizza}/>// <SalesToppingTable toppingTable={resultTopping} /> 
+      }
+      else if(reportType == 'excess'){
+        const body = { startDate, endDate, reportType }
+        const result = await fetch('/api/manager/reports', {
+          method: 'POST',
+          body: JSON.stringify(body)
+        })
+        return <ExcessTable excessTable={result} />
+      }
+      else if(reportType == 'together'){
+        reportType = "together1"
+        const body1 = { startDate, endDate, reportType }
+        const result1 = await fetch('/api/manager/reports', {
+          method: 'POST',
+          body: JSON.stringify(body1)
+        })
+        reportType = "together2"
+        const body2 = { startDate, endDate, reportType }
+        const result2 = await fetch('/api/manager/reports', {
+          method: 'POST',
+          body: JSON.stringify(body2)
+        })
+        reportType = "together3"
+        const body3 = { startDate, endDate, reportType }
+        const result3 = await fetch('/api/manager/reports', {
+          method: 'POST',
+          body: JSON.stringify(body3)
+        })
+        reportType = "together4"
+        const body4 = { startDate, endDate, reportType }
+        const result4 = await fetch('/api/manager/reports', {
+          method: 'POST',
+          body: JSON.stringify(body4)
+        })
+        return <Together1Table together1Table={result1} />
+        // <Together2Table together2Table={result2} />
+        // <Together3Table together3Table={result3} />
+        // <Together4Table together4Table={result4} />
+      }
     } catch (error) {
       console.log(error);
     }
@@ -74,11 +155,6 @@ export default function manager({inventory, menu}) {
       <Row> 
         <Col>
           <Row>
-            <form>
-              <DateSelect />
-            </form>
-          </Row>
-          <Row>
             <h1> {"\n"}</h1>
             <h4 className = {styles.header}> Monthly Sales </h4> 
           </Row>
@@ -88,8 +164,17 @@ export default function manager({inventory, menu}) {
         </Col>
       </Row>
       <Row>
+        <Col>
+          <InventoryTable inventory={inventory}/> 
+        </Col>
+      </Row>
+      <Row>
+        <MenuTable menu={menu}/>
+      </Row>
+      <Row>
         <p> {"\n"} </p>
         <h3> Reports </h3>
+        <button onClick={(event) => setReportType(event.target.id)} id="restock"> Restock </button>
         <form /*onSubmit={generateReport}*/>
           <Row>
             <Col> 
