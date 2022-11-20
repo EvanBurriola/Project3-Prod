@@ -21,13 +21,9 @@ import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 //Tables
 import RestockTable from '@/components/Table/RestockTable';
-import SalesPizzaTable from '@/components/Table/SalesPizzaTable';
-import SalesToppingTable from '@/components/Table/SalesToppingTable';
+import SalesTables from '@/components/Table/SalesTables';
 import ExcessTable from '@/components/Table/excessTable';
-import Together1Table from '@/components/Table/Together1Table';
-import Together2Table from '@/components/Table/Together2Table';
-import Together3Table from '@/components/Table/Together3Table';
-import Together4Table from '@/components/Table/Together4Table';
+import TogetherTables from '@/components/Table/TogetherTables';
 
 export async function getServerSideProps(){
   const inventory = await prisma.inventory.findMany({
@@ -97,7 +93,7 @@ export default function manager({inventory, menu}) {
           method: 'POST',
           body: JSON.stringify(bodyTopping)
         })
-        return <SalesPizzaTable pizzaTable={resultPizza}/>// <SalesToppingTable toppingTable={resultTopping} /> 
+        return <SalesTables pizzaTable={resultPizza} toppingTable={resultTopping} />
       }
       else if(reportType == 'excess'){
         const body = { startDate, endDate, reportType }
@@ -132,10 +128,7 @@ export default function manager({inventory, menu}) {
           method: 'POST',
           body: JSON.stringify(body4)
         })
-        return <Together1Table together1Table={result1} />
-        // <Together2Table together2Table={result2} />
-        // <Together3Table together3Table={result3} />
-        // <Together4Table together4Table={result4} />
+        return <TogetherTables together1Table={result1} together2Table={result2} together3Table={result3} together4Table={result4}/>
       }
     } catch (error) {
       console.log(error);
