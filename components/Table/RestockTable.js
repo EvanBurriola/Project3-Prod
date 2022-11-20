@@ -6,10 +6,14 @@ import { useState } from 'react';
 import styles from '@/styles/manager.module.css'
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 const RestockTable = ({restockTable}) => {
 =======
 const RestockTable = ({inventory}) => {
 >>>>>>> Reorganized and started Reports
+=======
+const RestockTable = ({restockTable}) => {
+>>>>>>> Created Files for tables. Need to fix bug in manager
     const [itemName, setRestockItem] = useState("");
     const [quantityRestock, setQuantityRestock] = useState(0);
 
