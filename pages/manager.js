@@ -12,7 +12,6 @@ import Col from 'react-bootstrap/Col';
 import DateSelect, { DateEnd, DateStart } from '../components/TextEntry/Datepicker.js';
 import InventoryTable, { InventoryDisplay } from '@/components/Table/InventoryTable.js';
 import MenuTable from '@/components/Table/MenuTable.js';
-import { InventoryDisplay } from '@/components/Table/InventoryTable.js';
 import { prisma } from '@/lib/prisma'
 import { useState, useEffect } from 'react'
 import DatePicker from 'react-datepicker';
@@ -154,28 +153,11 @@ export default function manager({inventory, menu}) {
       <Row> 
         <Col>
           <Row>
-            <h1> {"\n"}</h1>
-            <h4 className = {styles.header}> Monthly Sales </h4> 
-          </Row>
-        </Col>
-        <Col>
-          <InventoryDisplay inventory={inventory}/> 
-        </Col>
-      </Row>
-      {/* <Row>
-        <Col>
-          <InventoryTable inventory={inventory}/> 
-        </Col>
-      </Row> */}
-      <Row>
-        <MenuTable menu={menu}/>
-      </Row>
-      <Row>
-        <p> {"\n"} </p>
-        <h3> Reports </h3>
-        <button onClick={()=>setReportType("restock")} id="restock"> Restock </button>
+            <Row>
+            <p> {"\n"} </p>
+        <button onClick={()=>setReportType("restock")} id="restock" className={stylesManager.button}> Restock </button>
         <Row>
-          <Col> 
+          <Col md = "5"> 
             <DatePicker 
               required = "required"
               placeholderText = "Start Date"
@@ -203,9 +185,9 @@ export default function manager({inventory, menu}) {
         </Row>
         <Row> 
           <Col> 
-            <button onClick={()=>setReportType("sales")} id="sales"> Sales </button>
-            <button onClick={()=>setReportType("excess")} id="excess"> Excess </button> 
-            <button onClick={()=>setReportType("together")} id="together"> What Sales Together </button> 
+            <button onClick={()=>setReportType("sales")} id="sales" className={stylesManager.button}> Sales </button>
+            <button onClick={()=>setReportType("excess")} id="excess" className={stylesManager.button}> Excess </button> 
+            <button onClick={()=>setReportType("together")} id="together" className={stylesManager.button}> What Sales Together </button> 
             <p> {"\n"} </p>
           </Col>
         </Row>
@@ -224,7 +206,21 @@ export default function manager({inventory, menu}) {
           }
           return null
         })()}
+            </Row>
+          </Row>
+        </Col>
+        <Col md = "7">
+          <InventoryDisplay inventory={inventory}/> 
+        </Col>
       </Row>
+      {/* <Row>
+        <Col>
+          <InventoryTable inventory={inventory}/> 
+        </Col>
+      </Row> */}
+      {/* <Row>
+        <MenuTable menu={menu}/>
+      </Row> */}
     </Container>
   )
 }
