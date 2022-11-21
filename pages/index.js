@@ -11,7 +11,6 @@ import Col from 'react-bootstrap/Col';
 import {EditableInventory, InventoryTable} from '@/components/Table/InventoryTable.js';
 import DateSelect, { DateEnd, DateStart } from '../components/TextEntry/Datepicker.js';
 import InventoryTable from '@/components/Table/InventoryTable.js';
-import MonthlySales from '@/components/Table/ReportsTable.js';
 import RestockTable from '@/components/Table/RestockTable.js';
 import {EditableInventory, InventoryTable} from '@/components/Table/InventoryTable.js';
 import MenuTable from '@/components/Table/MenuTable.js';
