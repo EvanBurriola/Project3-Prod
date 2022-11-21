@@ -9,11 +9,12 @@ import React from 'react';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import {InventoryTable} from '@/components/Table/InventoryTable.js';
+import DateSelect, { DateEnd, DateStart } from '../components/TextEntry/Datepicker.js';
+import InventoryTable, { InventoryDisplay } from '@/components/Table/InventoryTable.js';
 import MenuTable from '@/components/Table/MenuTable.js';
 import { InventoryDisplay } from '@/components/Table/InventoryTable.js';
 import { prisma } from '@/lib/prisma'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import DatePicker from 'react-datepicker';
 
 import "react-datepicker/dist/react-datepicker.css";
@@ -47,94 +48,98 @@ export default function manager({inventory, menu}) {
   const [endDate, setEndDate] = useState(new Date());
   const [reportType, setReportType] = useState("");
 
-  const generateReport = async (event) => {
-    event.preventDefault()
-    console.log(startDate, endDate)
+  const [restockData, setRestockData] = useState([]);
+  const [salesPizzaData, setSalesPizzaData] = useState([]);
+  const [salesToppingData, setSalesToppingData] = useState([]);
+  const [excessData, setExcessData] = useState([]);
+  const [together1Data, setTogether1Data] = useState([]);
+  const [together2Data, setTogether2Data] = useState([]);
+  const [together3Data, setTogether3Data] = useState([]);
+  const [together4Data, setTogether4Data] = useState([]);
 
-    if(startDate != null){
-      startDate = startDate.getUTCFullYear() + '-' +
-      ('00' + (startDate.getUTCMonth()+1)).slice(-2) + '-' +
-      ('00' + startDate.getUTCDate()).slice(-2) + ' ' + 
-      ('00' + startDate.getUTCHours()).slice(-2) + ':' + 
-      ('00' + startDate.getUTCMinutes()).slice(-2) + ':' + 
-      ('00' + startDate.getUTCSeconds()).slice(-2);
-    }
-    if(endDate != null){
-      endDate = endDate.getUTCFullYear() + '-' +
-      ('00' + (endDate.getUTCMonth()+1)).slice(-2) + '-' +
-      ('00' + endDate.getUTCDate()).slice(-2) + ' ' + 
-      ('00' + endDate.getUTCHours()).slice(-2) + ':' + 
-      ('00' + endDate.getUTCMinutes()).slice(-2) + ':' + 
-      ('00' + endDate.getUTCSeconds()).slice(-2);
-    }
+  useEffect(() => { 
+    const generateReport = async () => {
+      let start = startDate;
+      let end = endDate;
 
-    // console.log(new Date(startDate), new Date(endDate))
-    //event.preventDefault()
-    try {
-      console.log("MAIN")
-      console.log(result)
-      if(reportType == 'restock'){
-        const body = { startDate, endDate, reportType }
-        const result = await fetch('/api/manager/reports', {
-          method: 'POST',
-          body: JSON.stringify(body)
-        })
-        return <RestockTable restockTable={result} />
+      try {
+        if(reportType == 'restock'){
+          const body = { start, end, reportType }
+          const response = await fetch('/api/manager/reports', {
+            method: 'POST',
+            body: JSON.stringify(body)
+          })
+          const result = await response.json()
+          setRestockData(result)
+        }
+        else if(reportType == 'sales'){
+          reportType = "salesPizza"
+          const bodyPizza = { start, end, reportType }
+          const responsePizza = await fetch('/api/manager/reports', {
+            method: 'POST',
+            body: JSON.stringify(bodyPizza)
+          })
+          const resultPizza = await responsePizza.json()
+          reportType = "salesTopping"
+          const bodyTopping = { start, end, reportType }
+          const responseTopping = await fetch('/api/manager/reports', {
+            method: 'POST',
+            body: JSON.stringify(bodyTopping)
+          })
+          const resultTopping = await responseTopping.json()
+          setSalesPizzaData(resultPizza)
+          setSalesToppingData(resultTopping)
+        }
+        else if(reportType == 'excess'){
+          const body = { start, end, reportType }
+          const response = await fetch('/api/manager/reports', {
+            method: 'POST',
+            body: JSON.stringify(body)
+          })
+          const result = await response.json()
+          setExcessData(result)
+        }
+        else if(reportType == 'together'){
+          reportType = "together1"
+          const body1 = { start, end, reportType }
+          const response1 = await fetch('/api/manager/reports', {
+            method: 'POST',
+            body: JSON.stringify(body1)
+          })
+          const result1 = await response1.json()
+          reportType = "together2"
+          const body2 = { start, end, reportType }
+          const response2 = await fetch('/api/manager/reports', {
+            method: 'POST',
+            body: JSON.stringify(body2)
+          })
+          const result2 = await response2.json()
+          reportType = "together3"
+          const body3 = { start, end, reportType }
+          const response3 = await fetch('/api/manager/reports', {
+            method: 'POST',
+            body: JSON.stringify(body3)
+          })
+          const result3 = await response3.json()
+          reportType = "together4"
+          const body4 = { start, end, reportType }
+          const response4 = await fetch('/api/manager/reports', {
+            method: 'POST',
+            body: JSON.stringify(body4)
+          })
+          const result4 = await response4.json()
+          setTogether1Data(result1)
+          setTogether2Data(result2)
+          setTogether3Data(result3)
+          setTogether4Data(result4)
+        }
+      } catch (error) {
+        console.log(error);
       }
-      else if(reportType == 'sales'){
-        reportType = "salesPizza"
-        const bodyPizza = { startDate, endDate, reportType }
-        const resultPizza = await fetch('/api/manager/reports', {
-          method: 'POST',
-          body: JSON.stringify(bodyPizza)
-        })
-        reportType = "salesTopping"
-        const bodyTopping = { startDate, endDate, reportType }
-        const resultTopping = await fetch('/api/manager/reports', {
-          method: 'POST',
-          body: JSON.stringify(bodyTopping)
-        })
-        return <SalesTables pizzaTable={resultPizza} toppingTable={resultTopping} />
-      }
-      else if(reportType == 'excess'){
-        const body = { startDate, endDate, reportType }
-        const result = await fetch('/api/manager/reports', {
-          method: 'POST',
-          body: JSON.stringify(body)
-        })
-        return <ExcessTable excessTable={result} />
-      }
-      else if(reportType == 'together'){
-        reportType = "together1"
-        const body1 = { startDate, endDate, reportType }
-        const result1 = await fetch('/api/manager/reports', {
-          method: 'POST',
-          body: JSON.stringify(body1)
-        })
-        reportType = "together2"
-        const body2 = { startDate, endDate, reportType }
-        const result2 = await fetch('/api/manager/reports', {
-          method: 'POST',
-          body: JSON.stringify(body2)
-        })
-        reportType = "together3"
-        const body3 = { startDate, endDate, reportType }
-        const result3 = await fetch('/api/manager/reports', {
-          method: 'POST',
-          body: JSON.stringify(body3)
-        })
-        reportType = "together4"
-        const body4 = { startDate, endDate, reportType }
-        const result4 = await fetch('/api/manager/reports', {
-          method: 'POST',
-          body: JSON.stringify(body4)
-        })
-        return <TogetherTables together1Table={result1} together2Table={result2} together3Table={result3} together4Table={result4}/>
-      }
-    } catch (error) {
-      console.log(error);
     }
-  }
+    generateReport()
+  }, [reportType])
+
 
   return (
     <Container fluid className="h-100">
@@ -147,56 +152,13 @@ export default function manager({inventory, menu}) {
         <Col md="7"> <h4 className = {styles.header}> Inventory at a Glance </h4></Col>
       </Row>
       <Row> 
-        <Col md = "5">
-        <Row>
-        <p> {"\n"} </p>
-        <button onClick={(event) => setReportType(event.target.id)} id="restock" className = {stylesManager.button}> Restock </button>
-        <form /*onSubmit={generateReport}*/>
+        <Col>
           <Row>
-            <Col> 
-              <DatePicker 
-                required = "required"
-                placeholderText = "Start Date"
-                showTimeSelect
-                dateFormat="yyyy-MM-dd hh:mm:ss"
-                selected = {startDate}
-                selectsStart
-                startDate = {startDate}
-                endDate = {endDate}
-                onChange = {(date) => setStartDate(date)}
-              />
-              <DatePicker
-                required = "required"
-                placeholderText = "End Date"
-                showTimeSelect
-                dateFormat="yyyy-MM-dd hh:mm:ss"
-                selected = {endDate}
-                selectsEnd
-                startDate={startDate}
-                endDate = {endDate}
-                minDate = {startDate}
-                onChange = {date => setEndDate(date)}
-              />
-            </Col>
+            <h1> {"\n"}</h1>
+            <h4 className = {styles.header}> Monthly Sales </h4> 
           </Row>
-          <Row> 
-            <Col> 
-              <button onClick={(event) => setReportType(event.target.id)} className = {stylesManager.button} type = "submit" id="sales"> Sales </button>
-              <button onClick={(event) => setReportType(event.target.id)} className = {stylesManager.button} type = "submit" id="excess"> Excess </button> 
-              <button onClick={(event) => setReportType(event.target.id)} className = {stylesManager.button} type = "submit" id="together"> What Sales Together </button> 
-              <p> {"\n"} </p>
-            </Col>
-          </Row>
-        </form>
-        {(() => {
-          if (reportType !== "") {
-            return generateReport(event);
-          }
-          return null
-        })()}
-      </Row>
         </Col>
-        <Col md = "7">
+        <Col>
           <InventoryDisplay inventory={inventory}/> 
         </Col>
       </Row>
@@ -205,10 +167,64 @@ export default function manager({inventory, menu}) {
           <InventoryTable inventory={inventory}/> 
         </Col>
       </Row> */}
-      {/* <Row>
+      <Row>
         <MenuTable menu={menu}/>
-      </Row> */}
-      
+      </Row>
+      <Row>
+        <p> {"\n"} </p>
+        <h3> Reports </h3>
+        <button onClick={()=>setReportType("restock")} id="restock"> Restock </button>
+        <Row>
+          <Col> 
+            <DatePicker 
+              required = "required"
+              placeholderText = "Start Date"
+              showTimeSelect
+              dateFormat="yyyy-MM-dd hh:mm:ss"
+              selected = {startDate}
+              selectsStart
+              startDate = {startDate}
+              endDate = {endDate}
+              onChange = {(date) => setStartDate(date)}
+            />
+            <DatePicker
+              required = "required"
+              placeholderText = "End Date"
+              showTimeSelect
+              dateFormat="yyyy-MM-dd hh:mm:ss"
+              selected = {endDate}
+              selectsEnd
+              startDate={startDate}
+              endDate = {endDate}
+              minDate = {startDate}
+              onChange = {date => setEndDate(date)}
+            />
+          </Col>
+        </Row>
+        <Row> 
+          <Col> 
+            <button onClick={()=>setReportType("sales")} id="sales"> Sales </button>
+            <button onClick={()=>setReportType("excess")} id="excess"> Excess </button> 
+            <button onClick={()=>setReportType("together")} id="together"> What Sales Together </button> 
+            <p> {"\n"} </p>
+          </Col>
+        </Row>
+        {(() => {
+          if(reportType == "restock"){
+            return <RestockTable restockTable={restockData} />
+          }
+          else if(reportType == "sales"){
+            return <SalesTables pizzaTable={salesPizzaData} toppingTable={salesToppingData} />
+          }
+          else if(reportType == "excess"){
+            return <ExcessTable excessTable={excessData} />
+          }
+          else if(reportType == "together"){
+            return <TogetherTables together1Table={together1Data} together2Table={together2Data} together3Table={together3Data} together4Table={together4Data}/>
+          }
+          return null
+        })()}
+      </Row>
     </Container>
   )
 }

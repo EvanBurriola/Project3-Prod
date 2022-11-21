@@ -17,36 +17,60 @@ export default async function handler(req, res) {
     let toppings = []
 
     // remove unecessary args in order + keep list of all ingredients
+    // TODO: refactor this so future change to order won't need to
+    //       consider this
     delete order.orderItems
+    delete order.activeOrder
     orderItems.forEach((item) => {
         toppings.push(item.toppings);
         delete item.pizzatype
         delete item.toppings
     })
 
-    // push basic order info and each menu item to relational table
-    const createOrder = await prisma.customerorders.create({
-        data: {
-            ...order,
-            pizzaorders: {
-                create: orderItems,
+    // use a transaction since the whole order needs to be made
+    // and if it fails, the changes should be rolled back
+    const result = await prisma.$transaction(async (client) => {
+        // push basic order info and each menu item to relational table
+        const createOrder = await client.customerorders.create({
+            data: {
+                ...order,
+                pizzaorders: {
+                    create: orderItems,
+                }
+            },
+            include: {
+                pizzaorders: true,
             }
-        },
-        include: {
-            pizzaorders: true,
+        })
+
+        // push each topping to the pizzas table and update inventory
+        for (var i = 0; i < createOrder.pizzaorders.length; i++) {
+            const id = createOrder.pizzaorders[i].pizzaid
+            toppings[i].forEach(async (top) => {
+                top.pizzaid = id
+                // itemtype prop not in pizza table and causes
+                // errors when pushing to table
+                delete top.itemtype
+                // update each topping quantity in inventory
+                await client.inventory.update({
+                    where: {
+                        inventoryid: top.inventoryid
+                    },
+                    data: {
+                        quantityounces: {
+                            decrement: top.quantityused
+                        }
+                    }
+                })
+            })
+            await client.pizzas.createMany({
+                data: toppings[i]
+            })
         }
+
+        // this only returns the order without the toppings
+        return createOrder
     })
 
-    // push each topping to the pizzas table
-    for (var i = 0; i < createOrder.pizzaorders.length; i++) {
-        const id = createOrder.pizzaorders[i].pizzaid
-        toppings[i].forEach((top) => {
-            top.pizzaid = id
-        })
-        const createToppings = await prisma.pizzas.createMany({
-            data: toppings[i]
-        })
-    }
-
-    res.json(createOrder);
+    res.json(result);
 }

@@ -1,14 +1,12 @@
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
-import Button from 'react-bootstrap/Button';
-import Col from 'react-bootstrap/Col';
 import Image from 'next/image'
 import logo from '@/public/assets/logo.png'
 import styles from './Navbar.module.css'
 
 export const NavbarServer = () => {
     return (
-        <Navbar bg="light" expand="lg">
+        <Navbar expand="lg" className={`${styles.navOffWhite}`}>
             <Navbar.Brand href="/server" className={styles.logoContainer}>
                 <Image
                     src={logo}
@@ -27,7 +25,7 @@ export const NavbarServer = () => {
 
 export const NavbarCustomer = () => {
     return (
-        <Navbar bg="light" expand="lg">
+        <Navbar expand="lg" className={`${styles.navOffWhite}`}>
             <Navbar.Brand href="/dashboard" className={styles.logoContainer}>
                 <Image
                     src={logo}

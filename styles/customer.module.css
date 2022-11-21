@@ -1,23 +1,15 @@
-.button {
-    width: 100%;
-    padding: 8%;
-    margin: 5%;
-  }
-
-.orderCostPos {
-    position: absolute;
-    top: 80%;
-    left: 70%;
+.orderContainer {
+    max-height: 40vh;
+    overflow: auto;
 }
 
-.centerScreen1 {
-  position: absolute;
-  top: 30%;
-  left: 40%;
+.typeTitle {
+    font-size: 2.5rem;
 }
 
-.centerScreen2 {
-  position: absolute;
-  top: 40%;
-  left: 22%;
+.btnNav {
+    font-family: var(--font-playfair) !important;
+    background-color: var(--color-beige) !important;
+    border: 0px !important;
+    color: var(--color-offblack) !important;
 }
