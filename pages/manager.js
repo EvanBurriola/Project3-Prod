@@ -62,20 +62,6 @@ export default function manager({inventory, menu}) {
     const generateReport = async () => {
       let start = startDate;
       let end = endDate;
-      // if(startDate != null){
-      //   start = startDate.getUTCFullYear() + '-' +
-      //   ('00' + (startDate.getUTCMonth()+1)).slice(-2) + '-' +
-      //   ('00' + startDate.getUTCDate()).slice(-2) + ' ' + 
-      //   ('00' + startDate.getUTCHours()).slice(-2) + ':' + 
-      //   ('00' + startDate.getUTCMinutes()).slice(-2) + ':' + 
-      //   ('00' + startDate.getUTCSeconds()).slice(-2);
-      //   end = endDate.getUTCFullYear() + '-' +
-      //   ('00' + (endDate.getUTCMonth()+1)).slice(-2) + '-' +
-      //   ('00' + endDate.getUTCDate()).slice(-2) + ' ' + 
-      //   ('00' + endDate.getUTCHours()).slice(-2) + ':' + 
-      //   ('00' + endDate.getUTCMinutes()).slice(-2) + ':' + 
-      //   ('00' + endDate.getUTCSeconds()).slice(-2);
-      // }
 
       try {
         if(reportType == 'restock'){
