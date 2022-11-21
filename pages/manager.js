@@ -155,7 +155,6 @@ export default function manager({inventory, menu}) {
           <Row>
             <Row>
             <p> {"\n"} </p>
-        <button onClick={()=>setReportType("restock")} id="restock" className={stylesManager.button}> Restock </button>
         <Row>
           <Col md = "5"> 
             <DatePicker 
@@ -188,6 +187,7 @@ export default function manager({inventory, menu}) {
             <button onClick={()=>setReportType("sales")} id="sales" className={stylesManager.button}> Sales </button>
             <button onClick={()=>setReportType("excess")} id="excess" className={stylesManager.button}> Excess </button> 
             <button onClick={()=>setReportType("together")} id="together" className={stylesManager.button}> What Sales Together </button> 
+            <button onClick={()=>setReportType("restock")} id="restock" className={stylesManager.button}> Restock </button>
             <p> {"\n"} </p>
           </Col>
         </Row>
