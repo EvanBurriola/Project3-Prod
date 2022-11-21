@@ -3,6 +3,7 @@ import * as Navbar from '@/components/Navbar/Navbar.js';
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '@/styles/Home.module.css'
+import stylesManager from '@/styles/manager.module.css'
 
 import React from 'react';
 import Container from 'react-bootstrap/Container';
@@ -136,7 +137,7 @@ export default function manager({inventory, menu}) {
   }
 
   return (
-    <Container>
+    <Container fluid className="h-100">
       <Navbar.NavbarManager />
       <Row>
         <h1> Dashboard </h1>
@@ -146,28 +147,10 @@ export default function manager({inventory, menu}) {
         <Col md="7"> <h4 className = {styles.header}> Inventory at a Glance </h4></Col>
       </Row>
       <Row> 
-        <Col>
-          <Row>
-            <h1> {"\n"}</h1>
-            <h4 className = {styles.header}> Monthly Sales </h4> 
-          </Row>
-        </Col>
-        <Col>
-          <InventoryDisplay inventory={inventory}/> 
-        </Col>
-      </Row>
-      {/* <Row>
-        <Col>
-          <InventoryTable inventory={inventory}/> 
-        </Col>
-      </Row> */}
-      <Row>
-        <MenuTable menu={menu}/>
-      </Row>
-      <Row>
+        <Col md = "5">
+        <Row>
         <p> {"\n"} </p>
-        <h3> Reports </h3>
-        <button onClick={(event) => setReportType(event.target.id)} id="restock"> Restock </button>
+        <button onClick={(event) => setReportType(event.target.id)} id="restock" className = {stylesManager.button}> Restock </button>
         <form /*onSubmit={generateReport}*/>
           <Row>
             <Col> 
@@ -198,9 +181,9 @@ export default function manager({inventory, menu}) {
           </Row>
           <Row> 
             <Col> 
-              <button onClick={(event) => setReportType(event.target.id)} type = "submit" id="sales"> Sales </button>
-              <button onClick={(event) => setReportType(event.target.id)} type = "submit" id="excess"> Excess </button> 
-              <button onClick={(event) => setReportType(event.target.id)} type = "submit" id="together"> What Sales Together </button> 
+              <button onClick={(event) => setReportType(event.target.id)} className = {stylesManager.button} type = "submit" id="sales"> Sales </button>
+              <button onClick={(event) => setReportType(event.target.id)} className = {stylesManager.button} type = "submit" id="excess"> Excess </button> 
+              <button onClick={(event) => setReportType(event.target.id)} className = {stylesManager.button} type = "submit" id="together"> What Sales Together </button> 
               <p> {"\n"} </p>
             </Col>
           </Row>
@@ -212,6 +195,20 @@ export default function manager({inventory, menu}) {
           return null
         })()}
       </Row>
+        </Col>
+        <Col md = "7">
+          <InventoryDisplay inventory={inventory}/> 
+        </Col>
+      </Row>
+      {/* <Row>
+        <Col>
+          <InventoryTable inventory={inventory}/> 
+        </Col>
+      </Row> */}
+      {/* <Row>
+        <MenuTable menu={menu}/>
+      </Row> */}
+      
     </Container>
   )
 }
