@@ -7,7 +7,6 @@
     overflow: hidden;
     position: relative;
     float: left;
-
 }
 
 .tableStyle thead tr {
@@ -73,7 +72,11 @@
     background-color: #FCB353;
     color: white;
     border: black;
+<<<<<<< HEAD
     padding: 4px 10px;
+=======
+    padding: 4px 15px;
+>>>>>>> design/editable table
     text-align: center;
     text-decoration: none;
     display: inline-block;
@@ -88,6 +91,7 @@
     border-radius: 10%;
 }
 
+<<<<<<< HEAD
 .next {
     display: inline-block;
 }
@@ -98,6 +102,8 @@
     border-bottom: 2px solid #009879;
 }
 
+=======
+>>>>>>> design/editable table
 .next {
     display: inline-block;
 }
