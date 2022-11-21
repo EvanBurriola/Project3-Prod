@@ -73,11 +73,7 @@
     background-color: #FCB353;
     color: white;
     border: black;
-<<<<<<< HEAD
-    padding: 4px 10px;
-=======
     padding: 4px 15px;
->>>>>>> design/editable table
     text-align: center;
     text-decoration: none;
     display: inline-block;
@@ -92,26 +88,10 @@
     border-radius: 10%;
 }
 
-<<<<<<< HEAD
 .next {
     display: inline-block;
 }
 
-<<<<<<< HEAD
-=======
-.tableStyle1 tbody tr:last-of-type {
-    border-bottom: 2px solid #009879;
-}
-
-=======
->>>>>>> design/editable table
-.next {
-    display: inline-block;
-}
-
-<<<<<<< HEAD
->>>>>>> Manager dashboard layout completed
-=======
 .tableStyle1 tbody tr:last-of-type {
     border-bottom: 2px solid #009879;
 }
@@ -120,7 +100,14 @@
     display: inline-block;
 }
 
->>>>>>> Manager dashboard layout completed
+.tableStyle1 tbody tr:last-of-type {
+    border-bottom: 2px solid #009879;
+}
+
+.next {
+    display: inline-block;
+}
+
 .scrollable {
     max-height: 500em;
 }
