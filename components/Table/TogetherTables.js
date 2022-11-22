@@ -17,7 +17,7 @@ const TogetherTables = ({together1Table, together2Table, together3Table, togethe
                 </thead>
                 <tbody>
                     {together1Table.map(item => {
-                        return <Together1Item item={item} />
+                        return <Together1Item key={item.pizzatype} item={item} />
                     })
                     }
                 </tbody>
@@ -32,7 +32,7 @@ const TogetherTables = ({together1Table, together2Table, together3Table, togethe
                 </thead>
                 <tbody>
                     {together2Table.map(item => {
-                        return <Together2Item item={item} />
+                        return <Together2Item key={item.pizzatype} item={item} />
                     })
                     }
                 </tbody>
@@ -47,7 +47,7 @@ const TogetherTables = ({together1Table, together2Table, together3Table, togethe
                 </thead>
                 <tbody>
                     {together3Table.map(item => {
-                        return <Together3Item item={item} />
+                        return <Together3Item key={item.pizzatype} item={item} />
                     })
                     }
                 </tbody>
@@ -62,7 +62,7 @@ const TogetherTables = ({together1Table, together2Table, together3Table, togethe
                 </thead>
                 <tbody>
                     {together4Table.map(item => {
-                        return <Together4Item item={item} />
+                        return <Together4Item key={item.pizzatype} item={item} />
                     })
                     }
                 </tbody>

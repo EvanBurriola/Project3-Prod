@@ -16,7 +16,7 @@ const SalesTables = ({pizzaTable, toppingTable}) => {
                 </thead>
                 <tbody>
                     {pizzaTable.map(item => {
-                        return <SalesPizzaItem item={item} />
+                        return <SalesPizzaItem key={item.pizzatype} item={item} />
                     })
                     }
                 </tbody>
@@ -31,7 +31,7 @@ const SalesTables = ({pizzaTable, toppingTable}) => {
                 </thead>
                 <tbody>
                     {toppingTable.map(item => {
-                        return <SalesToppingItem item={item} />
+                        return <SalesToppingItem key={item.topping} item={item} />
                     })
                     }
                 </tbody>

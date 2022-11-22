@@ -42,7 +42,7 @@ export async function getServerSideProps(){
   }
 }
 
-export default function manager({inventory, menu}) {
+export default function Manager({inventory}) {
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   const [reportType, setReportType] = useState("");

@@ -65,7 +65,7 @@ export default function OrderReceipt({order, pizzas}) {
         const timer = setTimeout(() => {
             router.push("/customer")
         }, 5000);
-    }, []);
+    });
 
     return (
         <Container className="d-flex flex-column min-vh-100 justify-content-center align-items-center">

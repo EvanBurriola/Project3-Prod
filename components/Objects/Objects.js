@@ -62,7 +62,7 @@ export const OrderDisplay = ({item, index}) => {
         } else {
             setBtnStyle(styles.btnNotEdit)
         }
-    }, [isEditing])
+    }, [isEditing, dispatch, index])
 
     // track the current active item and if it changes
     // make sure to quit editor
@@ -70,7 +70,7 @@ export const OrderDisplay = ({item, index}) => {
         if (currentItem != index) {
             setIsEditing(false)
         }
-    }, [currentItem])
+    }, [currentItem, index])
 
     // removes an item from the current order
     const handleRemoveItem = (index, item) => {
