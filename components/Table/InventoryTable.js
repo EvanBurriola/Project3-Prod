@@ -393,7 +393,7 @@ export const EditableInventory = ({inventory}) => {
             </thead>
             <tbody>
                 {inventories.map((item) => (
-                    <Fragment>
+                    <Fragment key={item.inventoryID}>
                         {editInventoryID === item.inventoryid ? (
                             <EditableItem 
                             editFormData = {editFormData}

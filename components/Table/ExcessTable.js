@@ -16,7 +16,7 @@ const ExcessTable = ({excessTable}) => {
                 </thead>
                 <tbody>
                     {excessTable.map(item => {
-                        return <ExcessItem item={item} />
+                        return <ExcessItem key={item.ingredientname} item={item} />
                     })
                     }
                 </tbody>
