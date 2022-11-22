@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 import { TAX_RATE, MAX_TOPPINGS } from '@/lib/constants/index'
 
 const formatDecimals = (value) => {
-    return Number(Math.round(parseFloat(value + 'e' + 2)) + 'e-' + 2)
+    return parseFloat(Number.parseFloat(value).toFixed(2))
 }
 
 // checks the pizza type against the max number of toppings
@@ -108,12 +108,41 @@ const orderSlice = createSlice({
             if (canAddToPizza(currItem, action.payload)) {
                 state.orderItems[idx].toppings.push(action.payload)
             }
+
+            // increment price if the payload is a seasonal item
+            // or drink (these items are still associated with a
+            // pizza)
+            if (action.payload.itemtype == "other") {
+                const price = action.payload.ingredientprice
+                let sub = state.subtotal + price
+                let tax = state.salestax + (TAX_RATE * price)
+                let total = state.ordertotal + ((1 + TAX_RATE) * price)
+                state.subtotal = formatDecimals(sub)
+                state.salestax = formatDecimals(tax)
+                state.ordertotal = formatDecimals(total)
+            }
         },
         removePizzaTopping(state, action) {
             const idx = state.activeOrder
-            const top = state.orderItems[idx].toppings.findIndex(t => t.inventoryid == action.payload.inventoryid)
+            const top = state.orderItems[idx].toppings.findIndex(t => {
+                return t.inventoryid == action.payload.inventoryid
+            })
             if (top < 0) return
+
+            // remove from order
             state.orderItems[idx].toppings.splice(top, 1)
+
+            // change price info if the item removed was a
+            // drink or seasonal item
+            if (action.payload.itemtype == "other") {
+                const price = action.payload.ingredientprice
+                let sub = state.subtotal - price
+                let tax = state.salestax - (TAX_RATE * price)
+                let total = state.ordertotal - ((1 + TAX_RATE) * price)
+                state.subtotal = formatDecimals(sub)
+                state.salestax = formatDecimals(tax)
+                state.ordertotal = formatDecimals(total)
+            }
         },
         clearOrder(state) {
             state.orderItems = []

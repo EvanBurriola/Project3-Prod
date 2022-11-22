@@ -18,9 +18,9 @@ export const OrderCost = ({...props}) => {
     
     return (
         <div>
-            <p className="fs-5 mb-0">Subtotal: ${subtotal}</p>
-            <p className="fs-5 mb-0">Tax: ${salestax}</p>
-            <p className="fs-3">Total: ${ordertotal}</p>
+            <p className="fs-5 mb-0">Subtotal: ${Number.parseFloat(subtotal).toFixed(2)}</p>
+            <p className="fs-5 mb-0">Tax: ${Number.parseFloat(salestax).toFixed(2)}</p>
+            <p className="fs-3">Total: ${Number.parseFloat(ordertotal).toFixed(2)}</p>
         </div>
     )
 }
@@ -101,11 +101,16 @@ export const OrderDisplay = ({item, index}) => {
             </div>
             {isEditing ? 
                 item.toppings.map(top => {
-                    return <RemoveTopping 
-                        key={top.inventoryid} 
-                        ingredient={top}
-                        handler={() => handleRemoveTopping(top)}
-                    />
+                    // don't allow users to remove dough from a pizza
+                    if (top.itemtype == "dough") {
+                        return <Selected key={top.inventoryid} ingredient={top} />
+                    } else {
+                        return <RemoveTopping 
+                            key={top.inventoryid} 
+                            ingredient={top}
+                            handler={() => handleRemoveTopping(top)}
+                        />
+                    }
                 }) :
                 item.toppings.map(top => {
                     return <Selected key={top.inventoryid} ingredient={top} />
