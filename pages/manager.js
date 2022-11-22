@@ -20,7 +20,7 @@ import "react-datepicker/dist/react-datepicker.css";
 //Tables
 import RestockTable from '@/components/Table/RestockTable';
 import SalesTables from '@/components/Table/SalesTables';
-import ExcessTable from '@/components/Table/excessTable';
+import ExcessTable from '@/components/Table/ExcessTable';
 import TogetherTables from '@/components/Table/TogetherTables';
 
 export async function getServerSideProps(){
