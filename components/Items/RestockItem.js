@@ -1,6 +1,4 @@
-
-
-const TableItem = ({item}) =>{
+const RestockItem = ({item}) =>{
     return(
         <tr>        
             <td> {item.inventoryid} </td>
@@ -14,4 +12,4 @@ const TableItem = ({item}) =>{
     )
 }
 
-export default TableItem;
+export default RestockItem;

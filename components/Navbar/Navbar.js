@@ -56,8 +56,8 @@ export const NavbarManager = () => {
             <Navbar.Toggle aria-controls="manager-navbar" />
             <Navbar.Collapse id="manager-navbar">
                 <Nav className="navigations">
-                    <Nav.Link className="me-2 ms-1" href="">Dashboard</Nav.Link>
-                    <Nav.Link className="me-2 ms-1" href="">Inventory</Nav.Link>
+                    <Nav.Link className="me-2 ms-1" href="/manager">Dashboard</Nav.Link>
+                    <Nav.Link className="me-2 ms-1" href="/inventory">Inventory</Nav.Link>
                     <Nav.Link className="me-2 ms-1" href="">Employees</Nav.Link>
                     <Nav.Link className="me-2 ms-1" href="/server">Server View</Nav.Link>
                 </Nav>

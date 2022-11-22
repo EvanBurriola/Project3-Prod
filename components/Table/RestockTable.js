@@ -1,20 +1,19 @@
 import React from 'react';
-import RestockItem from './RestockItem';
-import RestockDropDown from './RestockDropDown';
+import RestockItem from '../Items/RestockItem';
+import RestockDropDown from '../Dropdown/RestockDropDown';
 import { useState } from 'react';
 
 import styles from '@/styles/manager.module.css'
 
-
-const RestockTable = ({inventory}) => {
+const RestockTable = ({restockTable}) => {
     const [itemName, setRestockItem] = useState("");
     const [quantityRestock, setQuantityRestock] = useState(0);
 
     const restockItem = async (event) => {
         event.preventDefault()
         try{
-            const itemID = inventory.find(item => item.ingredientname == itemName).inventoryid
-            const curQuantity = inventory.find(item => item.ingredientname == itemName).quantityounces
+            const itemID = restockTable.find(item => item.ingredientname == itemName).inventoryid
+            const curQuantity = restockTable.find(item => item.ingredientname == itemName).quantityounces
             const body = {
                 itemID,
                 curQuantity,
@@ -34,7 +33,7 @@ const RestockTable = ({inventory}) => {
 
     return(
         <div>
-            <table className = {styles.tableStyle} id ="excelDataTable">
+            <table className = {styles.tableStyle} id ="restockTable">
                 <thead>
                     <tr>
                         <th> Inventory ID </th>
@@ -47,7 +46,7 @@ const RestockTable = ({inventory}) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {inventory.map(item => {
+                    {restockTable.map(item => {
                         return <RestockItem key={item.inventoryid} item={item} />
                     })
                     }
@@ -60,7 +59,7 @@ const RestockTable = ({inventory}) => {
                     <label for="restock item"> Select Item to Restock: </label>
                     <select name="restockitem" id="restockitem" onChange={(event) => setRestockItem(event.target.value)}>
                         <option value="" selected disabled hidden> Select Here </option>
-                        {inventory.map(item => {
+                        {restockTable.map(item => {
                             return <RestockDropDown key={item.inventoryid} item={item} />
                         })
                         }
