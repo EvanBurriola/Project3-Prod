@@ -1,10 +1,10 @@
 import React from 'react';
 import { useState, Fragment } from 'react';
 
-import EditableMenuItem from '../Items/EditableMenuItem'
-import { MenuItem, EditableMenuTableItem} from '../Items/MenuItem'
+import EditableMenuItem from '../Items/EditableMenuItem';
+import { MenuItem, EditableMenuTableItem} from '../Items/MenuItem';
 
-import styles from '@/styles/manager.module.css'
+import styles from '@/styles/manager.module.css';
 
 export const MenuDisplay = ({menu}) => {
     return (
@@ -109,7 +109,7 @@ export const EditableMenu = ({menu}) => {
             typeprice: editFormData.typeprice,
         }
 
-        const newInv = [ ...inventories]; //change?
+        const newInv = [ ...menus]; //change?
 
         const index = menus.findIndex((item)=> item.typeid === editMenuID) //change?
 
@@ -120,9 +120,9 @@ export const EditableMenu = ({menu}) => {
     }
 
     const handleDeleteClick = async(menuidd) => {
-        const newInv = [...inventories];
+        const newInv = [...menus];
 
-        const index = inventories.findIndex((item) => item.typeid === menuidd);
+        const index = menus.findIndex((item) => item.typeid === menuidd);
 
         newInv.splice(index, 1);
 
@@ -132,7 +132,7 @@ export const EditableMenu = ({menu}) => {
             const body = {
                 id: menuidd,
             }
-            await fetch('api/manager/deleteItem',{
+            await fetch('api/manager/deleteMenuItem',{
                 method: "POST",
                 body: JSON.stringify(body),
             });

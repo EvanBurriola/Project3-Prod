@@ -29,7 +29,6 @@ export const InventoryDisplay = ({inventory}) => {
                         return <TableItem key={item.inventoryid} item={item} />
                     }) 
                     }
-                    
                 </tbody>
             </table>
         </div>

@@ -209,13 +209,11 @@ export default function manager({inventory, menu}) {
           return null
         })()}
             </Row>
+            <MenuDisplay menu={menu}/>
           </Row>
         </Col>
         <Col md = "7">
           <InventoryDisplay inventory={inventory}/> 
-        </Col>
-        <Col md = "7">
-          <MenuDisplay menu={menu}/>
         </Col>
       </Row>
     </Container>

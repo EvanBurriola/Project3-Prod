@@ -5,7 +5,7 @@ export default async function handler(req, res){
         newItemName,
         newItemPrice,
     } = req.body
-    console.log(newItemName, newItemPrice)
+
     const result = await prisma.menuitems.create({
         data: {
             pizzatype: newItemName,
