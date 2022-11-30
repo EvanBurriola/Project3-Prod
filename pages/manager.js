@@ -216,9 +216,6 @@ export default function manager({inventory, menu}) {
         <Col md = "7">
           <InventoryDisplay inventory={inventory}/> 
         </Col>
-        <Col md = "7">
-          <MenuDisplay menu={menu}/>
-        </Col>
       </Row>
     </Container>
   )

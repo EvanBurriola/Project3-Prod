@@ -1,6 +1,6 @@
 
 
-const MenuItem = ({item}) => {
+export const MenuItem = ({item}) => {
     return (
         <tr>        
             <td> {item.typeid} </td>
@@ -9,7 +9,6 @@ const MenuItem = ({item}) => {
         </tr>
     )
 }
-export default MenuItem;
 
 export const EditableMenuTableItem = ({item, handleEditClick, handleDeleteClick}) => {
     return(
