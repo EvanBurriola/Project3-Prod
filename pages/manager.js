@@ -10,13 +10,8 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import DateSelect, { DateEnd, DateStart } from '../components/TextEntry/Datepicker.js';
-<<<<<<< HEAD
 import { InventoryDisplay } from '@/components/Table/InventoryTable.js';
 import { MenuDisplay } from '@/components/Table/MenuTable.js';
-=======
-import InventoryTable, { InventoryDisplay } from '@/components/Table/InventoryTable.js';
-import MenuTable from '@/components/Table/MenuTable.js';
->>>>>>> FIXED: Merge Issue
 import { prisma } from '@/lib/prisma'
 import { useState, useEffect } from 'react'
 import DatePicker from 'react-datepicker';
@@ -221,15 +216,10 @@ export default function manager({inventory, menu}) {
         <Col md = "7">
           <InventoryDisplay inventory={inventory}/> 
         </Col>
-      </Row>
-      {/* <Row>
-        <Col>
-          <InventoryTable inventory={inventory}/> 
+        <Col md = "7">
+          <MenuDisplay menu={menu}/>
         </Col>
-      </Row> */}
-      {/* <Row>
-        <MenuTable menu={menu}/>
-      </Row> */}
+      </Row>
     </Container>
   )
 }
