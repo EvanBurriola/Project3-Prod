@@ -10,8 +10,8 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import DateSelect, { DateEnd, DateStart } from '../components/TextEntry/Datepicker.js';
-import InventoryTable, { InventoryDisplay } from '@/components/Table/InventoryTable.js';
-import MenuTable from '@/components/Table/MenuTable.js';
+import { InventoryDisplay } from '@/components/Table/InventoryTable.js';
+import { MenuDisplay } from '@/components/Table/MenuTable.js';
 import { prisma } from '@/lib/prisma'
 import { useState, useEffect } from 'react'
 import DatePicker from 'react-datepicker';
@@ -157,6 +157,7 @@ export default function manager({inventory, menu}) {
             <p> {"\n"} </p>
         <Row>
           <Col md = "5"> 
+            <h6> Select Start Date: </h6>
             <DatePicker 
               required = "required"
               placeholderText = "Start Date"
@@ -168,6 +169,7 @@ export default function manager({inventory, menu}) {
               endDate = {endDate}
               onChange = {(date) => setStartDate(date)}
             />
+            <h6> Select End Date: </h6>
             <DatePicker
               required = "required"
               placeholderText = "End Date"
@@ -212,15 +214,10 @@ export default function manager({inventory, menu}) {
         <Col md = "7">
           <InventoryDisplay inventory={inventory}/> 
         </Col>
-      </Row>
-      {/* <Row>
-        <Col>
-          <InventoryTable inventory={inventory}/> 
+        <Col md = "7">
+          <MenuDisplay menu={menu}/>
         </Col>
-      </Row> */}
-      {/* <Row>
-        <MenuTable menu={menu}/>
-      </Row> */}
+      </Row>
     </Container>
   )
 }

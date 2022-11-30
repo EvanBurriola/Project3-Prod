@@ -1,7 +1,7 @@
 const Together1Item = ({item}) => {
     return (
-        <tr>
-            <td> {item.pizzatype} </td>
+        <tr style={item.ordered_with_byo}>
+            <td scope="row"> {item.pizzatype} </td>
             <td> {item.ordered_with_byo} </td>
         </tr>
     )

@@ -58,6 +58,7 @@ export const NavbarManager = () => {
                 <Nav className="navigations">
                     <Nav.Link className="me-2 ms-1" href="/manager">Dashboard</Nav.Link>
                     <Nav.Link className="me-2 ms-1" href="/inventory">Inventory</Nav.Link>
+                    <Nav.Link className="me-2 ms-1" href="/menu">Menu</Nav.Link>
                     <Nav.Link className="me-2 ms-1" href="">Employees</Nav.Link>
                     <Nav.Link className="me-2 ms-1" href="/server">Server View</Nav.Link>
                 </Nav>
