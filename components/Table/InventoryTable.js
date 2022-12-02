@@ -276,6 +276,13 @@ export const EditableInventory = ({inventory}) => {
         }
     }
 
+    const { items, requestSort, sortConfig } = useSortableData(inventories);
+    const getClassNamesFor = (name) => {
+        if(!sortConfig){
+            return;
+        }
+        return sortConfig.key === name ? sortConfig.direction : undefined;
+    }
 
     return (
         <div className={styles.tableWrapper}>
@@ -283,18 +290,74 @@ export const EditableInventory = ({inventory}) => {
         <table className={styles.tableStyle} id="inventorytable">
             <thead>
                 <tr>
-                    <th> Inventory ID </th>
-                    <th> Item Name </th>
-                    <th> Quantity </th>
-                    <th> Price ($) </th>
-                    <th> Amount Used Per Sale </th>
-                    <th> Minimum Quantity Needed </th>
-                    <th> Item Type </th>
+                    <th> 
+                        <button 
+                            type="button" 
+                            onClick={() => requestSort('inventoryid')} 
+                            className={getClassNamesFor('inventoryid')}
+                        > 
+                        Inventory ID 
+                        </button> 
+                    </th>
+                    <th> 
+                        <button 
+                            type="button" 
+                            onClick={() => requestSort('ingredientname')} 
+                            className={getClassNamesFor('ingredientname')}
+                        > 
+                        Item Name 
+                        </button> 
+                    </th>
+                    <th> 
+                        <button 
+                            type="button" 
+                            onClick={() => requestSort('quantityounces')} 
+                            className={getClassNamesFor('quantityounces')}
+                        > 
+                        Quantity
+                        </button> 
+                    </th>
+                    <th> 
+                        <button 
+                            type="button" 
+                            onClick={() => requestSort('priceperounce')} 
+                            className={getClassNamesFor('priceperounce')}
+                        > 
+                        Price ($)
+                        </button> 
+                    </th>
+                    <th> 
+                        <button 
+                            type="button" 
+                            onClick={() => requestSort('averageamountperunitsold')} 
+                            className={getClassNamesFor('averageamountperunitsold')}
+                        > 
+                        Amount User Per Sale
+                        </button> 
+                    </th>
+                    <th> 
+                        <button 
+                            type="button" 
+                            onClick={() => requestSort('minimumquantity')} 
+                            className={getClassNamesFor('minimumquantity')}
+                        > 
+                        Minimum Quantity Needed
+                        </button> 
+                    </th>
+                    <th> 
+                        <button 
+                            type="button" 
+                            onClick={() => requestSort('itemtype')} 
+                            className={getClassNamesFor('itemtype')}
+                        > 
+                        Item Type
+                        </button> 
+                    </th>
                     <th> Actions </th>
                 </tr>
             </thead>
             <tbody>
-                {inventories.map((item) => (
+                {items.map((item) => (
                     <Fragment>
                         {editInventoryID === item.inventoryid ? (
                             <EditableItem 
