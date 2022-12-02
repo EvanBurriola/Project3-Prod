@@ -209,6 +209,7 @@ export default function manager({inventory, menu}) {
           return null
         })()}
             </Row>
+            <Col md="7"> <h4 className = {styles.header}> Menu at a Glance </h4></Col>
             <MenuDisplay menu={menu}/>
           </Row>
         </Col>
