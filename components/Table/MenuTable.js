@@ -6,19 +6,86 @@ import { MenuItem, EditableMenuTableItem} from '../Items/MenuItem';
 
 import styles from '@/styles/manager.module.css';
 
+const useSortableData = (items, config = null) => {
+    const [sortConfig, setSortConfig] = React.useState(config);
+  
+    const sortedItems = React.useMemo(() => {
+        let sortableItems = [...items];
+        if (sortConfig !== null) {
+            sortableItems.sort((a, b) => {
+            if (a[sortConfig.key] < b[sortConfig.key]) {
+                return sortConfig.direction === 'ascending' ? -1 : 1;
+            }
+            if (a[sortConfig.key] > b[sortConfig.key]) {
+                return sortConfig.direction === 'ascending' ? 1 : -1;
+            }
+            return 0;
+            });
+        }
+        return sortableItems;
+    }, [items, sortConfig]);
+
+    const requestSort = (key) => {
+        let direction = 'ascending';
+        if (
+            sortConfig &&
+            sortConfig.key === key &&
+            sortConfig.direction === 'ascending'
+        ) {
+            direction = 'descending';
+        }
+        setSortConfig({ key, direction });
+    };
+    
+    return { items: sortedItems, requestSort, sortConfig };
+};
+
 export const MenuDisplay = ({menu}) => {
+
+    const { items, requestSort, sortConfig } = useSortableData(menu);
+    const getClassNamesFor = (name) => {
+        if(!sortConfig){
+            return;
+        }
+        return sortConfig.key === name ? sortConfig.direction : undefined;
+    }
+
     return (
         <div className={styles.tableWrapper}>
             <table className = {styles.tableStyle} id ="menuTable">
                 <thead>
                     <tr>
-                        <th> Type ID </th>
-                        <th> Type Name </th>
-                        <th> Type Price </th>
+                        <th> 
+                            <button 
+                                type="button" 
+                                onClick={() => requestSort('typeid')} 
+                                className={getClassNamesFor('typeid')}
+                            > 
+                            Type ID 
+                            </button> 
+                        </th>
+                        <th> 
+                            <button 
+                                type="button" 
+                                onClick={() => requestSort('pizzatype')} 
+                                className={getClassNamesFor('pizzatype')}
+                            > 
+                            Type Name 
+                            </button> 
+                        </th>
+                        <th> 
+                            <button 
+                                type="button" 
+                                onClick={() => requestSort('itemprice')} 
+                                className={getClassNamesFor('itemprice')}
+                            > 
+                            Type Price 
+                            </button> 
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
-                    {menu.map(item => {
+                    {items.map(item => {
                         return <MenuItem key={item.typeid} item={item} />
                     }) 
                     }
@@ -152,6 +219,7 @@ export const EditableMenu = ({menu}) => {
                     <th> Pizza ID </th>
                     <th> Pizza Name </th>
                     <th> Pizza Price </th>
+                    <th> Actions </th>
                 </tr>
             </thead>
             <tbody>

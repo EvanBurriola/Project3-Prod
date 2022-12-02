@@ -9,23 +9,122 @@ import { TableItem, EditableTableItem } from '../Items/TableItem';
 import styles from '@/styles/manager.module.css'
 //import { $CombinedState } from '../../../../../../AppData/Local/Microsoft/TypeScript/4.8/node_modules/redux/index';
 
+const useSortableData = (items, config = null) => {
+    const [sortConfig, setSortConfig] = React.useState(config);
+  
+    const sortedItems = React.useMemo(() => {
+        let sortableItems = [...items];
+        if (sortConfig !== null) {
+            sortableItems.sort((a, b) => {
+            if (a[sortConfig.key] < b[sortConfig.key]) {
+                return sortConfig.direction === 'ascending' ? -1 : 1;
+            }
+            if (a[sortConfig.key] > b[sortConfig.key]) {
+                return sortConfig.direction === 'ascending' ? 1 : -1;
+            }
+            return 0;
+            });
+        }
+        return sortableItems;
+    }, [items, sortConfig]);
+
+    const requestSort = (key) => {
+        let direction = 'ascending';
+        if (
+            sortConfig &&
+            sortConfig.key === key &&
+            sortConfig.direction === 'ascending'
+        ) {
+            direction = 'descending';
+        }
+        setSortConfig({ key, direction });
+    };
+    
+    return { items: sortedItems, requestSort, sortConfig };
+};
+
 export const InventoryDisplay = ({inventory}) => {
+
+    const { items, requestSort, sortConfig } = useSortableData(inventory);
+    const getClassNamesFor = (name) => {
+        if(!sortConfig){
+            return;
+        }
+        return sortConfig.key === name ? sortConfig.direction : undefined;
+    }
+
     return (
         <div className={styles.tableWrapper}>
             <table className = {styles.tableStyle} id ="inventoryTable">
                 <thead>
                     <tr>
-                        <th> Inventory ID </th>
-                        <th> Item Name </th>
-                        <th> Quantity </th>
-                        <th> Price ($) </th>
-                        <th> Amount Used Per Sale </th>
-                        <th> Minimum Quantity Needed </th>
-                        <th> Item Type </th>
+                        <th> 
+                            <button 
+                                type="button" 
+                                onClick={() => requestSort('inventoryid')} 
+                                className={getClassNamesFor('inventoryid')}
+                            > 
+                            Inventory ID 
+                            </button> 
+                        </th>
+                        <th> 
+                            <button 
+                                type="button" 
+                                onClick={() => requestSort('ingredientname')} 
+                                className={getClassNamesFor('ingredientname')}
+                            > 
+                            Item Name 
+                            </button> 
+                        </th>
+                        <th> 
+                            <button 
+                                type="button" 
+                                onClick={() => requestSort('quantityounces')} 
+                                className={getClassNamesFor('quantityounces')}
+                            > 
+                            Quantity
+                            </button> 
+                        </th>
+                        <th> 
+                            <button 
+                                type="button" 
+                                onClick={() => requestSort('priceperounce')} 
+                                className={getClassNamesFor('priceperounce')}
+                            > 
+                            Price ($)
+                            </button> 
+                        </th>
+                        <th> 
+                            <button 
+                                type="button" 
+                                onClick={() => requestSort('averageamountperunitsold')} 
+                                className={getClassNamesFor('averageamountperunitsold')}
+                            > 
+                            Amount User Per Sale
+                            </button> 
+                        </th>
+                        <th> 
+                            <button 
+                                type="button" 
+                                onClick={() => requestSort('minimumquantity')} 
+                                className={getClassNamesFor('minimumquantity')}
+                            > 
+                            Minimum Quantity Needed
+                            </button> 
+                        </th>
+                        <th> 
+                            <button 
+                                type="button" 
+                                onClick={() => requestSort('itemtype')} 
+                                className={getClassNamesFor('itemtype')}
+                            > 
+                            Item Type
+                            </button> 
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
-                    {inventory.map(item => {
+                    {items.map(item => {
                         return <TableItem key={item.inventoryid} item={item} />
                     }) 
                     }

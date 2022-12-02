@@ -39,6 +39,10 @@
     border-bottom: 2px solid #FCB353;
 }
 
+.tableStyle tbody tr:hover {
+	background-color:#FCB353;
+}
+
 .title {
     font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     color:#FCB353;
@@ -110,6 +114,28 @@
 
 .scrollable {
     max-height: 500em;
+}
+
+.tableStyle thead button {
+	border: 0;
+	border-radius: none;
+	font-family: inherit;
+	font-weight: 700;
+	font-size: inherit;
+	padding: 0.5em;
+	margin-bottom: 1px;
+}
+
+.tableStyle thead button.ascending::after {
+	content: '👇';
+	display: inline-block;
+	margin-left: 1em;
+}
+  
+.tableStyle thead button.descending::after {
+	content: '☝️';
+	display: inline-block;
+	margin-left: 1em;
 }
 
 .graph {
