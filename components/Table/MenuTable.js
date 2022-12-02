@@ -209,6 +209,13 @@ export const EditableMenu = ({menu}) => {
         }
     }
 
+    const { items, requestSort, sortConfig } = useSortableData(menus);
+    const getClassNamesFor = (name) => {
+        if(!sortConfig){
+            return;
+        }
+        return sortConfig.key === name ? sortConfig.direction : undefined;
+    }
 
     return (
         <div className={styles.tableWrapper}>
@@ -216,14 +223,38 @@ export const EditableMenu = ({menu}) => {
         <table className={styles.tableStyle} id="menutable">
             <thead>
                 <tr>
-                    <th> Pizza ID </th>
-                    <th> Pizza Name </th>
-                    <th> Pizza Price </th>
+                <th> 
+                    <button 
+                        type="button" 
+                        onClick={() => requestSort('typeid')} 
+                        className={getClassNamesFor('typeid')}
+                    > 
+                    Type ID 
+                    </button> 
+                </th>
+                <th> 
+                    <button 
+                        type="button" 
+                        onClick={() => requestSort('pizzatype')} 
+                        className={getClassNamesFor('pizzatype')}
+                    > 
+                    Type Name 
+                    </button> 
+                </th>
+                <th> 
+                    <button 
+                        type="button" 
+                        onClick={() => requestSort('itemprice')} 
+                        className={getClassNamesFor('itemprice')}
+                    > 
+                    Type Price 
+                    </button> 
+                </th>
                     <th> Actions </th>
                 </tr>
             </thead>
             <tbody>
-                {menus.map((item) => (
+                {items.map((item) => (
                     <Fragment>
                         {editMenuID === item.typeid ? (
                             <EditableMenuItem 
