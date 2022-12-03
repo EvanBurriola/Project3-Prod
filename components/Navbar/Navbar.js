@@ -36,8 +36,6 @@ export const NavbarCustomer = () => {
             <Navbar.Collapse id="customer-navbar">
             <Nav className="navigations">
                 <Nav.Link className="me-2 ms-1" href="">Order</Nav.Link>
-                <Nav.Link className="me-2 ms-1" href="">Deals</Nav.Link>
-                <Nav.Link className="me-2 ms-1" href="">Rewards</Nav.Link>
             </Nav>
             </Navbar.Collapse>
         </Navbar>

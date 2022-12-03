@@ -48,8 +48,8 @@ const canAddToPizza = (pizza, topping) => {
 const initialState = {
     orderItems: [],
     customername: "Server View test",
-    employeename: "Axel Ramone",
-    employeeid: 1,
+    employeename: "",
+    employeeid: 0,
     subtotal: 0,
     salestax: 0,
     ordertotal: 0,

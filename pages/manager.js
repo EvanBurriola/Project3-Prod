@@ -23,6 +23,9 @@ import SalesTables from '@/components/Table/SalesTables';
 import ExcessTable from '@/components/Table/ExcessTable';
 import TogetherTables from '@/components/Table/TogetherTables';
 
+import { useSession } from "next-auth/react"
+import { useRouter } from 'next/router'
+
 export async function getServerSideProps(){
   const inventory = await prisma.inventory.findMany({
     orderBy: {
@@ -43,6 +46,21 @@ export async function getServerSideProps(){
 }
 
 export default function Manager({inventory}) {
+  const { data: session } = useSession()
+  const router = useRouter()
+
+  // Prefetch the redirect page for unathorized users
+  useEffect(() => {
+    router.prefetch('/unauthorized')
+  }, [])
+
+  // redirect if the user doesn't have a manager role
+  useEffect(() => {
+    if(session?.user.role != "M"){
+      router.push("/unauthorized")
+    }
+  }, [session])
+
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   const [reportType, setReportType] = useState("");

@@ -6,3 +6,23 @@
     position: fixed;
     top: 0;
 }
+
+.btnSNS {
+    font-family: var(--font-playfair) !important;
+    background-color: var(--color-offblack) !important;
+    border: 1px solid transparent !important;
+    color: var(--color-offwhite) !important;
+    width: 10%;
+    font-size: 1.3rem;
+}
+
+.btnSNS:hover {
+    border-color: var(--color-beige) !important;   
+    background-color: #5b5757 !important;
+    transition: all 0.2s ease-in;
+}
+
+.logoContainer > span > span > img
+{
+    height: 25vh !important;
+}
