@@ -44,16 +44,16 @@ const canAddToPizza = (pizza, topping) => {
 }
 
 // setup initial state of all orders
-// TODO: remove preset values
 const initialState = {
     orderItems: [],
-    customername: "Server View test",
+    customername: "",
     employeename: "",
     employeeid: 0,
     subtotal: 0,
     salestax: 0,
     ordertotal: 0,
     activeOrder: 0,
+    status: null,
 }
 
 const orderSlice = createSlice({
@@ -107,6 +107,10 @@ const orderSlice = createSlice({
             // to current pizza if we will exceed the maximum
             if (canAddToPizza(currItem, action.payload)) {
                 state.orderItems[idx].toppings.push(action.payload)
+                state.status = null
+            } else {
+                state.status = `${action.payload.itemtype} limit exceeded`
+                return
             }
 
             // increment price if the payload is a seasonal item
@@ -151,6 +155,7 @@ const orderSlice = createSlice({
             state.salestax = 0
             state.ordertotal = 0
             state.activeOrder = 0
+            state.status = null
         },
         setActive(state, action) {
             // sets the active item to the payload or last index if payload
@@ -158,6 +163,9 @@ const orderSlice = createSlice({
             state.activeOrder = (action.payload < state.orderItems.length) ?
                 action.payload : state.orderItems.length - 1
         },
+        clearStatus(state) {
+            state.status = null
+        }
     },
 })
 
@@ -170,6 +178,7 @@ export const {
     removePizzaTopping,
     clearOrder,
     setActive,
+    clearStatus,
 } = orderSlice.actions
 
 export default orderSlice.reducer

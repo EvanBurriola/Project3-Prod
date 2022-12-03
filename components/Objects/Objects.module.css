@@ -1,17 +1,29 @@
+@keyframes slideleft {
+    from {
+        opacity: 0;
+        transform: translateX(200px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0px);
+        max-height: 700px;
+    }
+}
+
 .btnSNS {
-    font-family: var(--font-playfair) !important;
-    background-color: var(--color-offblack) !important;
-    border: 1px solid transparent !important;
-    color: var(--color-offwhite) !important;
+    font-family: var(--font-poppins) !important;
+    background-color: var(--color-offblack);
+    border: 1px solid transparent;
+    color: var(--color-offwhite);
     width: 100%;
     padding: 8%;
     margin: 5%;
     font-size: 1.3rem;
 }
 
-.btnSNS:hover {
-    border-color: var(--color-beige) !important;   
-    background-color: #5b5757 !important;
+.btnSNS:hover, .btnSNS:active, .btnSNS:focus-within {
+    border-color: var(--color-beige);   
+    background-color: #5b5757;
     transition: all 0.2s ease-in;
 }
 
@@ -35,7 +47,32 @@
     color: rgb(229 54 54) !important;
 }
 
-.editContainer{
+.active {
     background-color: var(--color-offblack);
-    border-radius: 1.5rem;
+    border: 1px solid #262424;
+}
+
+.default {
+    background-color: transparent;
+    border: 1px solid transparent;
+}
+
+.priceBorder {
+    border-top: 1px dotted #6f6363;
+}
+
+.fontSourceCode {
+    font-family: var(--font-src-code);
+}
+
+.itemContainer {
+    border-radius: 1.5rem !important;
+    transition: all 0.2s ease-in;
+    opacity: 0;
+    animation: slideleft 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.itemContainer > button {
+    background-color: var(--color-offblack) !important;
+    border-radius: 1.5rem !important;
 }

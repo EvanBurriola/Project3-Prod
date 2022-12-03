@@ -160,7 +160,7 @@ export default function Manager({inventory}) {
 
   return (
     <Container fluid className="h-100">
-      <Navbar.NavbarManager />
+      <Navbar.NavbarManager user={session.user} />
       <Row>
         <h1> Dashboard </h1>
       </Row>

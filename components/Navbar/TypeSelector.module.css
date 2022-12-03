@@ -1,0 +1,17 @@
+.activeBtn {
+    background-color: #584939 !important;
+    border-color: var(--color-beige) !important; 
+}
+
+.btnChoice {
+    background-color: var(--color-offblack);
+    border-color: transparent;
+    color: var(--color-offwhite) !important;
+    font-family: var(--font-poppins) !important;
+}
+
+.btnChoice:hover {
+    border-color: var(--color-beige) !important;   
+    background-color: #5b5757 !important;
+    transition: all 0.2s ease-in;
+}
