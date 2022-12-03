@@ -221,7 +221,7 @@ export default function Customer({inventory, menu}) {
     return(
         <Container fluid>
             <Row>
-                <NavbarCustomer sticky="top"/>
+                <NavbarCustomer user={session.user} sticky="top"/>
             </Row>
             {
                 buildPage()

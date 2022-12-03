@@ -1,0 +1,16 @@
+.profileBtn, .profileBtn:hover, .profileBtn:active, .profileBtn:focus-visible {
+    background-color: transparent !important;
+    border: none !important;
+    align-items: center;
+    box-shadow: none;
+}
+
+.profileBtn > span {
+    border: 1px solid var(--color-black) !important;
+    border-radius: 1rem;
+}
+
+/* remove dropdown icon on button */
+.profileBtn::after {
+    content: none;
+}

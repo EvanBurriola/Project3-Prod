@@ -29,6 +29,12 @@ const POSApp = ({ Component, pageProps: { session, ...pageProps} }) => {
 
                 {/* bootstrap 5.2 js */}
                 <Script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js" integrity="sha256-h1OMS35Ij1pJ0S+Y1qBK/GHQDyankPMZVpeZrNQ062U=" crossOrigin="anonymous"></Script>
+                <Script id="translateScript">
+                {`function googleTranslateElementInit() {
+                    new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
+                }`}
+                </Script>
+                <Script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></Script>
             </Provider>
         </SessionProvider>
     )

@@ -5,6 +5,47 @@
   color: var(--color-offblack) !important;
 }
 
-.menuItemBtn {
+.menuItemBtn, .subItemBtn {
   font-size: 1.1rem !important;
+}
+
+.subItemBtn {
+  background-color: var(--color-offwhite) !important;
+  border: 2px solid transparent !important;
+  color: var(--color-offblack) !important;
+}
+
+.subItemBtn:hover {
+  border-color: var(--color-black) !important;
+  background-color: var(--color-offwhite) !important;
+  transition: all 0.2s ease-in;
+}
+
+.orderContainer {
+  /*border-radius: 1.5rem;*/
+  min-height: 30vh;
+  max-height: 50vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+
+}
+
+.orderContainer > div {
+  /*background-color: transparent !important;*/
+  border-color: transparent !important;
+}
+
+.menuContainer {
+  background-color: var(--color-offblack);
+  border-radius: 1rem;
+  min-height: 50%;
+}
+
+.checkoutContainer {
+  background-color: var(--color-offblack);
+  border-radius: 1.5rem;
+}
+
+.wrapper {
+  min-height: 90vh;
 }
