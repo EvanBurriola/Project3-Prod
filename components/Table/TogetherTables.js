@@ -34,7 +34,7 @@ const TogetherTables = ({together1Table, together2Table, together3Table, togethe
                 </thead>
                 <tbody>
                     {together1Table.map(item => {
-                        return <Together1Item item={item} />
+                        return <Together1Item key={item.pizzatype} item={item} />
                     })
                     }
                 </tbody>

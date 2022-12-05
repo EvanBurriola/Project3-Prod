@@ -26,7 +26,7 @@ export async function getServerSideProps(){
     }
 }
 
-export default function menuEdit({menu}){
+export default function Menu({menu}){
     const { data: session } = useSession()
     const router = useRouter()
 

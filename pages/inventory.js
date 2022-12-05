@@ -26,7 +26,7 @@ export async function getServerSideProps(){
   }
 }
 
-export default function inventoryEdit({inventory}) {
+export default function Inventory({inventory}) {
   const { data: session } = useSession()
   const router = useRouter()
 

@@ -255,7 +255,7 @@ export const EditableMenu = ({menu}) => {
             </thead>
             <tbody>
                 {items.map((item) => (
-                    <Fragment>
+                    <Fragment key={item.typeid}>
                         {editMenuID === item.typeid ? (
                             <EditableMenuItem 
                             editFormData = {editFormData}
