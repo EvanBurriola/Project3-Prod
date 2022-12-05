@@ -409,6 +409,7 @@ export const EditableInventory = ({inventory}) => {
                 />
                 <button className={styles.button} type = "submit"> Add </button>
             </form>
+
         </div>
     )
 }
