@@ -24,11 +24,12 @@ const TogetherTables = ({together1Table, together2Table, together3Table, togethe
                 </tbody>
             </table>
             <p> {"\n"} </p>
-            <table className = {styles.graph} id = "BYOGraph">
+
+            <table className={styles.tableStyle} id = "byo2">
                 <thead>
                     <tr>
-                        <th scope="col"> Pizza Type </th>
-                        <th scope="col"> Ordered with BYO </th>
+                        <th> Pizza Type </th>
+                        <th> Ordered with BYO </th>
                     </tr>
                 </thead>
                 <tbody>

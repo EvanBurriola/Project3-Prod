@@ -1,13 +1,10 @@
 import React from 'react';
-
-// TODO: import data from database (Connect to the database)
 import { useState, Fragment } from 'react';
-import AccordionButton from 'node_modules/react-bootstrap/esm/AccordionButton';
-import EditableItem from '../Items/EditableItem';
-import { TableItem, EditableTableItem } from '../Items/TableItem';
+
+import EditableItem from '@/components/Items/EditableItem';
+import { TableItem, EditableTableItem } from '@/components/Items/TableItem';
 
 import styles from '@/styles/manager.module.css'
-//import { $CombinedState } from '../../../../../../AppData/Local/Microsoft/TypeScript/4.8/node_modules/redux/index';
 
 const useSortableData = (items, config = null) => {
     const [sortConfig, setSortConfig] = React.useState(config);
@@ -135,14 +132,6 @@ export const InventoryDisplay = ({inventory}) => {
 }
 
 export const EditableInventory = ({inventory}) => {
-    //Add Item
-    // const [itemName, setItemName] = useState("");
-    // const [quantity, setQuantity] = useState(0);
-    // const [price, setPrice] = useState(0);
-    // const [amountUsedPerSale, setAmountUsedPerSale] = useState(0);
-    // const [minimumQuantityNeeded, setMinimumQuantityNeeded] = useState(0);
-    // const [itemType, setItemType] = useState("");
-    
     const [inventories, setInventories] = useState(inventory);
     const [addFormData, setAddFormData] = useState({
         inventoryid: '',
@@ -420,7 +409,6 @@ export const EditableInventory = ({inventory}) => {
                 />
                 <button className={styles.button} type = "submit"> Add </button>
             </form>
-
         </div>
     )
 }
