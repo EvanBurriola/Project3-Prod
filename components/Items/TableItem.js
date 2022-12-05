@@ -1,5 +1,3 @@
-
-
 export const TableItem = ({item}) =>{
     return(
         <tr>        
@@ -14,9 +12,9 @@ export const TableItem = ({item}) =>{
     )
 }
 
-export const EditableTableItem = ({item, handleEditClick, handleDeleteClick}) =>{
+export const EditableTableItem = ({item, handleEditClick, handleDeleteClick}) => {
     return(
-        <tr>        
+        <tr>
             <td> {item.inventoryid} </td>
             <td> {item.ingredientname} </td>
             <td> {item.quantityounces} </td>
@@ -26,14 +24,17 @@ export const EditableTableItem = ({item, handleEditClick, handleDeleteClick}) =>
             <td> {item.itemtype} </td>
             <td>
                 <button 
-                    type = "button" 
-                    onClick = {(event) => handleEditClick(event, item)}
-                > 
-                    Edit 
+                    type = "button"
+                    onClick={(event) => handleEditClick(event, item)}
+                >
+                    Edit
                 </button>
                 <button
-                    type = "button"
-                    onClick = {()=> handleDeleteClick(item.inventoryid) }> Delete </button>
+                    type="button"
+                    onClick={() => handleDeleteClick(item.typeid)}
+                >
+                    Delete
+                </button>
             </td>
         </tr>
     )

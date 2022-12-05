@@ -61,9 +61,11 @@ export const NavbarManager = ({user, ...props}) => {
             <Navbar.Toggle aria-controls="manager-navbar" />
             <Navbar.Collapse id="manager-navbar">
                 <Nav className="navigations me-auto">
-                    <Nav.Link className="mx-1 active" href="#">Manage Store</Nav.Link>
-                    <Nav.Link className="mx-1" href="/server">Take Orders</Nav.Link>
-                    <Nav.Link className="mx-1" href="/customer">Self Service</Nav.Link>
+                    <Nav.Link className="mx-1" href="/manager">Dashboard</Nav.Link>
+                    <Nav.Link className="mx-1" href="/inventory">Inventory</Nav.Link>
+                    <Nav.Link className="mx-1" href="/menu">Menu</Nav.Link>
+                    <Nav.Link className="mx-1" href="">Employees</Nav.Link>
+                    <Nav.Link className="mx-1" href="/server">Server View</Nav.Link>
                 </Nav>
                 <div id="google_translate_element" className='mx-1'></div>
                 <UserProfile user={user}/>

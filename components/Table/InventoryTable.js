@@ -1,91 +1,53 @@
 import React from 'react';
-
-// TODO: import data from database (Connect to the database)
 import { useState, Fragment } from 'react';
-import InventoryDropDown from '../Dropdown/InventoryDropDown';
-import AccordionButton from 'node_modules/react-bootstrap/esm/AccordionButton';
-import EditableItem from '../Items/EditableItem';
-import { TableItem, EditableTableItem } from '../Items/TableItem';
+
+import EditableItem from '@/components/Items/EditableItem';
+import { TableItem, EditableTableItem } from '@/components/Items/TableItem';
 
 import styles from '@/styles/manager.module.css'
 
-export const InventoryTable = ({inventory}) => {
-    //Add Item
-    const [itemName, setItemName] = useState("");
-    const [quantity, setQuantity] = useState(0);
-    const [price, setPrice] = useState(0);
-    const [amountUsedPerSale, setAmountUsedPerSale] = useState(0);
-    const [minimumQuantityNeeded, setMinimumQuantityNeeded] = useState(0);
-    const [itemType, setItemType] = useState("");
-    // Change Item
-    const [itemChange, setItemChange] = useState("");
-    const [infoChange, setInfoChange] = useState("");
-    const [changeTo, setChangeTo] = useState(0);
-    // Delete Item
-    const [itemDelete, setItemDelete] = useState("");
-
-    const changeItem = async (event) => {
-        event.preventDefault()
-        try{
-            const inventoryID = inventory.find(item => item.ingredientname == itemChange).inventoryid;
-            const body = {
-                inventoryID,
-                infoChange,
-                changeTo
+const useSortableData = (items, config = null) => {
+    const [sortConfig, setSortConfig] = React.useState(config);
+  
+    const sortedItems = React.useMemo(() => {
+        let sortableItems = [...items];
+        if (sortConfig !== null) {
+            sortableItems.sort((a, b) => {
+            if (a[sortConfig.key] < b[sortConfig.key]) {
+                return sortConfig.direction === 'ascending' ? -1 : 1;
             }
-            await fetch('/api/manager/changeItem',{
-                method: "POST",
-                headers: { "Context-Type": "application/json" },
-                body: JSON.stringify(body),
+            if (a[sortConfig.key] > b[sortConfig.key]) {
+                return sortConfig.direction === 'ascending' ? 1 : -1;
+            }
+            return 0;
             });
         }
-        catch(error){
-            console.error(error);
-        }
-        console.log(itemChange, infoChange, changeTo)
-    }
+        return sortableItems;
+    }, [items, sortConfig]);
 
-    const addItem = async (event) =>{
-        event.preventDefault();
-        try{
-            const body = {
-                itemName,
-                quantity,
-                price,
-                amountUsedPerSale,
-                minimumQuantityNeeded,
-                itemType
-            }
-            await fetch('/api/manager/addItem',{
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(body),
-            });
+    const requestSort = (key) => {
+        let direction = 'ascending';
+        if (
+            sortConfig &&
+            sortConfig.key === key &&
+            sortConfig.direction === 'ascending'
+        ) {
+            direction = 'descending';
         }
-        catch(error){
-            console.error(error);
-        }
-        // window.location.reload();
+        setSortConfig({ key, direction });
     };
+    
+    return { items: sortedItems, requestSort, sortConfig };
+};
 
-    const deleteItem = async (event) =>{
-        event.preventDefault();
-        
-        try{
-            const inventoryID = inventory.find(item => item.ingredientname == itemDelete).inventoryid;
-            console.log(itemDelete, inventoryID);
-            const body = {
-                inventoryID
-            }
-            await fetch('api/manager/deleteItem',{
-                method: "POST",
-                body: JSON.stringify(body),
-            });
+export const InventoryDisplay = ({inventory}) => {
+
+    const { items, requestSort, sortConfig } = useSortableData(inventory);
+    const getClassNamesFor = (name) => {
+        if(!sortConfig){
+            return;
         }
-        catch(error){
-            console.error(error);
-        }
-        window.location.reload();
+        return sortConfig.key === name ? sortConfig.direction : undefined;
     }
 
     return (
@@ -93,136 +55,76 @@ export const InventoryTable = ({inventory}) => {
             <table className = {styles.tableStyle} id ="inventoryTable">
                 <thead>
                     <tr>
-                        <th> Inventory ID </th>
-                        <th> Item Name </th>
-                        <th> Quantity </th>
-                        <th> Price ($) </th>
-                        <th> Amount Used Per Sale </th>
-                        <th> Minimum Quantity Needed </th>
-                        <th> Item Type </th>
-                    </tr>
-                </thead>
-                <tbody style = {{"borderWidth":"1px", 'borderColor':"#aaaaaa", 'borderStyle':'solid'}}>
-                    {inventory.map(item => {
-                        return <TableItem key={item.inventoryid} item={item} />
-                    }) 
-                    }
-                    
-                </tbody>
-            </table>
-            <p> {"\n"} </p>
-            <h5> Change Item in Inventory </h5>
-            <form onSubmit={changeItem}>
-                <label for="inventory item"> Select Inventory Item to Change: </label>
-                <select name="inventoryItem" id="inventoryItem" onChange={(event) => setItemChange(event.target.value)}>
-                    <option value="" selected disabled hidden> Select Here </option>
-                    {inventory.map(item => {
-                        return <InventoryDropDown key={item.inventoryid} item={item} />
-                    })
-                    }
-                </select>
-                <label for="inventory info"> Select Thing to Change for Item: </label>
-                <select name="inventoryInfo" id="inventoryInfo" onChange={(event) => setInfoChange(event.target.value)}>
-                    <option value="" selected disabled hidden> Select Here </option>
-                    <option value="quantityounces"> Quantity </option>
-                    <option value="priceperounce"> Price </option>
-                    <option value="averageamountperunitsold"> Amount Used Per Sale </option>
-                    <option value="minimumquantity"> Minimum Quantity Needed </option>
-                    <option value="itemtype"> Item Type </option>
-                </select>
-                <input
-                    type ="text"
-                    name = "itemChange"
-                    required = "required"
-                    placeholde = "Change To Here"
-                    onChange={(event) => setChangeTo(event.target.value)}
-                />
-                <button type = "submit"> Change Item </button> 
-            </form>
-            <p> {"\n"} </p>
-            <h4> Add Inventory Item </h4>
-            <form onSubmit={addItem}>
-                <input
-                    type = "text"
-                    name = "itemName"
-                    required = "required"
-                    placeholder = "Item Name"
-                    onChange={(event) => setItemName(event.target.value)}
-                />
-                <input
-                    type = "number"
-                    name = "quantity"
-                    placeholder = "Quantity"
-                    onChange={(event) => setQuantity(Number(event.target.value))}
-                />
-                <input
-                    type = "number"
-                    name = "price"
-                    required = "required"
-                    placeholder = "Price"
-                    onChange={(event) => setPrice(Number(event.target.value))}
-                />
-                <input
-                    type = "number"
-                    name = "amountusedpersale"
-                    required = "required"
-                    placeholder = "Amount User Per Sale"
-                    onChange={(event) => setAmountUsedPerSale(Number(event.target.value))}
-                />
-                <input
-                    type = "number"
-                    name = "minimumquantityneeded"
-                    required = "required"
-                    placeholder = "Minimum Quantity Needed"
-                    onChange={(event) => setMinimumQuantityNeeded(Number(event.target.value))}
-                />
-                <input
-                    type = "text"
-                    name = "itemtype"
-                    required = "required"
-                    placeholder = "Item Type"
-                    onChange={(event) => setItemType(event.target.value)}
-                />
-                <button type = "submit"> Add </button>
-            </form>
-            <p> {"\n"} </p>
-            <h4> Delete Inventory Item </h4>
-            <form onSubmit={deleteItem}>
-                <label for="inventory item"> Select Inventory Item to Delete: </label>
-                <select name="inventoryItem" id="inventoryItem" onChange={(event) => setItemDelete(event.target.value)}>
-                    <option value="" selected disabled hidden> Select Here </option>
-                    {inventory.map(item => {
-                        return <InventoryDropDown key={item.inventoryid} item={item} />
-                    })
-                    }
-                </select>
-                <button type = "submit"> Delete Item </button> 
-            </form>
-        </div>
-    )
-}
-
-export const InventoryDisplay = ({inventory}) => {
-    return (
-        <div className={styles.tableWrapper}>
-            <table className = {styles.tableStyle} id ="inventroyTable">
-                <thead>
-                    <tr>
-                        <th> Inventory ID </th>
-                        <th> Item Name </th>
-                        <th> Quantity </th>
-                        <th> Price ($) </th>
-                        <th> Amount Used Per Sale </th>
-                        <th> Minimum Quantity Needed </th>
-                        <th> Item Type </th>
+                        <th> 
+                            <button 
+                                type="button" 
+                                onClick={() => requestSort('inventoryid')} 
+                                className={getClassNamesFor('inventoryid')}
+                            > 
+                            Inventory ID 
+                            </button> 
+                        </th>
+                        <th> 
+                            <button 
+                                type="button" 
+                                onClick={() => requestSort('ingredientname')} 
+                                className={getClassNamesFor('ingredientname')}
+                            > 
+                            Item Name 
+                            </button> 
+                        </th>
+                        <th> 
+                            <button 
+                                type="button" 
+                                onClick={() => requestSort('quantityounces')} 
+                                className={getClassNamesFor('quantityounces')}
+                            > 
+                            Quantity
+                            </button> 
+                        </th>
+                        <th> 
+                            <button 
+                                type="button" 
+                                onClick={() => requestSort('priceperounce')} 
+                                className={getClassNamesFor('priceperounce')}
+                            > 
+                            Price ($)
+                            </button> 
+                        </th>
+                        <th> 
+                            <button 
+                                type="button" 
+                                onClick={() => requestSort('averageamountperunitsold')} 
+                                className={getClassNamesFor('averageamountperunitsold')}
+                            > 
+                            Amount User Per Sale
+                            </button> 
+                        </th>
+                        <th> 
+                            <button 
+                                type="button" 
+                                onClick={() => requestSort('minimumquantity')} 
+                                className={getClassNamesFor('minimumquantity')}
+                            > 
+                            Minimum Quantity Needed
+                            </button> 
+                        </th>
+                        <th> 
+                            <button 
+                                type="button" 
+                                onClick={() => requestSort('itemtype')} 
+                                className={getClassNamesFor('itemtype')}
+                            > 
+                            Item Type
+                            </button> 
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
-                    {inventory.map(item => {
+                    {items.map(item => {
                         return <TableItem key={item.inventoryid} item={item} />
                     }) 
                     }
-                    
                 </tbody>
             </table>
         </div>
@@ -230,14 +132,6 @@ export const InventoryDisplay = ({inventory}) => {
 }
 
 export const EditableInventory = ({inventory}) => {
-    //Add Item
-    const [itemName, setItemName] = useState("");
-    const [quantity, setQuantity] = useState(0);
-    const [price, setPrice] = useState(0);
-    const [amountUsedPerSale, setAmountUsedPerSale] = useState(0);
-    const [minimumQuantityNeeded, setMinimumQuantityNeeded] = useState(0);
-    const [itemType, setItemType] = useState("");
-    
     const [inventories, setInventories] = useState(inventory);
     const [addFormData, setAddFormData] = useState({
         inventoryid: '',
@@ -249,57 +143,41 @@ export const EditableInventory = ({inventory}) => {
         itemtype: ''
     });
 
-    //Add Item
-    const addItem = async (event) =>{
+    const handleAddFormChange = (event) => {
         event.preventDefault();
+
+        const fieldName = event.target.getAttribute('name');
+        const fieldValue = event.target.value;
+        
+        const newFormData = { ...addFormData};
+        newFormData[fieldName] = fieldValue;
+        
+        setAddFormData(newFormData);
+    };
+
+    const handleAddFormSubmit = async(event) => {
+        event.preventDefault();
+
         try{
             const body = {
-                itemName,
-                quantity,
-                price,
-                amountUsedPerSale,
-                minimumQuantityNeeded,
-                itemType
+                itemName: addFormData.ingredientname,
+                quantity: Number(addFormData.quantityounces),
+                price: Number(addFormData.priceperounce),
+                amountUsedPerSale: Number(addFormData.averageamountperunitsold),
+                minimumQuantityNeeded: Number(addFormData.minimumquantity),
+                itemType: addFormData.itemtype,
             }
-            await fetch('/api/manager/addItem',{
+            const response = await fetch('/api/manager/addItem',{
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(body),
             });
+            const newItem = await response.json()
+            setInventories([...inventories, newItem])
         }
         catch(error){
             console.error(error);
         }
-        // window.location.reload();
-    };
-
-    const handleAddFormChange = (event) => {
-        event.preventDefault();
-
-        const fieldName = event.target.getAttribute('inventoryid');
-        const fieldValue = event.target.value;
-
-        const newFormData = { ...addFormData};
-        newFormData[fieldName] = fieldValue;
-
-        setAddFormData(newFormData);
-    };
-
-    const handleAddFormSubmit = (event) => {
-        event.preventDefault();
-
-        const newInventory = {
-            inventoryid: addFormData.inventoryid,
-            ingredientname: addFormData.ingredientname,
-            quantityounces: addFormData.quantityounces,
-            priceperounce: addFormData.priceperounce,
-            averageamountperunitsold: addFormData.averageamountperunitsold,
-            minimumquantity: addFormData.minimumquantity,
-            itemtype: addFormData.itemtype,
-        };
-
-        const newInventories = [...inventories, newInventory];
-        setInventories(newInventories);
     }
 
     //
@@ -332,7 +210,7 @@ export const EditableInventory = ({inventory}) => {
     const handleEditFormChange = (event) => {
         event.preventDefault();
 
-        const fieldName = event.target.getAttribute("inventoryid"); //change?
+        const fieldName = event.target.getAttribute("name"); //change?
         const fieldValue = event.target.value;
 
         const newFormData = { ...editFormData };
@@ -372,28 +250,104 @@ export const EditableInventory = ({inventory}) => {
         newInv.splice(index, 1);
 
         setInventories(newInv);
+
+        try{
+            const body = {
+                inventoryID: inventoryidd,
+            }
+            await fetch('api/manager/deleteItem',{
+                method: "POST",
+                body: JSON.stringify(body),
+            });
+        }
+        catch(error){
+            console.error(error);
+        }
     }
 
+    const { items, requestSort, sortConfig } = useSortableData(inventories);
+    const getClassNamesFor = (name) => {
+        if(!sortConfig){
+            return;
+        }
+        return sortConfig.key === name ? sortConfig.direction : undefined;
+    }
 
     return (
         <div className={styles.tableWrapper}>
         <form onSubmit={handleEditFormSubmit}>
-        <table className={styles.tableStyle}>
+        <table className={styles.tableStyle} id="inventorytable">
             <thead>
                 <tr>
-                    <th> Inventory ID </th>
-                    <th> Item Name </th>
-                    <th> Quantity </th>
-                    <th> Price ($) </th>
-                    <th> Amount Used Per Sale </th>
-                    <th> Minimum Quantity Needed </th>
-                    <th> Item Type </th>
+                    <th> 
+                        <button 
+                            type="button" 
+                            onClick={() => requestSort('inventoryid')} 
+                            className={getClassNamesFor('inventoryid')}
+                        > 
+                        Inventory ID 
+                        </button> 
+                    </th>
+                    <th> 
+                        <button 
+                            type="button" 
+                            onClick={() => requestSort('ingredientname')} 
+                            className={getClassNamesFor('ingredientname')}
+                        > 
+                        Item Name 
+                        </button> 
+                    </th>
+                    <th> 
+                        <button 
+                            type="button" 
+                            onClick={() => requestSort('quantityounces')} 
+                            className={getClassNamesFor('quantityounces')}
+                        > 
+                        Quantity
+                        </button> 
+                    </th>
+                    <th> 
+                        <button 
+                            type="button" 
+                            onClick={() => requestSort('priceperounce')} 
+                            className={getClassNamesFor('priceperounce')}
+                        > 
+                        Price ($)
+                        </button> 
+                    </th>
+                    <th> 
+                        <button 
+                            type="button" 
+                            onClick={() => requestSort('averageamountperunitsold')} 
+                            className={getClassNamesFor('averageamountperunitsold')}
+                        > 
+                        Amount User Per Sale
+                        </button> 
+                    </th>
+                    <th> 
+                        <button 
+                            type="button" 
+                            onClick={() => requestSort('minimumquantity')} 
+                            className={getClassNamesFor('minimumquantity')}
+                        > 
+                        Minimum Quantity Needed
+                        </button> 
+                    </th>
+                    <th> 
+                        <button 
+                            type="button" 
+                            onClick={() => requestSort('itemtype')} 
+                            className={getClassNamesFor('itemtype')}
+                        > 
+                        Item Type
+                        </button> 
+                    </th>
                     <th> Actions </th>
                 </tr>
             </thead>
             <tbody>
-                {inventories.map((item) => (
-                    <Fragment key={item.inventoryID}>
+                {items.map((item) => (
+                    <Fragment>
                         {editInventoryID === item.inventoryid ? (
                             <EditableItem 
                             editFormData = {editFormData}
@@ -411,47 +365,47 @@ export const EditableInventory = ({inventory}) => {
         </table>
         </form>
         <h4> Add Inventory Item </h4>
-            <form onSubmit={addItem}>
+            <form onSubmit={handleAddFormSubmit}>
                 <input
                     type = "text"
-                    name = "itemName"
+                    name = "ingredientname"
                     required = "required"
                     placeholder = "Item Name"
-                    onChange={(event) => setItemName(event.target.value)}
+                    onChange={handleAddFormChange}
                 />
                 <input
                     type = "number"
-                    name = "quantity"
+                    name = "quantityounces"
                     placeholder = "Quantity"
-                    onChange={(event) => setQuantity(Number(event.target.value))}
+                    onChange={handleAddFormChange}
                 />
                 <input
-                    type = "number"
-                    name = "price"
+                    type = "text"
+                    name = "priceperounce"
                     required = "required"
                     placeholder = "Price"
-                    onChange={(event) => setPrice(Number(event.target.value))}
+                    onChange={handleAddFormChange}
                 />
                 <input
                     type = "number"
-                    name = "amountusedpersale"
+                    name = "averageamountperunitsold"
                     required = "required"
                     placeholder = "Amount User Per Sale"
-                    onChange={(event) => setAmountUsedPerSale(Number(event.target.value))}
+                    onChange={handleAddFormChange}
                 />
                 <input
                     type = "number"
-                    name = "minimumquantityneeded"
+                    name = "minimumquantity"
                     required = "required"
                     placeholder = "Minimum Quantity Needed"
-                    onChange={(event) => setMinimumQuantityNeeded(Number(event.target.value))}
+                    onChange={handleAddFormChange}
                 />
                 <input
                     type = "text"
                     name = "itemtype"
                     required = "required"
                     placeholder = "Item Type"
-                    onChange={(event) => setItemType(event.target.value)}
+                    onChange={handleAddFormChange}
                 />
                 <button className={styles.button} type = "submit"> Add </button>
             </form>

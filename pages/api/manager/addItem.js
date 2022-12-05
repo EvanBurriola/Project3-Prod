@@ -20,6 +20,6 @@ export default async function handler(req, res) {
           itemtype: itemType,
         },
     })
-  
+
     res.json(result)
   }

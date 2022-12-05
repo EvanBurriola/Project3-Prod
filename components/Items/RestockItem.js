@@ -1,4 +1,4 @@
-const RestockItem = ({item}) =>{
+const RestockItem = ({item}) =>{  
     return(
         <tr>        
             <td> {item.inventoryid} </td>
