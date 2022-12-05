@@ -1,5 +1,6 @@
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
+import NavDropdown from 'react-bootstrap/NavDropdown'
 import UserProfile from './UserProfile'
 import Image from 'next/image'
 import logo from '@/public/assets/logo.png'
@@ -17,7 +18,13 @@ export const NavbarServer = ({user, ...props}) => {
             <Navbar.Toggle aria-controls="customer-navbar" />
             <Navbar.Collapse id="customer-navbar">
                 <Nav className="navigations me-auto">
-                    {user && user.role == 'M' && <Nav.Link className="mx-1" href="/manager">Manage Store</Nav.Link>}
+                    {user && user.role == 'M' && 
+                        <NavDropdown title="Manage Store" id="manage-store-dropdown">
+                                <NavDropdown.Item href="/manager">Dashboard</NavDropdown.Item>
+                                <NavDropdown.Item href="/inventory">Inventory</NavDropdown.Item>
+                                <NavDropdown.Item href="/menu">Menu</NavDropdown.Item>
+                        </NavDropdown>
+                    }
                     <Nav.Link className="mx-1 active" href="/server">Take Orders</Nav.Link>
                     <Nav.Link className="mx-1" href="/customer">Self Service</Nav.Link>
                 </Nav>
@@ -31,7 +38,7 @@ export const NavbarServer = ({user, ...props}) => {
 export const NavbarCustomer = ({user, ...props}) => {
     return (
         <Navbar expand="lg" className={`${styles.navOffWhite}`}>
-            <Navbar.Brand href="#" className={styles.logoContainer}>
+            <Navbar.Brand href="/" className={styles.logoContainer}>
                 <Image
                     src={logo}
                     alt="Spin and Stone logo"
@@ -61,11 +68,13 @@ export const NavbarManager = ({user, ...props}) => {
             <Navbar.Toggle aria-controls="manager-navbar" />
             <Navbar.Collapse id="manager-navbar">
                 <Nav className="navigations me-auto">
-                    <Nav.Link className="mx-1" href="/manager">Dashboard</Nav.Link>
-                    <Nav.Link className="mx-1" href="/inventory">Inventory</Nav.Link>
-                    <Nav.Link className="mx-1" href="/menu">Menu</Nav.Link>
-                    <Nav.Link className="mx-1" href="">Employees</Nav.Link>
-                    <Nav.Link className="mx-1" href="/server">Server View</Nav.Link>
+                    <NavDropdown title="Manage Store" id="manage-store-dropdown">
+                            <NavDropdown.Item href="/manager">Dashboard</NavDropdown.Item>
+                            <NavDropdown.Item href="/inventory">Inventory</NavDropdown.Item>
+                            <NavDropdown.Item href="/menu">Menu</NavDropdown.Item>
+                    </NavDropdown>
+                    <Nav.Link className="mx-1" href="/server">Take Orders</Nav.Link>
+                    <Nav.Link className="mx-1" href="/customer">Self Service</Nav.Link>
                 </Nav>
                 <div id="google_translate_element" className='mx-1'></div>
                 <UserProfile user={user}/>

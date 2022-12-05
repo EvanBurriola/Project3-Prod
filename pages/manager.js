@@ -45,7 +45,7 @@ export async function getServerSideProps(){
   }
 }
 
-export default function manager({inventory, menu}) {
+export default function Manager({inventory, menu}) {
   const { data: session } = useSession()
   const router = useRouter()
 
