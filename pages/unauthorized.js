@@ -9,3 +9,4 @@ export default function Unauthorized() {
         </div>
     )
 }
+Unauthorized.noAuthRequired = true
