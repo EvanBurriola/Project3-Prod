@@ -8,7 +8,9 @@ import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
-// Creating the layout for the third page of the Customer View
+/**
+ * Creating the layout for the third page of the Customer View
+ * @author Brandon Longuet */ 
 export default function Toppings({inventory, ...props}) {
     
     return (

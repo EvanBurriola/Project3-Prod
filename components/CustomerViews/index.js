@@ -1,4 +1,6 @@
-// Combining all the exports so the overall customer page can use them in one import
+/**
+ * Combining all the exports so the overall customer page can use them in one import
+ * @author Brandon Longuet */ 
 export { default as StartOrder} from "./Start"
 export { default as CheeseSauce} from "./CheeseSauce.js"
 export { default as Toppings} from "./Toppings.js"

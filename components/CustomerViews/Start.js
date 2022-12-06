@@ -7,7 +7,9 @@ import React from 'react';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
-// Creating the layout for the first page of the Customer View
+/**
+ * Creating the layout for the first page of the Customer View
+ * @author Brandon Longuet */ 
 export default function StartOrder({menu, ...props}) {
     const PAGE_INDEX = 0
 

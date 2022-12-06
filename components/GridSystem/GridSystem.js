@@ -1,6 +1,13 @@
 import React, { Children } from 'react';
 import {Row, Col} from 'react-bootstrap'
 
+/** 
+ * Creating the dynamic grid for the buttons within the server and customer views
+ * @author Brandon Longuet
+ * @param colCount Max columns to have in the grid
+ * @param children Array of the objects that will be created
+ * @param md The size of the grid on the screen
+ */
 const GridSystem = ({ colCount, children, md }) => {
     let childArray = Children.toArray(children)
     let rowCount = Math.ceil(childArray.length / colCount)
