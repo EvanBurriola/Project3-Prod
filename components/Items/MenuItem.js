@@ -2,7 +2,8 @@
 /**
  * Creating the menu items within the table
  *  
- * @author ??
+ * @author Matthew Janczak
+ * @param item item from the menu table
  */
 export const MenuItem = ({item}) => {
     return (
@@ -17,7 +18,7 @@ export const MenuItem = ({item}) => {
 /**
  * Creating the editable menu items within the table
  *  
- * @author ??
+ * @author Jenna Jung
  */
 export const EditableMenuTableItem = ({item, handleEditClick, handleDeleteClick}) => {
     return(

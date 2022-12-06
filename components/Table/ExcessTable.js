@@ -5,7 +5,8 @@ import ExcessItem from '../Items/ExcessItem'
 /**
  * Creating a table for the excess ingredients in the manager view
  *  
- * @author ??
+ * @author Matthew Janczak
+ * @param excessTable Table from the reports query
  */
 const ExcessTable = ({excessTable}) => {
     return (

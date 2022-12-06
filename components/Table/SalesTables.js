@@ -6,7 +6,9 @@ import SalesToppingItem from '../Items/SalesToppingItem'
 /**
  * Creating a display for the sales table in the manager view
  *  
- * @author ??
+ * @author Matthew Janczak
+ * @param pizzaTable First table of the reports query
+ * @param toppingTable Second table of the reports query
  */
 const SalesTables = ({pizzaTable, toppingTable}) => {
     return(

@@ -1,7 +1,8 @@
 /**
  * Creating what is within the invenotory table for the manager view
  *  
- * @author ??
+ * @author Matthew Janczak
+ * @param item item from the Inventory table
  */
 export const TableItem = ({item}) =>{
     return(
@@ -20,7 +21,7 @@ export const TableItem = ({item}) =>{
 /**
  * Creating what is within the invenotory table for the manager view and making it editable
  *  
- * @author ??
+ * @author Jenna Jung
  */
 export const EditableTableItem = ({item, handleEditClick, handleDeleteClick}) => {
     return(

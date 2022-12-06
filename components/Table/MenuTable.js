@@ -9,7 +9,8 @@ import styles from '@/styles/manager.module.css';
 /**
  * Creating a way to sort a table in the manager view
  *  
- * @author ??
+ * @author Matthew Janczak
+ * @param items Table of sorted items
  */
 const useSortableData = (items, config = null) => {
     const [sortConfig, setSortConfig] = React.useState(config);
@@ -48,7 +49,7 @@ const useSortableData = (items, config = null) => {
 /**
  * Creating a display for the menu table in the manager view
  *  
- * @author ??
+ * @author Matthew Janczak
  */
 export const MenuDisplay = ({menu}) => {
 
@@ -107,7 +108,9 @@ export const MenuDisplay = ({menu}) => {
 /**
  * Creating a way to edit the menu table in the manager view
  *  
- * @author ??
+ * @author Jenna Jung
+ * @author Matthew Janczak
+ * @param menu Table from the database
  */
 export const EditableMenu = ({menu}) => {
     const [menus, setMenus] = useState(menu);

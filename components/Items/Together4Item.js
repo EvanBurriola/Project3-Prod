@@ -1,7 +1,8 @@
 /**
  * Creating what is sold together in the fourth table
  *  
- * @author ??
+ * @author Matthew Janczak
+ * @param item item from the Together table
  */
 const Together4Item = ({item}) => {
     return (

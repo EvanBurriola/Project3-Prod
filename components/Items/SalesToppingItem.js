@@ -1,7 +1,8 @@
 /**
  * Creating the pizza toppings that are sold
  *  
- * @author ??
+ * @author Matthew Janczak
+ * @param item item from the Sales Topping table
  */
 const SalesToppingItem = ({item}) => {
     return(

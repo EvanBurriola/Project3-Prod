@@ -8,7 +8,7 @@ import styles from "@/styles/manager.module.css"
  * Text entry box for the start date of the report (manager view)
  * TODO: Connect to the database once date is entered
  * 
- * @author ??
+ * @author Jenna Jung
  */
 export default function DateSelect() {
     const [startDate, setStartDate] = useState(null);

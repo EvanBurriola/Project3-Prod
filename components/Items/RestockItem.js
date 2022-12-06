@@ -1,7 +1,8 @@
 /**
  * Creating the items that can be restocked
  *  
- * @author ??
+ * @author Matthew Janczak
+ * @param item item from the Restock table
  */
 const RestockItem = ({item}) =>{  
     return(

@@ -8,7 +8,8 @@ import styles from '@/styles/manager.module.css'
 /**
  * Creating a display for the restock table in the manager view
  *  
- * @author ??
+ * @author Matthew Janczak
+ * @param restockTable Table from the reports query
  */
 const RestockTable = ({restockTable}) => {
     const [itemName, setRestockItem] = useState("");

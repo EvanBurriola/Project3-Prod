@@ -1,7 +1,6 @@
 import styles from '@/styles/manager.module.css'
 
 import Together1Item from '../Items/Together1Item'
-import Together1BarItem from '../BarItems/Together1BarItem'
 import Together2Item from '../Items/Together2Item'
 import Together3Item from '../Items/Together3Item'
 import Together4Item from '../Items/Together4Item'
@@ -9,7 +8,11 @@ import Together4Item from '../Items/Together4Item'
 /**
  * Creating a display for the What Sales Together tables in the manager view
  *  
- * @author ??
+ * @author Matthew Janczak
+ * @param together1Table First table from the reports query
+ * @param together2Table Second table from the reports query
+ * @param together3Table Third table from the reports query
+ * @param together4Table Fourth table from the reports query
  */
 const TogetherTables = ({together1Table, together2Table, together3Table, together4Table}) => {
     return (

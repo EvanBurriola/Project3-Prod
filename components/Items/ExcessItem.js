@@ -1,7 +1,8 @@
 /**
  * Creating the excess items within the tables
  *  
- * @author ??
+ * @author Matthew Janczak
+ * @param item item from the excess table
  */
 const ExcessItem = ({item}) => {
     return(

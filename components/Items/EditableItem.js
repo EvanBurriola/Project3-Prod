@@ -3,7 +3,7 @@ import React from 'react';
 /**
  * Creating what is able to be editable within the manager view tables
  *  
- * @author ??
+ * @author Jenna Jung
  */
 const EditableItem = ({ editFormData, handleEditFormChange }) => {
     return (

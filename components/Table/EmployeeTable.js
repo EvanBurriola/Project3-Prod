@@ -5,7 +5,7 @@ import React from 'react';
 /**
  * Creating a table for the employees in the manager view
  *  
- * @author ??
+ * @author Jenna Jung
  */
 const EmployeeTable = () => {
 

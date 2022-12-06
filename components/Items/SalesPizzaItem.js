@@ -1,7 +1,8 @@
 /**
  * Creating the pizza items sales
  *  
- * @author ??
+ * @author Matthew Janczak
+ * @param item item from the Sales Pizza table
  */
 const SalesPizzaItem = ({item}) => {
     return(

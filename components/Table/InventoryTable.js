@@ -9,7 +9,8 @@ import styles from '@/styles/manager.module.css'
 /**
  * Creating a way to sort a table in the manager view
  *  
- * @author ??
+ * @author Matthew Janczak
+ * @param items Table of sorted items
  */
 const useSortableData = (items, config = null) => {
     const [sortConfig, setSortConfig] = React.useState(config);
@@ -48,7 +49,8 @@ const useSortableData = (items, config = null) => {
 /**
  * Creating a display for the inventory table in the manager view
  *  
- * @author ??
+ * @author Matthew Janczak
+ * @param inventory Table from the database
  */
 export const InventoryDisplay = ({inventory}) => {
 
@@ -144,7 +146,9 @@ export const InventoryDisplay = ({inventory}) => {
 /**
  * Creating a way to edit the inventory table in the manager view
  *  
- * @author ??
+ * @author Jenna Jung
+ * @author Matthew Janczak
+ * @param inventory Table from the database
  */
 export const EditableInventory = ({inventory}) => {
     const [inventories, setInventories] = useState(inventory);
