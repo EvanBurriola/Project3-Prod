@@ -1,6 +1,11 @@
 import React, { Component } from 'react'
 import styles from "../styles/login.module.css"
 
+/**
+ * Creating a display for the login page
+ *  
+ * @author ??
+ */
 export default class Login extends Component {
   render() {
     return (

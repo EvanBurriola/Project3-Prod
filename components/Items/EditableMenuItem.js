@@ -1,5 +1,10 @@
 import React from 'react';
 
+/**
+ * Creating what is able to be editable within the manager view tables
+ *  
+ * @author ??
+ */
 const EditableMenuItem = ({editFormData, handleEditFormChange}) => {
     return (
         <tr>

@@ -1,3 +1,8 @@
+/**
+ * Creating the items that can be restocked
+ *  
+ * @author ??
+ */
 const RestockItem = ({item}) =>{  
     return(
         <tr>        

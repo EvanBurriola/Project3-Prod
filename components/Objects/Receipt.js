@@ -4,6 +4,11 @@ import Col from 'react-bootstrap/Col'
 
 import moment from 'moment'
 
+/**
+ * Creating what a page for the reciept after an order is made
+ *  
+ * @author ??
+ */
 const Receipt = ({info}) => {
     const { order, pizzas } = info
     const orderDate = moment(order.orderdate).local().format("MMMM Do [at] h:mmA")

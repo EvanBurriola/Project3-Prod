@@ -6,6 +6,11 @@ import { TableItem, EditableTableItem } from '@/components/Items/TableItem';
 
 import styles from '@/styles/manager.module.css'
 
+/**
+ * Creating a way to sort a table in the manager view
+ *  
+ * @author ??
+ */
 const useSortableData = (items, config = null) => {
     const [sortConfig, setSortConfig] = React.useState(config);
   
@@ -40,6 +45,11 @@ const useSortableData = (items, config = null) => {
     return { items: sortedItems, requestSort, sortConfig };
 };
 
+/**
+ * Creating a display for the inventory table in the manager view
+ *  
+ * @author ??
+ */
 export const InventoryDisplay = ({inventory}) => {
 
     const { items, requestSort, sortConfig } = useSortableData(inventory);
@@ -131,6 +141,11 @@ export const InventoryDisplay = ({inventory}) => {
     )
 }
 
+/**
+ * Creating a way to edit the inventory table in the manager view
+ *  
+ * @author ??
+ */
 export const EditableInventory = ({inventory}) => {
     const [inventories, setInventories] = useState(inventory);
     const [addFormData, setAddFormData] = useState({

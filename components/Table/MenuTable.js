@@ -6,6 +6,11 @@ import { MenuItem, EditableMenuTableItem} from '../Items/MenuItem';
 
 import styles from '@/styles/manager.module.css';
 
+/**
+ * Creating a way to sort a table in the manager view
+ *  
+ * @author ??
+ */
 const useSortableData = (items, config = null) => {
     const [sortConfig, setSortConfig] = React.useState(config);
   
@@ -40,6 +45,11 @@ const useSortableData = (items, config = null) => {
     return { items: sortedItems, requestSort, sortConfig };
 };
 
+/**
+ * Creating a display for the menu table in the manager view
+ *  
+ * @author ??
+ */
 export const MenuDisplay = ({menu}) => {
 
     const { items, requestSort, sortConfig } = useSortableData(menu);
@@ -94,7 +104,11 @@ export const MenuDisplay = ({menu}) => {
         </div>
     )
 }
-
+/**
+ * Creating a way to edit the menu table in the manager view
+ *  
+ * @author ??
+ */
 export const EditableMenu = ({menu}) => {
     const [menus, setMenus] = useState(menu);
     const [addFormData, setAddFormData] = useState({

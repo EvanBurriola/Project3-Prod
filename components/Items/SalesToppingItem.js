@@ -1,3 +1,8 @@
+/**
+ * Creating the pizza toppings that are sold
+ *  
+ * @author ??
+ */
 const SalesToppingItem = ({item}) => {
     return(
         <tr>

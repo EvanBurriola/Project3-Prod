@@ -1,3 +1,8 @@
+/**
+ * Creating what is within the invenotory table for the manager view
+ *  
+ * @author ??
+ */
 export const TableItem = ({item}) =>{
     return(
         <tr>        
@@ -12,6 +17,11 @@ export const TableItem = ({item}) =>{
     )
 }
 
+/**
+ * Creating what is within the invenotory table for the manager view and making it editable
+ *  
+ * @author ??
+ */
 export const EditableTableItem = ({item, handleEditClick, handleDeleteClick}) => {
     return(
         <tr>

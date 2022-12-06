@@ -2,6 +2,11 @@ import styles from '@/styles/manager.module.css'
 
 import ExcessItem from '../Items/ExcessItem'
 
+/**
+ * Creating a table for the excess ingredients in the manager view
+ *  
+ * @author ??
+ */
 const ExcessTable = ({excessTable}) => {
     return (
         <div>

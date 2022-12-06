@@ -2,6 +2,11 @@ import React from 'react';
 
 // TODO: import data from database (Connect to the database)
 
+/**
+ * Creating a table for the employees in the manager view
+ *  
+ * @author ??
+ */
 const EmployeeTable = () => {
 
     return (

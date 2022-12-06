@@ -2,6 +2,11 @@ import styles from './ErrorNotification.module.css'
 
 import CloseButton from 'react-bootstrap/CloseButton'
 
+/**
+ * Creating error notifications for when and error occurs
+ *  
+ * @author ??
+ */
 const ErrorNotification = ({error, onComplete, ...props}) => {
 
     return (

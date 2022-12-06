@@ -8,6 +8,11 @@ import { useDispatch } from 'react-redux'
 import { setCustomer } from '@/store/slices/order'
 
 
+/**
+ * Creating a popup to type in the name for the order
+ *  
+ * @author ??
+ */
 const NameModal = ({...props}) => {
     const dispatch = useDispatch()
     const [customerName, setCustomerName] = useState("")

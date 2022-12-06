@@ -1,5 +1,9 @@
 
-
+/**
+ * Creating the menu items within the table
+ *  
+ * @author ??
+ */
 export const MenuItem = ({item}) => {
     return (
         <tr>        
@@ -10,6 +14,11 @@ export const MenuItem = ({item}) => {
     )
 }
 
+/**
+ * Creating the editable menu items within the table
+ *  
+ * @author ??
+ */
 export const EditableMenuTableItem = ({item, handleEditClick, handleDeleteClick}) => {
     return(
         <tr>

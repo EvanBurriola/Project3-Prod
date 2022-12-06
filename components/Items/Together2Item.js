@@ -1,3 +1,8 @@
+/**
+ * Creating what is sold together in the second table
+ *  
+ * @author ??
+ */
 const Together2Item = ({item}) => {
     return (
         <tr>

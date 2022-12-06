@@ -42,6 +42,11 @@ export const OrderCost = ({...props}) => {
     )
 }
 
+/**
+ * Showing what is selected within the order
+ *  
+ * @author ??
+ */
 export const Selected = ({ingredient, count, ...props}) => {
     return (
         <div className="d-flex ps-4 mb-0 align-items-center">
@@ -51,6 +56,11 @@ export const Selected = ({ingredient, count, ...props}) => {
     )
 }
 
+/**
+ * Creating a way to remove toppings from the order and everthing associated
+ *  
+ * @author ??
+ */
 export const RemoveTopping = ({handler, ingredient, count, ...props}) => {
     return (
         <div className="d-flex ps-4 mb-0 align-items-center">
@@ -69,6 +79,11 @@ export const RemoveTopping = ({handler, ingredient, count, ...props}) => {
     )
 }
 
+/**
+ * Creating what is being display for each order
+ *  
+ * @author ??
+ */
 export const OrderDisplay = ({item, index}) => {
     const [isActive, setIsActive] = useState(true)
     const [btnStyle, setBtnStyle] = useState(styles.btnNotEdit)

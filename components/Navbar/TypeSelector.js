@@ -6,6 +6,11 @@ import { updateFilter } from '@/store/slices/filter'
 import Button from 'react-bootstrap/Button'
 import Col from 'react-bootstrap/Col'
 
+/**
+ * Creating what type of choices are available on the Navbar
+ *  
+ * @author ??
+ */
 export default function TypeSelector({choices, ...props}) {
     const dispatch = useDispatch()
     const activeFilter = useSelector((state) => state.filter.itemFilter)

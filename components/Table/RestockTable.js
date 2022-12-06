@@ -5,6 +5,11 @@ import { useState } from 'react';
 
 import styles from '@/styles/manager.module.css'
 
+/**
+ * Creating a display for the restock table in the manager view
+ *  
+ * @author ??
+ */
 const RestockTable = ({restockTable}) => {
     const [itemName, setRestockItem] = useState("");
     const [quantityRestock, setQuantityRestock] = useState(0);

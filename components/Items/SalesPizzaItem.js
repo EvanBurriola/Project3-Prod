@@ -1,3 +1,8 @@
+/**
+ * Creating the pizza items sales
+ *  
+ * @author ??
+ */
 const SalesPizzaItem = ({item}) => {
     return(
         <tr>

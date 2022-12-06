@@ -5,6 +5,11 @@ import Image from 'next/image'
 
 import { signOut } from 'next-auth/react'
 
+/**
+ * Creating the use that is signed in show in the Navbar
+ *  
+ * @author ??
+ */
 const UserProfile = ({user, ...props}) => {
     return (
         <Dropdown align="end" className={`mx-1`}>

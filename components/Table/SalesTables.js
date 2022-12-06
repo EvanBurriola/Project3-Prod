@@ -3,6 +3,11 @@ import styles from '@/styles/manager.module.css'
 import SalesPizzaItem from '../Items/SalesPizzaItem'
 import SalesToppingItem from '../Items/SalesToppingItem'
 
+/**
+ * Creating a display for the sales table in the manager view
+ *  
+ * @author ??
+ */
 const SalesTables = ({pizzaTable, toppingTable}) => {
     return(
         <div>

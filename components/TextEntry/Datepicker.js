@@ -4,9 +4,12 @@ import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import styles from "@/styles/manager.module.css"
 
-
-// Text entry box for the start date of the report (manager view)
-// TODO: Connect to the database once date is entered
+/**
+ * Text entry box for the start date of the report (manager view)
+ * TODO: Connect to the database once date is entered
+ * 
+ * @author ??
+ */
 export default function DateSelect() {
     const [startDate, setStartDate] = useState(null);
     const [endDate, setEndDate] = useState(null);

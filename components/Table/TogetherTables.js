@@ -6,6 +6,11 @@ import Together2Item from '../Items/Together2Item'
 import Together3Item from '../Items/Together3Item'
 import Together4Item from '../Items/Together4Item'
 
+/**
+ * Creating a display for the What Sales Together tables in the manager view
+ *  
+ * @author ??
+ */
 const TogetherTables = ({together1Table, together2Table, together3Table, together4Table}) => {
     return (
         <div>

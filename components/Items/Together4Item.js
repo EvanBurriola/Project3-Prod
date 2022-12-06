@@ -1,3 +1,8 @@
+/**
+ * Creating what is sold together in the fourth table
+ *  
+ * @author ??
+ */
 const Together4Item = ({item}) => {
     return (
         <tr>
