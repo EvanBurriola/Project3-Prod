@@ -9,6 +9,7 @@ import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
+// Creating the layout for the second page of the Customer View
 export default function CheeseSauce({inventory, menu, ...props}) {
 
     return (

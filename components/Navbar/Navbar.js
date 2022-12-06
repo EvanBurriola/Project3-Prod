@@ -6,6 +6,7 @@ import Image from 'next/image'
 import logo from '@/public/assets/logo.png'
 import styles from './Navbar.module.css'
 
+// Creating the layout for the Navbar of the Server View
 export const NavbarServer = ({user, ...props}) => {
     return (
         <Navbar expand="lg" className={`${styles.navOffWhite}`}>
@@ -35,6 +36,7 @@ export const NavbarServer = ({user, ...props}) => {
     )
 }
 
+// Creating the layout for the Navbar of the Customer View
 export const NavbarCustomer = ({user, ...props}) => {
     return (
         <Navbar expand="lg" className={`${styles.navOffWhite}`}>
@@ -56,6 +58,7 @@ export const NavbarCustomer = ({user, ...props}) => {
     )
 }
 
+// Creating the layout for the Navbar of the Manager View
 export const NavbarManager = ({user, ...props}) => {
     return (
         <Navbar bg="light" expand="lg">

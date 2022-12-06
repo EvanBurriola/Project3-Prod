@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { setActive, removeItem, removePizzaTopping } from '@/store/slices/order'
 
+// Creating the buttons for all the ingredients within the server and customer views
 export const MenuItem = ({butId, name, ...props}) => {
     return (
         <>
@@ -15,6 +16,7 @@ export const MenuItem = ({butId, name, ...props}) => {
     )
 }
 
+// Creating the display for order costs in the server and customer views
 export const OrderCost = ({...props}) => {
     const { subtotal, salestax, ordertotal} = props.order
     
@@ -36,6 +38,7 @@ export const OrderCost = ({...props}) => {
     )
 }
 
+// Creating a function to keep track of the selected ingreidents in the order
 export const Selected = ({ingredient, count, ...props}) => {
     return (
         <div className="d-flex ps-4 mb-0 align-items-center">
@@ -45,6 +48,7 @@ export const Selected = ({ingredient, count, ...props}) => {
     )
 }
 
+// Creating the button that removes the topping from the order
 export const RemoveTopping = ({handler, ingredient, count, ...props}) => {
     return (
         <div className="d-flex ps-4 mb-0 align-items-center">
