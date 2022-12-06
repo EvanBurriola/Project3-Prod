@@ -14,8 +14,9 @@ import Spinner from 'react-bootstrap/Spinner'
 
 import { prisma } from '@/lib/prisma'
 import { useSelector, useDispatch } from 'react-redux'
-import { addItem, addPizzaTopping, clearOrder } from '@/store/slices/order' 
+import { addItem, addPizzaTopping, clearOrder, setEmployee } from '@/store/slices/order' 
 import { PizzaModel, ToppingModel } from '@/lib/models'
+import { useSession } from 'next-auth/react'
 
 import { useRouter } from 'next/router';
 
@@ -42,6 +43,18 @@ export default function Customer({inventory, menu}) {
     const order = useSelector((state) => state.order)
     const dispatch = useDispatch()
     const router = useRouter()
+    const { data: session, status } = useSession()
+
+    // wait for status to be authenticated then set the employee who
+    // is taking the orders in the redux order state
+    useEffect(() => {
+        if (status === "authenticated" && session) {
+            dispatch(setEmployee({
+                employee: session.user.fullname, 
+                id: session.user.employeeid
+            }))
+        }
+    }, [status])
 
     const dough = inventory.find(item => item.ingredientname === 'Dough')
 
@@ -208,7 +221,7 @@ export default function Customer({inventory, menu}) {
     return(
         <Container fluid>
             <Row>
-                <NavbarCustomer sticky="top"/>
+                <NavbarCustomer user={session.user} sticky="top"/>
             </Row>
             {
                 buildPage()

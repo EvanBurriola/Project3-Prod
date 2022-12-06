@@ -6,7 +6,8 @@ import { prisma } from '@/lib/prisma'
 //       to wait for the first response then iteratively
 //       push new items.
 // TODO: make this more efficient by pushing at the same time
-// TODO: remove quantity from inventory for each topping
+// TODO: fix issue with transaction seeming to fail for multiple
+//       writes to the same row in the inventory
 export default async function handler(req, res) {
     if (req.method !== 'POST') {
         return
@@ -21,6 +22,7 @@ export default async function handler(req, res) {
     //       consider this
     delete order.orderItems
     delete order.activeOrder
+    delete order.status
     orderItems.forEach((item) => {
         toppings.push(item.toppings);
         delete item.pizzatype

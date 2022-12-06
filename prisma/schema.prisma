@@ -26,6 +26,7 @@ model employees {
   employeename    String           @unique @db.VarChar(100)
   employeerole    String           @db.VarChar(10)
   currentemployee Boolean?
+  email           String?          @unique @db.VarChar(191)
   customerorders  customerorders[]
 }
 

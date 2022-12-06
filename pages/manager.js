@@ -10,8 +10,6 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import DateSelect, { DateEnd, DateStart } from '../components/TextEntry/Datepicker.js';
-import InventoryTable, { InventoryDisplay } from '@/components/Table/InventoryTable.js';
-import MenuTable from '@/components/Table/MenuTable.js';
 import { prisma } from '@/lib/prisma'
 import { useState, useEffect } from 'react'
 import DatePicker from 'react-datepicker';
@@ -22,6 +20,11 @@ import RestockTable from '@/components/Table/RestockTable';
 import SalesTables from '@/components/Table/SalesTables';
 import ExcessTable from '@/components/Table/excessTable';
 import TogetherTables from '@/components/Table/TogetherTables';
+import { InventoryDisplay } from '@/components/Table/InventoryTable.js';
+import { MenuDisplay } from '@/components/Table/MenuTable.js';
+
+import { useSession } from "next-auth/react"
+import { useRouter } from 'next/router'
 
 export async function getServerSideProps(){
   const inventory = await prisma.inventory.findMany({
@@ -42,7 +45,22 @@ export async function getServerSideProps(){
   }
 }
 
-export default function Manager({inventory}) {
+export default function Manager({inventory, menu}) {
+  const { data: session } = useSession()
+  const router = useRouter()
+
+  // Prefetch the redirect page for unathorized users
+  useEffect(() => {
+    router.prefetch('/unauthorized')
+  }, [])
+
+  // redirect if the user doesn't have a manager role
+  useEffect(() => {
+    if(session?.user.role != "M"){
+      router.push("/unauthorized")
+    }
+  }, [session])
+
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   const [reportType, setReportType] = useState("");
@@ -142,7 +160,7 @@ export default function Manager({inventory}) {
 
   return (
     <Container fluid className="h-100">
-      <Navbar.NavbarManager />
+      <Navbar.NavbarManager user={session.user} />
       <Row>
         <h1> Dashboard </h1>
       </Row>
@@ -157,6 +175,7 @@ export default function Manager({inventory}) {
             <p> {"\n"} </p>
         <Row>
           <Col md = "5"> 
+            <h6> Select Start Date: </h6>
             <DatePicker 
               required = "required"
               placeholderText = "Start Date"
@@ -168,6 +187,7 @@ export default function Manager({inventory}) {
               endDate = {endDate}
               onChange = {(date) => setStartDate(date)}
             />
+            <h6> Select End Date: </h6>
             <DatePicker
               required = "required"
               placeholderText = "End Date"
@@ -207,20 +227,14 @@ export default function Manager({inventory}) {
           return null
         })()}
             </Row>
+            <Col md="7"> <h4 className = {styles.header}> Menu at a Glance </h4></Col>
+            <MenuDisplay menu={menu}/>
           </Row>
         </Col>
         <Col md = "7">
           <InventoryDisplay inventory={inventory}/> 
         </Col>
       </Row>
-      {/* <Row>
-        <Col>
-          <InventoryTable inventory={inventory}/> 
-        </Col>
-      </Row> */}
-      {/* <Row>
-        <MenuTable menu={menu}/>
-      </Row> */}
     </Container>
   )
 }

@@ -3,7 +3,8 @@ import Head from 'next/head'
 import Script from 'next/script'
 import store from '@/store'
 import { Provider } from 'react-redux'
-import { SessionProvider } from "next-auth/react"
+import { SessionProvider, useSession } from "next-auth/react"
+import {useRouter} from 'next/router'
 
 
 const POSApp = ({ Component, pageProps: { session, ...pageProps} }) => {
@@ -18,11 +19,39 @@ const POSApp = ({ Component, pageProps: { session, ...pageProps} }) => {
                     <meta charSet="utf-8" />
                     <meta name="viewport" content="width=device-width, initial-scale=1" />
                 </Head>
-                <Component {...pageProps} />
+                {Component.noAuthRequired ? (
+                    <Component {...pageProps} />
+                ) : (                
+                    <Auth>
+                        <Component {...pageProps} />
+                    </Auth>
+                )}
+
                 {/* bootstrap 5.2 js */}
                 <Script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js" integrity="sha256-h1OMS35Ij1pJ0S+Y1qBK/GHQDyankPMZVpeZrNQ062U=" crossOrigin="anonymous"></Script>
+                <Script id="translateScript">
+                {`function googleTranslateElementInit() {
+                    new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
+                }`}
+                </Script>
+                <Script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></Script>
             </Provider>
         </SessionProvider>
     )
 }
 export default POSApp
+
+function Auth({children}){
+    const router = useRouter()
+    const {status} = useSession({
+        required: true,
+        onUnauthenticated(){
+            router.push('/login')
+        },
+    })
+
+    if(status === "loading"){
+        return <div>Loading...</div>
+    }
+    return children
+}

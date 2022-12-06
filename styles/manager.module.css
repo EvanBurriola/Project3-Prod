@@ -39,6 +39,10 @@
     border-bottom: 2px solid #FCB353;
 }
 
+.tableStyle tbody tr:hover {
+	background-color:#FCB353;
+}
+
 .title {
     font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     color:#FCB353;
@@ -73,7 +77,7 @@
     background-color: #FCB353;
     color: white;
     border: black;
-    padding: 4px 10px;
+    padding: 4px 15px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
@@ -92,6 +96,50 @@
     display: inline-block;
 }
 
+.tableStyle1 tbody tr:last-of-type {
+    border-bottom: 2px solid #009879;
+}
+
+.next {
+    display: inline-block;
+}
+
+.tableStyle1 tbody tr:last-of-type {
+    border-bottom: 2px solid #009879;
+}
+
+.next {
+    display: inline-block;
+}
+
 .scrollable {
     max-height: 500em;
+}
+
+.tableStyle thead button {
+    background-color: #FCB353;
+    color: black;
+	border: 0;
+	border-radius: none;
+	font-family: inherit;
+	font-weight: 700;
+	font-size: inherit;
+	padding: 0.5em;
+	margin-bottom: 1px;
+}
+
+.tableStyle thead button:hover{
+    background-color: #ff9100;
+}
+
+.tableStyle thead button.ascending::after {
+	content: '👇';
+	display: inline-block;
+	margin-left: 1em;
+}
+  
+.tableStyle thead button.descending::after {
+	content: '☝️';
+	display: inline-block;
+	margin-left: 1em;
 }
