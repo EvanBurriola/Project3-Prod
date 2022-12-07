@@ -159,82 +159,88 @@ export default function Manager({inventory, menu}) {
 
 
   return (
-    <Container fluid className="h-100">
-      <Navbar.NavbarManager user={session.user} />
-      <Row>
-        <h1> Dashboard </h1>
-      </Row>
-      <Row>
-        <Col md="5"> <h4 className = {styles.header}> Reports </h4> </Col>
-        <Col md="7"> <h4 className = {styles.header}> Inventory at a Glance </h4></Col>
-      </Row>
-      <Row> 
-        <Col>
-          <Row>
+    <>
+        <Head>
+            <title>SNS Pizza | Store Management Dashboard</title>
+        </Head>
+
+        <Container fluid className="h-100">
+            <Navbar.NavbarManager user={session.user} />
             <Row>
-            <p> {"\n"} </p>
-        <Row>
-          <Col md = "5"> 
-            <h6> Select Start Date: </h6>
-            <DatePicker 
-              required = "required"
-              placeholderText = "Start Date"
-              showTimeSelect
-              dateFormat="yyyy-MM-dd hh:mm:ss"
-              selected = {startDate}
-              selectsStart
-              startDate = {startDate}
-              endDate = {endDate}
-              onChange = {(date) => setStartDate(date)}
-            />
-            <h6> Select End Date: </h6>
-            <DatePicker
-              required = "required"
-              placeholderText = "End Date"
-              showTimeSelect
-              dateFormat="yyyy-MM-dd hh:mm:ss"
-              selected = {endDate}
-              selectsEnd
-              startDate={startDate}
-              endDate = {endDate}
-              minDate = {startDate}
-              onChange = {date => setEndDate(date)}
-            />
-          </Col>
-        </Row>
-        <Row> 
-          <Col> 
-            <button onClick={()=>setReportType("sales")} id="sales" className={stylesManager.button}> Sales </button>
-            <button onClick={()=>setReportType("excess")} id="excess" className={stylesManager.button}> Excess </button> 
-            <button onClick={()=>setReportType("together")} id="together" className={stylesManager.button}> What Sales Together </button> 
-            <button onClick={()=>setReportType("restock")} id="restock" className={stylesManager.button}> Restock </button>
-            <p> {"\n"} </p>
-          </Col>
-        </Row>
-        {(() => {
-          if(reportType == "restock"){
-            return <RestockTable restockTable={restockData} />
-          }
-          else if(reportType == "sales"){
-            return <SalesTables pizzaTable={salesPizzaData} toppingTable={salesToppingData} />
-          }
-          else if(reportType == "excess"){
-            return <ExcessTable excessTable={excessData} />
-          }
-          else if(reportType == "together"){
-            return <TogetherTables together1Table={together1Data} together2Table={together2Data} together3Table={together3Data} together4Table={together4Data}/>
-          }
-          return null
-        })()}
+                <h1> Dashboard </h1>
             </Row>
-            <Col md="7"> <h4 className = {styles.header}> Menu at a Glance </h4></Col>
-            <MenuDisplay menu={menu}/>
-          </Row>
-        </Col>
-        <Col md = "7">
-          <InventoryDisplay inventory={inventory}/> 
-        </Col>
-      </Row>
-    </Container>
+            <Row>
+                <Col md="5"> <h4 className = {styles.header}> Reports </h4> </Col>
+                <Col md="7"> <h4 className = {styles.header}> Inventory at a Glance </h4></Col>
+            </Row>
+            <Row> 
+                <Col>
+                    <Row>
+                        <Row>
+                            <p> {"\n"} </p>
+                            <Row>
+                                <Col md = "5"> 
+                                    <h6> Select Start Date: </h6>
+                                    <DatePicker 
+                                    required = "required"
+                                    placeholderText = "Start Date"
+                                    showTimeSelect
+                                    dateFormat="yyyy-MM-dd hh:mm:ss"
+                                    selected = {startDate}
+                                    selectsStart
+                                    startDate = {startDate}
+                                    endDate = {endDate}
+                                    onChange = {(date) => setStartDate(date)}
+                                    />
+                                    <h6> Select End Date: </h6>
+                                    <DatePicker
+                                    required = "required"
+                                    placeholderText = "End Date"
+                                    showTimeSelect
+                                    dateFormat="yyyy-MM-dd hh:mm:ss"
+                                    selected = {endDate}
+                                    selectsEnd
+                                    startDate={startDate}
+                                    endDate = {endDate}
+                                    minDate = {startDate}
+                                    onChange = {date => setEndDate(date)}
+                                    />
+                                </Col>
+                            </Row>
+                            <Row> 
+                                <Col> 
+                                    <button onClick={()=>setReportType("sales")} id="sales" className={stylesManager.button}> Sales </button>
+                                    <button onClick={()=>setReportType("excess")} id="excess" className={stylesManager.button}> Excess </button> 
+                                    <button onClick={()=>setReportType("together")} id="together" className={stylesManager.button}> What Sales Together </button> 
+                                    <button onClick={()=>setReportType("restock")} id="restock" className={stylesManager.button}> Restock </button>
+                                    <p> {"\n"} </p>
+                                </Col>
+                            </Row>
+                            {(() => {
+                            if(reportType == "restock"){
+                                return <RestockTable restockTable={restockData} />
+                            }
+                            else if(reportType == "sales"){
+                                return <SalesTables pizzaTable={salesPizzaData} toppingTable={salesToppingData} />
+                            }
+                            else if(reportType == "excess"){
+                                return <ExcessTable excessTable={excessData} />
+                            }
+                            else if(reportType == "together"){
+                                return <TogetherTables together1Table={together1Data} together2Table={together2Data} together3Table={together3Data} together4Table={together4Data}/>
+                            }
+                            return null
+                            })()}
+                        </Row>
+                        <Col md="7"> <h4 className = {styles.header}> Menu at a Glance </h4></Col>
+                        <MenuDisplay menu={menu}/>
+                    </Row>
+                </Col>
+                <Col md = "7">
+                    <InventoryDisplay inventory={inventory}/> 
+                </Col>
+            </Row>
+        </Container>
+    </>
   )
 }

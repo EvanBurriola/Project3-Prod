@@ -38,6 +38,7 @@ model inventory {
   averageamountperunitsold Int?
   minimumquantity          Int?
   itemtype                 String?  @db.VarChar
+  images                   String?  @db.VarChar(255)
   pizzas                   pizzas[]
 }
 

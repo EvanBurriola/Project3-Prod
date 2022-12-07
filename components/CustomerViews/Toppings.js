@@ -2,6 +2,7 @@ import styles from '@/styles/customer.module.css'
 
 import GridSystem from '@/components/GridSystem/GridSystem.js';
 import { MenuItem } from '@/components/Objects/Objects.js';
+import { DynamicPizza } from "@/components/DynamicPizza/DynamicPizza.js";
 
 import React from 'react';
 import Button from 'react-bootstrap/Button';
@@ -14,22 +15,25 @@ import Col from 'react-bootstrap/Col';
 export default function Toppings({inventory, ...props}) {
     
     return (
-        <Col xs={8} md={8} className="d-flex flex-column justify-content-end">
+        <Col className="d-flex flex-column justify-content-end px-4">
+            {/*<Row className="h-100 mb-5">
+                <DynamicPizza />
+            </Row>*/}
             <Row className="mb-auto">
-                <h1 className={`${styles.typeTitle}`}>Toppings</h1>
+                <h2 className={`mb-0`}>Toppings</h2>
                 <GridSystem colCount={4} md={3} >
                     {inventory.length > 0 ? inventory.map(item => {
                         if (item.itemtype == "topping") {
-                            return <MenuItem key={item.inventoryid} onClick={() => props.handleAddTopping(item)} butId={item.inventoryid} name={item.ingredientname} />
+                            return <MenuItem disabled={item.quantityounces <= item.minimumquantity} key={item.inventoryid} onClick={() => props.handleAddTopping(item)} butId={item.inventoryid} name={item.ingredientname} />
                         }
                     }) : <p>No tracks are found.</p>
                     }
                 </GridSystem>
             </Row>
-            <Row>
+            <Row className={`pb-4`}>
                 <Col className="d-flex justify-content-end">
-                    <Button className={`me-auto ${styles.btnNav}`} onClick={() => props.back_click(2)} variant="primary" >Previous Page</Button>
-                    <Button className={`${styles.btnNav}`} onClick={() => props.next_click(2)} variant="primary" >Next Page</Button>
+                    <Button className={`me-auto ${styles.btnNav}`} onClick={() => props.back_click(2)} variant="primary" ><i className="fa-solid fa-left-long me-1"></i> Previous</Button>
+                    <Button className={`${styles.btnNav}`} onClick={() => props.next_click(2)} variant="primary" >Next <i className="fa-solid fa-right-long ms-1"></i></Button>
                 </Col>
             </Row>
         </Col>

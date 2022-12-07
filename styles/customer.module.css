@@ -1,5 +1,6 @@
 .orderContainer {
-    max-height: 40vh;
+    min-height: 40vh;
+    max-height: 50vh;
     overflow-y: auto;
     overflow-x: hidden;
 }
@@ -14,3 +15,12 @@
     border: 0px !important;
     color: var(--color-offblack) !important;
 }
+
+.checkoutContainer {
+    background-color: var(--color-offblack);
+    border-radius: 1.5rem;
+}
+
+.wrapper {
+    min-height: 90vh;
+  }

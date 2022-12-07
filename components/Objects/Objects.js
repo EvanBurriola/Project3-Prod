@@ -13,7 +13,7 @@ import { setActive, removeItem, removePizzaTopping } from '@/store/slices/order'
 export const MenuItem = ({butId, name, ...props}) => {
     return (
         <>
-            <Button className={`mx-0 ${styles.btnSNS} ${props.className}`} onClick={props.onClick} id={butId} variant="primary" >{name}</Button>
+            <Button disabled={props.disabled} className={`mx-0 ${styles.btnSNS} ${props.className}`} onClick={props.onClick} id={butId}>{name}</Button>
         </>
     )
 }
