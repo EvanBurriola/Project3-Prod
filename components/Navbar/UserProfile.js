@@ -22,14 +22,21 @@ const UserProfile = ({user, ...props}) => {
                 />
             </Dropdown.Toggle>
 
-            <Dropdown.Menu>
-                <Dropdown.Header>{user.fullname}</Dropdown.Header>
-                <Dropdown.Item onClick={() => signOut()}>
-                    <i className="fa-solid fa-right-from-bracket"></i>
-                    {' '}
-                    Logout
-                </Dropdown.Item>
-            </Dropdown.Menu>
+            {user.role == "K" ? (
+                <Dropdown.Menu>
+                    <Dropdown.Header>{user.fullname}</Dropdown.Header>
+                </Dropdown.Menu>
+            ):(
+                <Dropdown.Menu>
+                    <Dropdown.Header>{user.fullname}</Dropdown.Header>
+                    <Dropdown.Item onClick={() => signOut()}>
+                        <i className="fa-solid fa-right-from-bracket"></i>
+                        {' '}
+                        Logout
+                    </Dropdown.Item>
+                </Dropdown.Menu>
+            )}
+
         </Dropdown>
     )
 }
