@@ -12,7 +12,7 @@ import SalesToppingItem from '../Items/SalesToppingItem'
  */
 const SalesTables = ({pizzaTable, toppingTable}) => {
     return(
-        <div>
+        <div className={styles.tableWrapper1}>
             <table className={styles.tableStyle} id = "pizzaTable">
                 <thead>
                     <tr>

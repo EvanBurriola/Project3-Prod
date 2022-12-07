@@ -62,7 +62,7 @@ export const MenuDisplay = ({menu}) => {
     }
 
     return (
-        <div className={styles.tableWrapper}>
+        <div>
             <table className = {styles.tableStyle} id ="menuTable">
                 <thead>
                     <tr>
@@ -115,9 +115,9 @@ export const MenuDisplay = ({menu}) => {
 export const EditableMenu = ({menu}) => {
     const [menus, setMenus] = useState(menu);
     const [addFormData, setAddFormData] = useState({
-        typeID: '',
-        typeName: '',
-        typePrice: '',
+        typeid: '',
+        pizzatype: '',
+        itemprice: '',
     });
 
     const handleAddFormChange = (event) => {
@@ -137,8 +137,8 @@ export const EditableMenu = ({menu}) => {
 
         try{
             const body = {
-                newItemName: addFormData.typeName,
-                newItemPrice: Number(addFormData.typePrice),
+                newItemName: addFormData.pizzatype,
+                newItemPrice: Number(addFormData.itemprice),
             }
             const response = await fetch('/api/manager/addMenuItem',{
                 method: "POST",
@@ -153,29 +153,30 @@ export const EditableMenu = ({menu}) => {
         }
     }
 
-    //
     const [editMenuID, setEditMenuID] = useState(null);
     const [editFormData, setEditFormData] = useState({
         typeid: '',
-        typename: '',
-        typeprice: '',
+        pizzatype: '',
+        itemprice: '',
     })
 
     const handleEditClick = (event, item) => {
         event.preventDefault();
-        setEditMenuID(item.inventoryid);
+        setEditMenuID(item.typeid);
 
         const formValues = {
             typeid: item.typeid,
-            typename: item.typename,
-            typeprice: item.typeprice,
+            pizzatype: item.pizzatype,
+            itemprice: item.itemprice,
         }
+
+        setEditFormData(formValues);
     }
 
     const handleEditFormChange = (event) => {
         event.preventDefault();
 
-        const fieldName = event.target.getAttribute("name"); //change?
+        const fieldName = event.target.getAttribute("name");
         const fieldValue = event.target.value;
 
         const newFormData = { ...editFormData };
@@ -184,24 +185,33 @@ export const EditableMenu = ({menu}) => {
         setEditFormData(newFormData);
     }
 
-    const handleEditFormSubmit = (event) => {
+    const handleEditFormSubmit = async(event) => {
         event.preventDefault();
+        try {
+            const body = {
+                typeid: editFormData.typeid,
+                pizzatype: editFormData.pizzatype,
+                itemprice: editFormData.itemprice,
+            }
+            await fetch('/api/manager/changeMenu',{
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(body),
+            });
+            const newInv = [ ...menus];
 
-        const editedMenu = {
-            typeid: editFormData.typeid,
-            typename: editFormData.typename,
-            typeprice: editFormData.typeprice,
+            const index = menus.findIndex((item)=> item.typeid === editMenuID) //change?
+
+            newInv[index] = body;
+
+            setMenus(newInv);
+            setEditMenuID(null);
         }
-
-        const newInv = [ ...menus]; //change?
-
-        const index = menus.findIndex((item)=> item.typeid === editMenuID) //change?
-
-        newInv[index] = editedMenu;
-
-        setMenus(newInv);
-        setEditInventoryID(null);
+        catch(error){
+            console.error(error);
+        }
     }
+
 
     const handleDeleteClick = async(menuidd) => {
         const newInv = [...menus];
@@ -235,9 +245,10 @@ export const EditableMenu = ({menu}) => {
     }
 
     return (
-        <div className={styles.tableWrapper}>
+        <div>
+        <div className={styles.tableWrapper2}>
         <form onSubmit={handleEditFormSubmit}>
-        <table className={styles.tableStyle} id="menutable">
+        <table className={styles.tableStyle2} id="menutable">
             <thead>
                 <tr>
                 <th> 
@@ -275,6 +286,7 @@ export const EditableMenu = ({menu}) => {
                     <Fragment key={item.typeid}>
                         {editMenuID === item.typeid ? (
                             <EditableMenuItem 
+                            item = {item}
                             editFormData = {editFormData}
                             handleEditFormChange = {handleEditFormChange}/>
                         ) :(
@@ -289,23 +301,29 @@ export const EditableMenu = ({menu}) => {
             </tbody>
         </table>
         </form>
+        </div>
+        <p> </p>
+        <div>
         <h4> Add Menu Item </h4>
             <form onSubmit={handleAddFormSubmit}>
                 <input
                     type = "text"
-                    name = "typeName"
+                    name = "pizzatype"
                     required = "required"
                     placeholder = "Pizza Name"
                     onChange={handleAddFormChange}
+                    className = {styles.textEntryStyle}
                 />
                 <input
                     type = "text"
-                    name = "typePrice"
+                    name = "itemprice"
                     placeholder = "Pizza Price"
                     onChange={handleAddFormChange}
+                    className = {styles.textEntryStyle}
                 />
                 <button className={styles.button} type = "submit"> Add </button>
             </form>
+            </div>
         </div>
     )
 }

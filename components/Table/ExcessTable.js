@@ -10,7 +10,7 @@ import ExcessItem from '../Items/ExcessItem'
  */
 const ExcessTable = ({excessTable}) => {
     return (
-        <div>
+        <div className={styles.tableWrapper1}>
             <table className = {styles.tableStyle} id = "excessTable">
                 <thead>
                     <tr>

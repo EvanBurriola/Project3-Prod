@@ -5,26 +5,17 @@ import React from 'react';
  *  
  * @author Jenna Jung
  */
-const EditableMenuItem = ({editFormData, handleEditFormChange}) => {
+const EditableMenuItem = ({item, editFormData, handleEditFormChange}) => {
     return (
         <tr>
-            <td>
-                <input
-                    type = "text"
-                    required = "required"
-                    placeholder='Type ID'
-                    name="typeid"
-                    value = {editFormData.typeid}
-                    onChange = {handleEditFormChange}
-                ></input>
-            </td>
+            <td> {item.typeid} </td>
             <td>
                 <input
                     type = "text"
                     required = "required"
                     placeholder='Type Name'
-                    name="typename"
-                    value = {editFormData.typename}
+                    name="pizzatype"
+                    value = {editFormData.pizzatype}
                     onChange = {handleEditFormChange}
                 ></input>
             </td>
@@ -33,8 +24,8 @@ const EditableMenuItem = ({editFormData, handleEditFormChange}) => {
                     type = "text"
                     required = "required"
                     placeholder='Type Price'
-                    name="typeprice"
-                    value = {editFormData.typeprice}
+                    name="itemprice"
+                    value = {editFormData.itemprice}
                     onChange = {handleEditFormChange}
                 ></input>
             </td>

@@ -41,10 +41,10 @@ export const EditableTableItem = ({item, handleEditClick, handleDeleteClick}) =>
                     Edit
                 </button>
                 <button
-                    type="button"
-                    onClick={() => handleDeleteClick(item.inventoryid)}
+                    type = "button"
+                    onClick = {()=> handleDeleteClick(item.inventoryid)}
                 >
-                    Delete
+                    Delete 
                 </button>
             </td>
         </tr>

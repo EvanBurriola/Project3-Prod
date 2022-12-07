@@ -51,9 +51,150 @@
     float: left;
 }
 
+.tableStyle2 {
+    border-collapse: collapse;
+    font-size: 0.9em;
+    margin: 0;
+    min-width: 470px;
+    border-radius: 5px 5px 0 0;
+    overflow: hidden;
+    position: relative;
+    float: left;
+
+}
+
+.tableStyle2 thead tr {
+    background-color: #FCB353;
+    color: #ffffff;
+    text-align: left;
+    font-weight: bold;
+}
+
+.tableStyle2 th,
+.tableStyle2 td {
+    padding: 8px 10px;
+}
+
+.tableStyle2 tbody tr {
+    border-bottom: 1px solid white;
+
+}
+
+.tableStyle2 tbody tr:nth-of-type(even) {
+    background-color: #ffe3bf;
+}
+
+.tableStyle2 tbody tr:nth-of-type(odd) {
+    background-color: #f3f3f3;
+}
+
+.tableStyle2 tbody tr:last-of-type {
+    border-bottom: 2px solid #FCB353;
+}
+
+.tableStyle2 tbody tr:hover {
+	background-color:#FCB353;
+}
+
+.tableStyle2 thead button {
+    background-color: #FCB353;
+    color: white;
+	border: 0;
+	border-radius: none;
+	font-family: inherit;
+	font-weight: 700;
+	font-size: inherit;
+	padding: 0.5em;
+	margin-bottom: 1px;
+}
+
+.tableStyle3 {
+    border-collapse: collapse;
+    font-size: 0.9em;
+    margin: 0;
+    min-width: 85%;
+    border-radius: 5px 5px 0 0;
+    overflow: hidden;
+    position: relative;
+    float: left;
+
+}
+
+.tableStyle3 thead tr {
+    background-color: #FCB353;
+    color: #ffffff;
+    text-align: left;
+    font-weight: bold;
+}
+
+.tableStyle3 th,
+.tableStyle3 td {
+    padding: 8px 10px;
+}
+
+.tableStyle3 tbody tr {
+    border-bottom: 1px solid white;
+
+}
+
+.tableStyle3 tbody tr:nth-of-type(even) {
+    background-color: #ffe3bf;
+}
+
+.tableStyle3 tbody tr:nth-of-type(odd) {
+    background-color: #f3f3f3;
+}
+
+.tableStyle3 tbody tr:last-of-type {
+    border-bottom: 2px solid #FCB353;
+}
+
+.tableStyle3 tbody tr:hover {
+	background-color:#FCB353;
+}
+
+.tableStyle3 thead button {
+    background-color: #FCB353;
+    color: white;
+	border: 0;
+	border-radius: none;
+	font-family: inherit;
+	font-weight: 700;
+	font-size: inherit;
+	padding: 0.5em;
+	margin-bottom: 1px;
+}
+
 .tableWrapper {
-    max-height: 550px;
+    max-height: 600px;
     overflow-y: scroll;
+}
+
+.tableWrapper1 {
+    max-height: 210px;
+    overflow-y: scroll;
+}
+
+.tableWrapper2 {
+    max-height: 500px;
+    overflow-y: scroll;
+}
+
+.textAlign {
+    background-color: #FCB353;
+    color: black;
+    border: black;
+    padding: 4px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin-top: 5px;
+    margin-left:13px;
+    display: inline-block;
+    margin: left;
+    width: 200 px;
+
 }
 
 .header {
@@ -118,7 +259,7 @@
 
 .tableStyle thead button {
     background-color: #FCB353;
-    color: black;
+    color: white;
 	border: 0;
 	border-radius: none;
 	font-family: inherit;
@@ -129,7 +270,8 @@
 }
 
 .tableStyle thead button:hover{
-    background-color: #ff9100;
+    background-color: #fcb353;
+    display: inline-block;
 }
 
 .tableStyle thead button.ascending::after {
@@ -142,4 +284,14 @@
 	content: '☝️';
 	display: inline-block;
 	margin-left: 1em;
+}
+
+.textEntryStyle {
+    width: 200px;
+    border: 2px solid #aaa;
+    border-radius: 4px;
+    outline: none;
+    padding: 8px;
+    box-sizing: border-box;
+    margin-right: 5px;
 }

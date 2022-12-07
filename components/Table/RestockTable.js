@@ -12,33 +12,63 @@ import styles from '@/styles/manager.module.css'
  * @param restockTable Table from the reports query
  */
 const RestockTable = ({restockTable}) => {
-    const [itemName, setRestockItem] = useState("");
-    const [quantityRestock, setQuantityRestock] = useState(0);
+    const [restockTables, setTables] = useState(restockTable);
+    const [restockFormData, setRestockFormData] = useState({
+        itemname: '',
+        quantityRestock: '',
+    });
 
-    const restockItem = async (event) => {
+    const handleRestockFormChange = (event) => {
+        event.preventDefault();
+
+        const fieldName = event.target.getAttribute('name');
+        const fieldValue = event.target.value;
+
+        const newFormData = { ...restockFormData};
+        newFormData[fieldName] = fieldValue;
+
+        setRestockFormData(newFormData);
+    }
+
+    // const [itemName, setRestockItem] = useState("");
+    // const [quantityRestock, setQuantityRestock] = useState(0);
+
+    const handleRestockFormSubmit = async (event) => {
         event.preventDefault()
+
+        const itemID = restockTable.find(item => item.ingredientname == restockFormData.itemname).inventoryid
+
+        const newTable = [...restockTables]
+
+        const index = restockTables.findIndex((item) => item.inventoryid === itemID);
+
+        //console.log(index);
+
+        newTable.splice(index, 1);
+        setTables(newTable);
+
         try{
-            const itemID = restockTable.find(item => item.ingredientname == itemName).inventoryid
-            const curQuantity = restockTable.find(item => item.ingredientname == itemName).quantityounces
+            const curQuantity = restockTable.find(item => item.ingredientname == restockFormData.itemname).quantityounces
             const body = {
                 itemID,
                 curQuantity,
-                quantityRestock
+                quantityRestock: Number(restockFormData.quantityRestock),
             }
-            await fetch('/api/manager/restockItem',{
+            const response = await fetch('/api/manager/restockItem',{
                 method: "PATCH",
                 headers: { "Context-Type": "application/json" },
                 body: JSON.stringify(body),
             });
+            const newItem = await response.json()
+            window.location.reload()
         }
         catch(error){
             console.error(error);
         }
-        console.log(itemName, quantityRestock)
     }
 
     return(
-        <div>
+        <div className={styles.tableWrapper1}>
             <table className = {styles.tableStyle} id ="restockTable">
                 <thead>
                     <tr>
@@ -61,9 +91,9 @@ const RestockTable = ({restockTable}) => {
             <p> {"\n"} </p>
             <div className={styles.leftMargin}>
             <h5 className = {styles.header}> Restock Item</h5>
-                <form onSubmit={restockItem}>
-                    <label for="restock item"> Select Item to Restock: </label>
-                    <select name="restockitem" id="restockitem" onChange={(event) => setRestockItem(event.target.value)}>
+                <form onSubmit={handleRestockFormSubmit}>
+                    <label className={styles.header} for="restock item"> Select Item to Restock: </label>
+                    <select name="itemname" id="restockitem" onChange={handleRestockFormChange}>
                         <option value="" selected disabled hidden> Select Here </option>
                         {restockTable.map(item => {
                             return <RestockDropDown key={item.inventoryid} item={item} />
@@ -72,12 +102,12 @@ const RestockTable = ({restockTable}) => {
                     </select>
                     <input
                         type = "text"
-                        name = "quantityAmount"
+                        name = "quantityRestock"
                         required = "required"
                         placeholder = "Amount of Restock"
-                        onChange={(event) => setQuantityRestock(event.target.value)}
+                        onChange={handleRestockFormChange}
                     />
-                    <button className = {styles.button1} type = "submit"> Restock Item </button>
+                    <button className = {styles.button} type = "submit"> Restock Item </button>
                 </form>
             </div>
         </div>
