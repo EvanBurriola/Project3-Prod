@@ -16,7 +16,7 @@ import Together4Item from '../Items/Together4Item'
  */
 const TogetherTables = ({together1Table, together2Table, together3Table, together4Table}) => {
     return (
-        <div>
+        <div className={styles.tableWrapper1}>
             <table className = {styles.tableStyle} id = "BYOTable">
                 <thead>
                     <tr>
@@ -30,24 +30,7 @@ const TogetherTables = ({together1Table, together2Table, together3Table, togethe
                     })
                     }
                 </tbody>
-            </table>
-            <p> {"\n"} </p>
-
-            <table className={styles.tableStyle} id = "byo2">
-                <thead>
-                    <tr>
-                        <th> Pizza Type </th>
-                        <th> Ordered with BYO </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {together1Table.map(item => {
-                        return <Together1Item key={item.pizzatype} item={item} />
-                    })
-                    }
-                </tbody>
-            </table>
-            
+            </table>            
 
             <p> {"\n"} </p>
             <table className = {styles.tableStyle} id = "CheeseTable">

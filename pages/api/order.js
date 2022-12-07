@@ -1,5 +1,11 @@
 import { prisma } from '@/lib/prisma'
 
+// ensures that no duplicates will be written to database
+// we update the quantityused prop
+const createUnique = (toppings) => {
+    return [...new Map(toppings.map(item => [item['inventoryid'], item])).values()]
+}
+
 // NOTE: prisma doesn't support nested createMany statements
 //       so we need to first create the order + pizzaorders
 //       then create toppings for each pizzaorder. We need
@@ -50,9 +56,10 @@ export default async function handler(req, res) {
             const id = createOrder.pizzaorders[i].pizzaid
             toppings[i].forEach(async (top) => {
                 top.pizzaid = id
-                // itemtype prop not in pizza table and causes
+                // itemtype, images props not in pizza table and causes
                 // errors when pushing to table
                 delete top.itemtype
+                delete top.images
                 // update each topping quantity in inventory
                 await client.inventory.update({
                     where: {

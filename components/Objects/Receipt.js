@@ -7,17 +7,17 @@ import moment from 'moment'
 /**
  * Creating what a page for the reciept after an order is made
  *  
- * @author ??
+ * @author Axel Ramone
  */
 const Receipt = ({info}) => {
     const { order, pizzas } = info
     const orderDate = moment(order.orderdate).local().format("MMMM Do [at] h:mmA")
 
 
-    const renderItem = (item) => {
+    const renderItem = (item, index) => {
         const type = item.pizzas[0].pizzatype
         return (
-            <div className='d-flex w-100 justify-content-between'>
+            <div key={index} className='d-flex w-100 justify-content-between'>
                 <p>{type}</p>
                 <p>${item.price}</p>
             </div>
@@ -31,7 +31,7 @@ const Receipt = ({info}) => {
                 <h5 className={`text-start`}>Placed on {orderDate}</h5>
             </div>
             <div>
-                {pizzas.map(p => renderItem(p))}
+                {pizzas.map((p, i) => renderItem(p, i))}
             </div>
             <div className={`text-end`}>
                 <p className='mb-0'>Subtotal: ${order.subtotal}</p>

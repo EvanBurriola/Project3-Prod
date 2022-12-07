@@ -10,7 +10,7 @@
     }
 }
 
-.btnSNS {
+.btnSNS, .btnSNS:focus-within  {
     font-family: var(--font-poppins) !important;
     background-color: var(--color-offblack);
     border: 1px solid transparent;
@@ -18,10 +18,15 @@
     width: 100%;
     padding: 8%;
     margin: 5%;
-    font-size: 1.3rem;
+    font-size: 1.1rem;
 }
 
-.btnSNS:hover, .btnSNS:active, .btnSNS:focus-within {
+.btnSNS:disabled {
+    background-color: var(--color-offblack);
+    border: 1px solid #d52620;
+}
+
+.btnSNS:hover, .btnSNS:active, .btnSNS:first-child:active {
     border-color: var(--color-beige);   
     background-color: #5b5757;
     transition: all 0.2s ease-in;

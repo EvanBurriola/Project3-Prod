@@ -13,7 +13,7 @@ import { setActive, removeItem, removePizzaTopping } from '@/store/slices/order'
 export const MenuItem = ({butId, name, ...props}) => {
     return (
         <>
-            <Button className={`mx-0 ${styles.btnSNS} ${props.className}`} onClick={props.onClick} id={butId} variant="primary" >{name}</Button>
+            <Button disabled={props.disabled} className={`mx-0 ${styles.btnSNS} ${props.className}`} onClick={props.onClick} id={butId}>{name}</Button>
         </>
     )
 }
@@ -45,7 +45,7 @@ export const OrderCost = ({...props}) => {
 /**
  * Showing what is selected within the order
  *  
- * @author ??
+ * @author Axel Ramone
  */
 export const Selected = ({ingredient, count, ...props}) => {
     return (
@@ -59,7 +59,7 @@ export const Selected = ({ingredient, count, ...props}) => {
 /**
  * Creating a way to remove toppings from the order and everthing associated
  *  
- * @author ??
+ * @author Axel Ramone
  */
 export const RemoveTopping = ({handler, ingredient, count, ...props}) => {
     return (
@@ -82,7 +82,7 @@ export const RemoveTopping = ({handler, ingredient, count, ...props}) => {
 /**
  * Creating what is being display for each order
  *  
- * @author ??
+ * @author Axel Ramone
  */
 export const OrderDisplay = ({item, index}) => {
     const [isActive, setIsActive] = useState(true)

@@ -13,6 +13,8 @@ import { useSession } from "next-auth/react";
 import { useRouter } from 'next/router';
 import { EditableInventory } from '@/components/Table/InventoryTable.js';
 
+import Head from 'next/head';
+
 export async function getServerSideProps(){
   const inventory = await prisma.inventory.findMany({
     orderBy: {
@@ -42,19 +44,25 @@ export default function Inventory({inventory}) {
     }
   }, [session])
 
-  return (
-    <Container fluid className="h-100">
-      <Navbar.NavbarManager user={session.user}/>
-      <Row>
-        <h1> Inventory Management </h1>
-      </Row>
-      <Row>
-        <p> {"\n"} </p>
-        <h3> Inventory </h3>
-      </Row>
-      <Row>
-        <EditableInventory inventory={inventory}/> 
-      </Row>
-    </Container>
-  )
+    return (
+        <>
+            <Head>
+                <title>SNS Pizza | Manage Inventory</title>
+            </Head>
+
+            <Container fluid className="h-100">
+                <Navbar.NavbarManager user={session.user}/>
+                <Row>
+                    <h1> Inventory Management </h1>
+                </Row>
+                <Row>
+                    <p> {"\n"} </p>
+                    <h3> Inventory </h3>
+                </Row>
+                <Row>
+                    <EditableInventory inventory={inventory}/> 
+                </Row>
+            </Container>
+        </>
+    )
 }

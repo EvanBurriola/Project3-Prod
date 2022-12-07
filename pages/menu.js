@@ -13,6 +13,8 @@ import { useEffect } from 'react';
 import { useSession } from "next-auth/react"
 import { useRouter } from 'next/router'
 
+import Head from 'next/head'
+
 export async function getServerSideProps(){
     const menu = await prisma.menuitems.findMany({
         orderBy: {
@@ -43,18 +45,24 @@ export default function Menu({menu}){
     }, [session])
 
     return(
-        <Container fluid className="h-100">
-            <Navbar.NavbarManager user={session.user}/>
-            <Row>
-                <h1> Menu Management </h1>
-            </Row>
-            <Row>
-                <p> {"\n"} </p>
-                <h3> Menu </h3>
-            </Row>
-            <Row>
-                <EditableMenu menu={menu}/>
-            </Row>
-        </Container>
+        <>
+            <Head>
+                <title>SNS Pizza | Manage Menu</title>
+            </Head>
+
+            <Container fluid className="h-100">
+                <Navbar.NavbarManager user={session.user}/>
+                <Row>
+                    <h1> Menu Management </h1>
+                </Row>
+                <Row>
+                    <p> {"\n"} </p>
+                    <h3> Menu </h3>
+                </Row>
+                <Row>
+                    <EditableMenu menu={menu}/>
+                </Row>
+            </Container>
+        </>
     )
 }

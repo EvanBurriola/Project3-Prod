@@ -7,7 +7,6 @@ export default async function handler(req, res) {
     }
 
     const { start, end, reportType } = JSON.parse(req.body)
-    //console.log(start, end)
 
     if(reportType == 'restock'){
         const result = await prisma.$queryRaw`SELECT * FROM inventory WHERE quantityounces < minimumquantity ORDER BY inventoryid ASC`
@@ -49,7 +48,7 @@ export default async function handler(req, res) {
                 totalused: Number(BigInt.asUintN(64, element.totalused))
             }
         });
-        //console.log(result)
+        console.log(result)
         res.json(result)
     }
     else if(reportType == 'together1'){

@@ -9,6 +9,8 @@ import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { clearOrder } from '@/store/slices/order'
 
+import Head from 'next/head'
+
 export async function getServerSideProps(context) {
     // grab orderid passed in route
     const id = parseInt(context.params.id)
@@ -63,16 +65,22 @@ export default function OrderReceipt({order, pizzas}) {
     useEffect(() => {
         dispatch(clearOrder())
         const timer = setTimeout(() => {
-            router.push("/customer")
-        }, 5000);
+            router.push("/splash")
+        }, 10000);
     });
 
     return (
-        <Container className="d-flex flex-column min-vh-100 justify-content-center align-items-center">
-            <Row className="text-center justify-content-center">
-                <h2 className='text-muted mb-5'>Thank You For Your Order!</h2>
-                <Receipt info={fullOrder}/>
-            </Row>
-        </Container>
+        <>
+            <Head>
+                <title>Order #{fullOrder.order.orderid} - Thank You!</title>
+            </Head>
+
+            <Container className="d-flex flex-column min-vh-100 justify-content-center align-items-center">
+                <Row className="text-center justify-content-center">
+                    <h2 className='text-muted mb-5'>Thank You For Your Order!</h2>
+                    <Receipt info={fullOrder}/>
+                </Row>
+            </Container>
+        </>
     )
 }

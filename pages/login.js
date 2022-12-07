@@ -7,6 +7,8 @@ import Container from 'react-bootstrap/Container'
 import Col from 'react-bootstrap/Col'
 import Row from 'react-bootstrap/Row'
 
+import Head from 'next/head'
+
 import { useSession, signIn, signOut } from "next-auth/react"
 
 const AuthContainer = ({session}) => {
@@ -43,27 +45,32 @@ export default function Login() {
     const { data: session } = useSession()
 
     return (
-        <Container>
-            <Row className='h-100 align-items-center'>
-                <Row>
-                    <Col className={`${styles.title}`}>
-                        <div className={styles.logoContainer}>
-                            <Image
-                                src={logo}
-                                alt="Spin and Stone logo"
-                            /> 
-                        </div>
-                        
-                        <h3 className="title">Spin &apos;N Stone POS Sign In</h3>
-                    </Col>
+        <>
+            <Head>
+                <title>SNS Pizza | Login</title>
+            </Head>
+            <Container>
+                <Row className='h-100 align-items-center'>
+                    <Row>
+                        <Col className={`${styles.title}`}>
+                            <div className={styles.logoContainer}>
+                                <Image
+                                    src={logo}
+                                    alt="Spin and Stone logo"
+                                /> 
+                            </div>
+                            
+                            <h3 className="title">Spin &apos;N Stone POS Sign In</h3>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col className='d-flex justify-content-center'>
+                            <AuthContainer session={session} />
+                        </Col>
+                    </Row>
                 </Row>
-                <Row>
-                    <Col className='d-flex justify-content-center'>
-                        <AuthContainer session={session} />
-                    </Col>
-                </Row>
-            </Row>
-        </Container>
+            </Container>
+        </>
     )
 }
 Login.noAuthRequired = true

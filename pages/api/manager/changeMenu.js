@@ -2,14 +2,17 @@ import {prisma} from '@/lib/prisma'
 
 export default async function handler(req, res) {
     const {
-        menuID,
-        itemPrice
-    } = JSON.parse(req.body)
+        typeid,
+        pizzatype,
+        itemprice,
+
+    } = req.body
   
     const result = await prisma.menuitems.update({
-        where: {typeid: menuID},
+        where: {typeid: typeid},
         data: {
-            itemprice: Number(itemPrice)
+            pizzatype: pizzatype,
+            itemprice: Number(itemprice),
         },
     })
   

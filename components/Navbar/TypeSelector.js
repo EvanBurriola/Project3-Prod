@@ -9,7 +9,7 @@ import Col from 'react-bootstrap/Col'
 /**
  * Creating what type of choices are available on the Navbar
  *  
- * @author ??
+ * @author Axel Ramone
  */
 export default function TypeSelector({choices, ...props}) {
     const dispatch = useDispatch()

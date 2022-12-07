@@ -199,7 +199,6 @@ export const EditableInventory = ({inventory}) => {
         }
     }
 
-    //
     const [editInventoryID, setEditInventoryID] = useState(null);
     const [editFormData, setEditFormData] = useState({
         inventoryid: '',
@@ -211,6 +210,7 @@ export const EditableInventory = ({inventory}) => {
         itemtype: '',
     })
 
+    // placeholder edit button
     const handleEditClick = (event, item) => {
         event.preventDefault();
         setEditInventoryID(item.inventoryid);
@@ -224,12 +224,14 @@ export const EditableInventory = ({inventory}) => {
             minimumquantity: item.minimumquantity,
             itemtype: item.itemtype,
         }
+
+        setEditFormData(formValues);
     }
 
     const handleEditFormChange = (event) => {
         event.preventDefault();
 
-        const fieldName = event.target.getAttribute("name"); //change?
+        const fieldName = event.target.getAttribute("name");
         const fieldValue = event.target.value;
 
         const newFormData = { ...editFormData };
@@ -238,27 +240,36 @@ export const EditableInventory = ({inventory}) => {
         setEditFormData(newFormData);
     }
 
-    const handleEditFormSubmit = (event) => {
+    const handleEditFormSubmit = async(event) => {
         event.preventDefault();
 
-        const editedInventory = {
-            inventoryid: editFormData.inventoryid,
-            ingredientname: editFormData.ingredientname,
-            quantityounces: editFormData.quantityounces,
-            priceperounce: editFormData.priceperounce,
-            averageamountperunitsold: editFormData.averageamountperunitsold,
-            minimumquantity: editFormData.minimumquantity,
-            itemtype: editFormData.itemtype,
+        try{
+            const body = {
+                inventoryid: editFormData.inventoryid,
+                ingredientname: editFormData.ingredientname,
+                quantityounces: editFormData.quantityounces,
+                priceperounce: editFormData.priceperounce,
+                averageamountperunitsold: editFormData.averageamountperunitsold,
+                minimumquantity: editFormData.minimumquantity,
+                itemtype: editFormData.itemtype,
+            }
+            await fetch('/api/manager/changeItem',{
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(body),
+            });
+            const newInv = [ ...inventories];
+
+            const index = inventories.findIndex((item)=> item.inventoryid === editInventoryID);
+    
+            newInv[index] = body;
+    
+            setInventories(newInv);
+            setEditInventoryID(null);
         }
-
-        const newInv = [ ...inventories]; //change?
-
-        const index = inventories.findIndex((item)=> item.inventoryid === editInventoryID) //change?
-
-        newInv[index] = editedInventory;
-
-        setInventories(newInv);
-        setEditInventoryID(null);
+        catch(error){
+            console.error(error);
+        }
     }
 
     const handleDeleteClick = async(inventoryidd) => {
@@ -293,9 +304,10 @@ export const EditableInventory = ({inventory}) => {
     }
 
     return (
-        <div className={styles.tableWrapper}>
-        <form onSubmit={handleEditFormSubmit}>
-        <table className={styles.tableStyle} id="inventorytable">
+        <div>
+        <div className={styles.tableWrapper2}>
+        <form onSubmit = {handleEditFormSubmit}>
+        <table className={styles.tableStyle3} id="inventorytable">
             <thead>
                 <tr>
                     <th> 
@@ -369,6 +381,7 @@ export const EditableInventory = ({inventory}) => {
                     <Fragment key={item.inventoryid}>
                         {editInventoryID === item.inventoryid ? (
                             <EditableItem 
+                            item = {item}
                             editFormData = {editFormData}
                             handleEditFormChange = {handleEditFormChange}/>
                         ) :(
@@ -383,6 +396,9 @@ export const EditableInventory = ({inventory}) => {
             </tbody>
         </table>
         </form>
+        </div>
+        <p> </p>
+        <div>
         <h4> Add Inventory Item </h4>
             <form onSubmit={handleAddFormSubmit}>
                 <input
@@ -391,12 +407,14 @@ export const EditableInventory = ({inventory}) => {
                     required = "required"
                     placeholder = "Item Name"
                     onChange={handleAddFormChange}
+                    className = {styles.textEntryStyle}
                 />
                 <input
                     type = "number"
                     name = "quantityounces"
                     placeholder = "Quantity"
                     onChange={handleAddFormChange}
+                    className = {styles.textEntryStyle}
                 />
                 <input
                     type = "text"
@@ -404,6 +422,7 @@ export const EditableInventory = ({inventory}) => {
                     required = "required"
                     placeholder = "Price"
                     onChange={handleAddFormChange}
+                    className = {styles.textEntryStyle}
                 />
                 <input
                     type = "number"
@@ -411,6 +430,7 @@ export const EditableInventory = ({inventory}) => {
                     required = "required"
                     placeholder = "Amount User Per Sale"
                     onChange={handleAddFormChange}
+                    className = {styles.textEntryStyle}
                 />
                 <input
                     type = "number"
@@ -418,6 +438,7 @@ export const EditableInventory = ({inventory}) => {
                     required = "required"
                     placeholder = "Minimum Quantity Needed"
                     onChange={handleAddFormChange}
+                    className = {styles.textEntryStyle}
                 />
                 <input
                     type = "text"
@@ -425,10 +446,11 @@ export const EditableInventory = ({inventory}) => {
                     required = "required"
                     placeholder = "Item Type"
                     onChange={handleAddFormChange}
+                    className = {styles.textEntryStyle}
                 />
                 <button className={styles.button} type = "submit"> Add </button>
             </form>
-
+            </div>
         </div>
     )
 }

@@ -23,6 +23,7 @@ import { PizzaModel, ToppingModel } from '@/lib/models'
 import ReactDOM from "react-dom";
 
 import { useSession } from 'next-auth/react'
+import Head from "next/head"
 
 // pull inventory from db
 export async function getServerSideProps() {
@@ -166,110 +167,115 @@ export default function Server({inventory, menu}) {
     }
     
     return (
-        <Container fluid className="h-100">
-            <Row> 
-                <Navbar.NavbarServer user={session.user} />
-            </Row>
-            <Row className={`py-3 ${styles.wrapper}`}>
-                <Col className={`px-4`}>
-                    <h2 className="mb-0">Pizza</h2>
-                    <div className="">
-                        <GridSystem colCount={3} md={4} >
-                            {menu.length > 0 ? menu.map(item => {
-                                return <Object.MenuItem key={item.typeid} style={styles.menuItemBtn} onClick={() => handleNewPizza(item.pizzatype, item.itemprice)} butId={item.typeid} name={item.pizzatype} />
-                            }) : <p>No tracks are found.</p>
-                            }
-                        </GridSystem>
-                    </div>
-                    <div className={`mt-2 pb-3`}>
-                        <h2>Items</h2>
-                        <TypeSelector choices={menuChoices} />
-                    </div>
-                    <div className={`${styles.menuContainer} w-100 mt-1 px-4 py-3`}>
-                        <GridSystem colCount={4} md={3} >
-                            {inventory.length > 0 ? inventory.map(item => {
-                                if (item.itemtype == filter) {
-                                    return <Object.MenuItem key={item.inventoryid} className={styles.subItemBtn} onClick={() => handleAddTopping(item)} butId={item.inventoryid} name={item.ingredientname} />
+        <>
+            <Head>
+                <title>SNS Pizza | Take Customer Orders</title>
+            </Head>
+            <Container fluid className="h-100">
+                <Row> 
+                    <Navbar.NavbarServer user={session.user} />
+                </Row>
+                <Row className={`py-3 ${styles.wrapper}`}>
+                    <Col className={`px-4`}>
+                        <h2 className="mb-0">Pizza</h2>
+                        <div className="">
+                            <GridSystem colCount={3} md={4} >
+                                {menu.length > 0 ? menu.map(item => {
+                                    return <Object.MenuItem key={item.typeid} style={styles.menuItemBtn} onClick={() => handleNewPizza(item.pizzatype, item.itemprice)} butId={item.typeid} name={item.pizzatype} />
+                                }) : <p>No tracks are found.</p>
                                 }
-                            }) : <p>No tracks are found.</p>
-                            }
-                        </GridSystem>
-                    </div>
-                </Col>
-                <Col md={3} className={`d-flex flex-column align-items-center border-start border-light px-4 pb-4`}>
-                    <Row className="w-100 mb-auto">
-                        <h2 className="mb-0">Order</h2>
-                        <h6 className="text-muted">{order.employeename}</h6>
-                        <div className={`d-flex ${styles.orderContainer} ${order.orderItems.length == 0 ? "align-items-center" : "flex-column"}`}>
-                            {order.orderItems.map(item => {
-                                return <Object.OrderDisplay 
-                                    key={order.orderItems.indexOf(item)} 
-                                    item={item}
-                                    index={order.orderItems.indexOf(item)}
-                                    />
-                            })
-                            }
-
-                            {order.orderItems.length == 0 &&
-                            <div className={`w-100`}>
-                                <p className="text-center text-muted fs-3 mb-0">
-                                    <i className="fa-solid fa-utensils"></i>
-                                </p>
-                                <p className="text-center text-muted">Order Is Empty</p>
-                            </div>
-                            }
+                            </GridSystem>
                         </div>
-                    </Row>
-                    <Row className="w-100">
-                        <Col className={`${styles.checkoutContainer} px-4 py-3 shadow`}>
-                            <Object.OrderCost order={order} />
-                            <Form onSubmit={submitOrder}>
-                                <Button 
-                                    type="submit" 
-                                    disabled={!checkoutReady}
-                                    className={`${styles.btnNav} w-100`}
-                                    >
-                                    {isSubmitting && <Spinner 
-                                        as="span"
-                                        size="sm"
-                                        role="status"
-                                        aria-hidden="true"
-                                        animation="border"
-                                        className="me-1"
-                                        /> 
+                        <div className={`mt-2 pb-3`}>
+                            <h2>Items</h2>
+                            <TypeSelector choices={menuChoices} />
+                        </div>
+                        <div className={`${styles.menuContainer} w-100 mt-1 px-4 py-3`}>
+                            <GridSystem colCount={4} md={3} >
+                                {inventory.length > 0 ? inventory.map(item => {
+                                    if (item.itemtype == filter) {
+                                        return <Object.MenuItem key={item.inventoryid} disabled={item.quantityounces <= item.minimumquantity} className={styles.subItemBtn} onClick={() => handleAddTopping(item)} butId={item.inventoryid} name={item.ingredientname} />
                                     }
-                                    Checkout
-                                </Button>
-                            </Form>
-                        </Col>
-                        {orderSubmitted && <SubmitNotification onAnimationEnd={() => orderDidSubmit(false)} />}
-                    </Row>
-                </Col>
-            </Row>
+                                }) : <p>No tracks are found.</p>
+                                }
+                            </GridSystem>
+                        </div>
+                    </Col>
+                    <Col md={3} style={{ maxHeight: "88vh" }} className={`d-flex flex-column align-items-center border-start border-light px-4 pb-4`}>
+                        <Row className="w-100 mb-auto">
+                            <h2 className="mb-0">Order</h2>
+                            <h6 className="text-muted">{order.employeename}</h6>
+                            <div className={`d-flex ${styles.orderContainer} ${order.orderItems.length == 0 ? "align-items-center" : "flex-column"}`}>
+                                {order.orderItems.map(item => {
+                                    return <Object.OrderDisplay 
+                                        key={order.orderItems.indexOf(item)} 
+                                        item={item}
+                                        index={order.orderItems.indexOf(item)}
+                                        />
+                                })
+                                }
 
-            {/* 
-                Since NextJS uses SSR to hydrate the page, we can't
-                just add the modal without giving it a container element.
-                Without this, we get a hydration error since the server
-                is not expecting the modal to be outside of its container
-                (which is expected behavior for bootstrap modals). 
+                                {order.orderItems.length == 0 &&
+                                <div className={`w-100`}>
+                                    <p className="text-center text-muted fs-3 mb-0">
+                                        <i className="fa-solid fa-utensils"></i>
+                                    </p>
+                                    <p className="text-center text-muted">Order Is Empty</p>
+                                </div>
+                                }
+                            </div>
+                        </Row>
+                        <Row className="w-100">
+                            <Col className={`${styles.checkoutContainer} px-4 py-3 shadow`}>
+                                <Object.OrderCost order={order} />
+                                <Form onSubmit={submitOrder}>
+                                    <Button 
+                                        type="submit" 
+                                        disabled={!checkoutReady}
+                                        className={`${styles.btnNav} w-100`}
+                                        >
+                                        {isSubmitting && <Spinner 
+                                            as="span"
+                                            size="sm"
+                                            role="status"
+                                            aria-hidden="true"
+                                            animation="border"
+                                            className="me-1"
+                                            /> 
+                                        }
+                                        Checkout
+                                    </Button>
+                                </Form>
+                            </Col>
+                            {orderSubmitted && <SubmitNotification onAnimationEnd={() => orderDidSubmit(false)} />}
+                        </Row>
+                    </Col>
+                </Row>
+
+                {/* 
+                    Since NextJS uses SSR to hydrate the page, we can't
+                    just add the modal without giving it a container element.
+                    Without this, we get a hydration error since the server
+                    is not expecting the modal to be outside of its container
+                    (which is expected behavior for bootstrap modals). 
+                    
+                    A div is defined in _document.js that has an id 
+                    "modal-root" that the modal attaches itself to and
+                    is still contained in our nextjs app. 
+                    createPortal allows this
+                */}
+                {isBrowser
+                ? ReactDOM.createPortal(
+                    <NameModal show={order.customername === ""} keyboard={false} />,
+                    document.getElementById("modal-root")
+                    )
+                : <></>
+                }
                 
-                A div is defined in _document.js that has an id 
-                "modal-root" that the modal attaches itself to and
-                is still contained in our nextjs app. 
-                createPortal allows this
-            */}
-            {isBrowser
-            ? ReactDOM.createPortal(
-                <NameModal show={order.customername === ""} keyboard={false} />,
-                document.getElementById("modal-root")
-                )
-            : <></>
-            }
-            
-            {order.status && 
-                <ErrorNotification error={order.status} onComplete={() => dispatch(clearStatus())} />
-            }
-        </Container>
+                {order.status && 
+                    <ErrorNotification error={order.status} onComplete={() => dispatch(clearStatus())} />
+                }
+            </Container>
+        </>
     );
 }

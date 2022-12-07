@@ -5,19 +5,10 @@ import React from 'react';
  *  
  * @author Jenna Jung
  */
-const EditableItem = ({ editFormData, handleEditFormChange }) => {
+const EditableItem = ({item, editFormData, handleEditFormChange }) => {
     return (
         <tr>
-            <td>
-                <input
-                    type = "text"
-                    required = "required"
-                    placeholder='Inventory '
-                    name="inventoryid"
-                    value = {editFormData.inventoryid}
-                    onChange = {handleEditFormChange}
-                ></input>
-            </td>
+            <td> {item.inventoryid} </td>
             <td>
                 <input
                     type = "text"

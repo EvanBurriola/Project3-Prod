@@ -10,30 +10,36 @@ import Button from 'react-bootstrap/Button'
 
 export default function Index() {
   return (
-      <Container fluid>
-            <Row className='h-100 align-items-center'>
-                <Row className={`justify-content-center`}>
-                    <div className={styles.logoContainer}>
-                        <Image
-                            src={logo}
-                            alt="Spin and Stone logo"
-                        /> 
-                    </div>
-                </Row>
-                <Row className={`justify-content-center`}>
-                    <Col md={4} className='d-flex flex-column justify-content-center align-items-center'>
-                        <div className='w-50 my-2'>
-                            <Button href="/manager" className={`w-100 ${styles.btnSNS}`}>Manage Store</Button>
-                        </div>
-                        <div className='w-50 my-2'>
-                            <Button href="/server" className={`w-100 ${styles.btnSNS}`}>Take Orders</Button>
-                        </div>
-                        <div className='w-50 my-2'>
-                            <Button href="/customer" className={`w-100 ${styles.btnSNS}`}>Self-Service</Button>
-                        </div>
-                    </Col>
-                </Row>
-            </Row>
-      </Container>
+        <>
+            <Head>
+                <title>SNS Pizza | Navigate to a System</title>
+            </Head>
+
+            <Container fluid>
+                    <Row className='h-100 align-items-center'>
+                        <Row className={`justify-content-center`}>
+                            <div className={styles.logoContainer}>
+                                <Image
+                                    src={logo}
+                                    alt="Spin and Stone logo"
+                                /> 
+                            </div>
+                        </Row>
+                        <Row className={`justify-content-center`}>
+                            <Col md={4} className='d-flex flex-column justify-content-center align-items-center'>
+                                <div className='w-50 my-2'>
+                                    <Button href="/manager" className={`w-100 ${styles.btnSNS}`}>Manage Store</Button>
+                                </div>
+                                <div className='w-50 my-2'>
+                                    <Button href="/server" className={`w-100 ${styles.btnSNS}`}>Take Orders</Button>
+                                </div>
+                                <div className='w-50 my-2'>
+                                    <Button href="/splash" className={`w-100 ${styles.btnSNS}`}>Self-Service</Button>
+                                </div>
+                            </Col>
+                        </Row>
+                    </Row>
+            </Container>
+        </>
     )
 }
