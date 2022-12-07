@@ -7,7 +7,7 @@ import moment from 'moment'
 /**
  * Creating what a page for the reciept after an order is made
  *  
- * @author ??
+ * @author Axel Ramone
  */
 const Receipt = ({info}) => {
     const { order, pizzas } = info

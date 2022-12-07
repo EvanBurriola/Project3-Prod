@@ -3,7 +3,7 @@ import styles from './SubmitNotification.module.css'
 /**
  * Creating a notification for when an order is submitted on the server view
  *  
- * @author ??
+ * @author Axel Ramone
  */
 export default function SubmitNotification({...props}) {
     return (

@@ -8,7 +8,7 @@ import { signOut } from 'next-auth/react'
 /**
  * Creating the use that is signed in show in the Navbar
  *  
- * @author ??
+ * @author Axel Ramone
  */
 const UserProfile = ({user, ...props}) => {
     return (
