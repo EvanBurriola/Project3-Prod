@@ -3,7 +3,7 @@ import Nav from 'react-bootstrap/Nav';
 import NavDropdown from 'react-bootstrap/NavDropdown'
 import UserProfile from './UserProfile'
 import Image from 'next/image'
-import logo from '@/public/assets/logo.png'
+import logo from '@/public/assets/black_logo.png'
 import styles from './Navbar.module.css'
 
 /**
