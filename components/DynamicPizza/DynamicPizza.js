@@ -24,8 +24,8 @@ export function DynamicPizza() {
 
     return (
         <>
-            {order.length > 0 && sort(order[index].toppings).map(item => 
-                {return <Images image={item?.images}/>}  
+            {order.length > 0 && sort(order[index].toppings).map((item, index) => 
+                {return <Images key={index} image={item?.images}/>}  
             )}
         </>
     );
